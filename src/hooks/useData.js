@@ -1,7 +1,7 @@
 import url from '../services/url-client';
 import { useEffect, useState } from 'react';
 
-const useData = (path) => {
+const useData = (path, params, deps) => {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,10 @@ const useData = (path) => {
 
 		async function getPost() {
 			try {
-				const res = await url.get(path, { signal: controller.signal });
+				const res = await url.get(path, {
+					signal: controller.signal,
+					...params,
+				});
 				setData(res.data.results);
 			} catch (error) {
 				setError(error.message);
@@ -23,7 +26,7 @@ const useData = (path) => {
 		getPost();
 
 		// return () => controller.abort();
-	}, []);
+	}, [deps]);
 
 	return { data, error, isLoading };
 };

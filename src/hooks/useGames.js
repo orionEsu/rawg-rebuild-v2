@@ -1,5 +1,7 @@
 import useData from './useData';
 
-const useGames = () => useData('games');
+const useGames = (onSelected) =>
+	useData('games', { params: { genres: onSelected?.id } }, onSelected);
+
 
 export default useGames;
