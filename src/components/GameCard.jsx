@@ -1,7 +1,14 @@
-import { Card, CardHeader, HStack, Heading, Image } from '@chakra-ui/react';
+import {
+	Card,
+	CardHeader,
+	HStack,
+	Heading,
+	Image,
+} from '@chakra-ui/react';
 import getCroppedUrl from '../services/image-url';
 import PropTypes from 'prop-types';
 import CardIcons from './CardIcons';
+import CriticScore from './CriticScore';
 
 const GameCard = ({ game }) => {
 	const platformObj = game.parent_platforms.map((p) => p.platform);
@@ -15,14 +22,16 @@ const GameCard = ({ game }) => {
 			<Image src={getCroppedUrl(game.background_image)} />
 
 			<CardHeader alignContent={'center'}>
-				<HStack mb={3}>
-					<CardIcons platform={platformObj} />
-				</HStack>
-				<Heading
-					fontSize={'24px'}
+				<HStack
+					mb={3}
+					justifyContent={'space-between'}
 				>
-					{game.name}
-				</Heading>
+					<HStack>
+						<CardIcons platform={platformObj} />
+					</HStack>
+					<CriticScore score={game.metacritic} />
+				</HStack>
+				<Heading fontSize={'24px'}>{game.name}</Heading>
 			</CardHeader>
 		</Card>
 	);
