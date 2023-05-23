@@ -1,10 +1,10 @@
-import { Card, CardBody, CardHeader, Heading, Image } from '@chakra-ui/react';
-import useGames from '../hooks/useGames';
+import { Card, CardHeader, Heading, Image } from '@chakra-ui/react';
 import AlertCom from './AlertCom';
 import getCroppedUrl from '../services/image-url';
+import useData from '../hooks/useData';
 
 const GameCard = () => {
-	const { data: games, error, isLoading } = useGames('games');
+	const { data: games, error, isLoading } = useData('games');
 
 	if (error) return <AlertCom msg={error} />;
 

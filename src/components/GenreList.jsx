@@ -1,10 +1,10 @@
-import { Box, Heading, Image, List, ListItem } from '@chakra-ui/react';
+import { Heading, Image, List, ListItem } from '@chakra-ui/react';
 import getCroppedUrl from '../services/image-url';
-import useGames from '../hooks/useGames';
 import AlertCom from './AlertCom';
+import useGenres from '../hooks/useGenres';
 
 const GenreList = () => {
-	const { data: genres, error, isLoading } = useGames('genres');
+	const { data: genres, error, isLoading } = useGenres('genres');
 
 	if (error) return <AlertCom msg={error} />;
 
