@@ -1,44 +1,35 @@
-import { Card, CardHeader, Heading, Image } from '@chakra-ui/react';
-import AlertCom from './AlertCom';
+import { Card, CardHeader, HStack, Heading, Image } from '@chakra-ui/react';
 import getCroppedUrl from '../services/image-url';
 import PropTypes from 'prop-types';
-import useGames from '../hooks/useGames';
-import CardSkeleton from './CardSkeleton';
+import CardIcons from './CardIcons';
 
-const GameCard = ({ onSelected }) => {
-	const { data: games, error, isLoading } = useGames(onSelected);
-	const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-
-	if (error) return <AlertCom msg={error} />;
+const GameCard = ({ game }) => {
+	const platformObj = game.parent_platforms.map((p) => p.platform);
 
 	return (
-		<>
-			{isLoading && arr.map((el) => <CardSkeleton key={el.id} />)}
+		<Card
+			key={game.id}
+			borderRadius={10}
+			overflow={'hidden'}
+		>
+			<Image src={getCroppedUrl(game.background_image)} />
 
-			{games.map((game) => (
-				<Card
-					key={game.id}
-					borderRadius={10}
-					overflow={'hidden'}
+			<CardHeader alignContent={'center'}>
+				<HStack mb={3}>
+					<CardIcons platform={platformObj} />
+				</HStack>
+				<Heading
+					fontSize={'24px'}
 				>
-					<Image src={getCroppedUrl(game.background_image)} />
-					<CardHeader>
-						<Heading
-							fontSize={'24px'}
-							px={2}
-							py={5}
-						>
-							{game.name}
-						</Heading>
-					</CardHeader>
-				</Card>
-			))}
-		</>
+					{game.name}
+				</Heading>
+			</CardHeader>
+		</Card>
 	);
 };
 
 GameCard.propTypes = {
-	onSelected: PropTypes.object,
+	game: PropTypes.object,
 };
 
 export default GameCard;
