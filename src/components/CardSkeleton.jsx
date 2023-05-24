@@ -1,6 +1,5 @@
 import { Card, CardBody } from '@chakra-ui/react';
 import { Skeleton, SkeletonText } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
 
 const CardSkeleton = () => {
 	return (
