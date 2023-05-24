@@ -9,6 +9,7 @@ import getCroppedUrl from '../services/image-url';
 import PropTypes from 'prop-types';
 import CardIcons from './CardIcons';
 import CriticScore from './CriticScore';
+import Emoji from './Emoji';
 
 const GameCard = ({ game }) => {
 	const platformObj = game.parent_platforms.map((p) => p.platform);
@@ -31,7 +32,10 @@ const GameCard = ({ game }) => {
 					</HStack>
 					<CriticScore score={game.metacritic} />
 				</HStack>
-				<Heading fontSize={'24px'}>{game.name}</Heading>
+				<HStack align={'center'}>
+					<Heading fontSize={'24px'}>{game.name}</Heading>
+					<Emoji rating={game.rating_top} />
+				</HStack>
 			</CardHeader>
 		</Card>
 	);
