@@ -10,9 +10,9 @@ const CriticScore = ({ score }) => {
 			colorScheme={color}
 			px={2}
 			py={0.5}
-            fontWeight={'900'}
-            fontSize={'13px'}
-            borderRadius={5}
+			fontWeight={'900'}
+			fontSize={'13px'}
+			borderRadius={5}
 		>
 			{score}
 		</Badge>
@@ -20,6 +20,6 @@ const CriticScore = ({ score }) => {
 };
 
 CriticScore.propTypes = {
-	score: PropTypes.number.isRequired,
+	score: PropTypes.number,
 };
 export default CriticScore;
