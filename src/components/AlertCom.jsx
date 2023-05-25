@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const AlertCom = ({ msg }) => {
 	return (
-		<Alert status='error'>
+		<Alert status='error' mt={5}>
 			<AlertIcon />
 			<AlertTitle>{msg}</AlertTitle>
 		</Alert>
