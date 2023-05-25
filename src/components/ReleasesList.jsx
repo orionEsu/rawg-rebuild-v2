@@ -1,7 +1,13 @@
+/* eslint-disable react/prop-types */
 import { Box, Button, HStack, Heading, List, ListItem } from '@chakra-ui/react';
 import '../index.css';
 
-const ReleasesList = () => {
+const ReleasesList = ({
+	onSelectLast30Days,
+	onSelectThisWeek,
+	onSelectNextWeek,
+	onSelectAllYear,
+}) => {
 	return (
 		<>
 			<Heading
@@ -10,6 +16,7 @@ const ReleasesList = () => {
 			>
 				New Releases
 			</Heading>
+
 			<List mb={'24px'}>
 				<ListItem
 					mb={3}
@@ -37,7 +44,12 @@ const ReleasesList = () => {
 								></path>
 							</svg>
 						</Box>
-						<Button variant={'link'}>Last 30 days</Button>
+						<Button
+							variant={'link'}
+							onClick={onSelectLast30Days}
+						>
+							Last 30 days
+						</Button>
 					</HStack>
 				</ListItem>
 
@@ -67,7 +79,12 @@ const ReleasesList = () => {
 								></path>
 							</svg>
 						</Box>
-						<Button variant={'link'}>This week</Button>
+						<Button
+							variant={'link'}
+							onClick={onSelectThisWeek}
+						>
+							This week
+						</Button>
 					</HStack>
 				</ListItem>
 
@@ -97,7 +114,12 @@ const ReleasesList = () => {
 								></path>
 							</svg>
 						</Box>
-						<Button variant={'link'}>Last week</Button>
+						<Button
+							variant={'link'}
+							onClick={onSelectNextWeek}
+						>
+							Next week
+						</Button>
 					</HStack>
 				</ListItem>
 
@@ -124,7 +146,12 @@ const ReleasesList = () => {
 								></path>
 							</svg>
 						</Box>
-						<Button variant={'link'}>Best of the Year</Button>
+						<Button
+							variant={'link'}
+							onClick={onSelectAllYear}
+						>
+							Best of the Year
+						</Button>
 					</HStack>
 				</ListItem>
 			</List>
