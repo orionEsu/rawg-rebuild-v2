@@ -11,7 +11,7 @@ import usePlatforms from '../hooks/usePlatform';
 import { iconMap } from '../data/iconMap';
 import PropTypes from 'prop-types';
 
-const PlatformSelector = ({ onSelectedPlatform, selectedPlatform }) => {
+const PlatformSelector = ({ onSelectedPlatform, gameQuery }) => {
 	const { data: platforms, error } = usePlatforms();
 
 	const filteredPlatform = platforms.filter(
@@ -28,7 +28,7 @@ const PlatformSelector = ({ onSelectedPlatform, selectedPlatform }) => {
 				as={Button}
 				rightIcon={<BsChevronDown />}
 			>
-				{selectedPlatform?.name || 'Platforms'}
+				{gameQuery?.selectedPlatform?.name || 'Platforms'}
 			</MenuButton>
 			<MenuList>
 				{filteredPlatform.map((platform) => (
@@ -50,7 +50,7 @@ const PlatformSelector = ({ onSelectedPlatform, selectedPlatform }) => {
 
 PlatformSelector.propTypes = {
 	onSelectedPlatform: PropTypes.func,
-	selectedPlatform: PropTypes.object,
+	gameQuery: PropTypes.object,
 };
 
 export default PlatformSelector;
