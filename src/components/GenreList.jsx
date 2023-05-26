@@ -24,16 +24,21 @@ const GenreList = ({ onSelected, gameQuery }) => {
 						mb={3}
 					>
 						<Button
-							fontWeight={
-								genre.id === gameQuery?.selected.id
-									? 'bold'
-									: 'normal'
-							}
 							whiteSpace={'normal'}
 							textAlign={'left'}
 							variant={'link'}
 							// _hover={{ fontWeight: 'bold' }}
 							onClick={() => onSelected(genre)}
+							fontWeight={
+								gameQuery.allYear ||
+								gameQuery.nextWeek ||
+								gameQuery.thisWeek ||
+								gameQuery.lastestRelease
+									? 'normal'
+									: genre.id === gameQuery?.selected.id
+									? 'bold'
+									: ''
+							}
 						>
 							<Image
 								src={getCroppedUrl(genre.image_background)}
