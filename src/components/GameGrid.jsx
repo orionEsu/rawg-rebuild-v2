@@ -9,7 +9,6 @@ import { arr } from '../data/loadingData';
 const GameGrid = ({ gameQuery }) => {
 	const { data: games, error, isLoading } = useGames('games', gameQuery);
 
-	// return null;
 	if (error) return <AlertCom msg={error} />;
 	return (
 		<SimpleGrid
@@ -19,16 +18,12 @@ const GameGrid = ({ gameQuery }) => {
 		>
 			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
 
-			{!gameQuery.lastestRelease &&
-				!gameQuery.thisWeek &&
-				!gameQuery.nextWeek &&
-				!gameQuery.allYear &&
-				games.map((game) => (
-					<GameCard
-						game={game}
-						key={game.id}
-					/>
-				))}
+			{games.map((game) => (
+				<GameCard
+					game={game}
+					key={game.id}
+				/>
+			))}
 		</SimpleGrid>
 	);
 };
