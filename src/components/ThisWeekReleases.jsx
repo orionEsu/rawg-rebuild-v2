@@ -1,13 +1,13 @@
-import useGames from '../hooks/useGames';
 import AlertCom from './AlertCom';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
 import { arr } from '../data/loadingData';
 import { SimpleGrid } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import useLatest from '../hooks/useLatest';
 
 const ThisWeekReleases = ({ gameQuery }) => {
-	const { data, error, isLoading } = useGames(
+	const { data, error, isLoading } = useLatest(
 		'games/lists/recent-games?discover=true',
 		gameQuery
 	);
