@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useGames from '../hooks/useGames';
 import AlertCom from './AlertCom';
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, extendTheme } from '@chakra-ui/react';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
 import { arr } from '../data/loadingData';
@@ -13,7 +13,7 @@ const GameGrid = ({ gameQuery }) => {
 	return (
 		<SimpleGrid
 			marginTop={5}
-			columns={3}
+			columns={{ sm: 1, md: 2, lg: 3 }}
 			spacing={'25px'}
 		>
 			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
