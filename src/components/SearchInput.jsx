@@ -1,6 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
+import '../index.css';
 
 const SearchInput = ({ onSearchEnter }) => {
 	const searchValue = useRef(null);
@@ -24,8 +25,7 @@ const SearchInput = ({ onSearchEnter }) => {
 				</InputLeftElement>
 
 				<Input
-					placeholder='Search through 824,000 Games'
-					width={'800px'}
+					placeholder='Search Games....'
 					borderRadius={15}
 					color={'gray.300'}
 					fontSize={'16px'}
