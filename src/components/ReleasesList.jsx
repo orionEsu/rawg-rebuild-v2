@@ -37,6 +37,8 @@ const ReleasesList = ({
 							gameQuery.lastestRelease ? 'bold' : 'normal'
 						}
 						variant={'link'}
+						style={{ textDecoration: 'none' }}
+						_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 						onClick={onSelectLast30Days}
 					>
 						<Box
@@ -73,6 +75,8 @@ const ReleasesList = ({
 					<Button
 						fontWeight={gameQuery.thisWeek ? 'bold' : 'normal'}
 						variant={'link'}
+						style={{ textDecoration: 'none' }}
+						_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 						onClick={onSelectThisWeek}
 					>
 						<Box
@@ -109,6 +113,8 @@ const ReleasesList = ({
 					<Button
 						fontWeight={gameQuery.nextWeek ? 'bold' : 'normal'}
 						variant={'link'}
+						style={{ textDecoration: 'none' }}
+						_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 						onClick={onSelectNextWeek}
 					>
 						<Box
@@ -142,6 +148,8 @@ const ReleasesList = ({
 					<Button
 						fontWeight={gameQuery.allYear ? 'bold' : 'normal'}
 						variant={'link'}
+						style={{ textDecoration: 'none' }}
+						_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 						onClick={onSelectAllYear}
 					>
 						<Box
