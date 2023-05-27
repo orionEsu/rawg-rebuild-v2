@@ -27,7 +27,8 @@ const GenreList = ({ onSelected, gameQuery }) => {
 							whiteSpace={'normal'}
 							textAlign={'left'}
 							variant={'link'}
-							// _hover={{ fontWeight: 'bold' }}
+							style={{ textDecoration: 'none' }}
+							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 							onClick={() => onSelected(genre)}
 							fontWeight={
 								gameQuery.allYear ||
