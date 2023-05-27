@@ -7,9 +7,18 @@ const config = {
 	useSystemColorMode: true,
 };
 
+const breakpoints = {
+	sm: '350px',
+	md: '650px',
+	lg: '960px',
+	xl: '1200px',
+	'2xl': '1536px',
+};
+
 // 3. extend the theme
 const theme = extendTheme({
 	config,
+	breakpoints,
 	colors: {
 		gray: {
 			50: '#F9F9F9',
