@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Show, HStack } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Show, HStack, Button } from '@chakra-ui/react';
 import './App.css';
 import NavBar from './components/NavBar';
 import GameGrid from './components/GameGrid';
@@ -12,6 +12,7 @@ import LatestRelease from './components/LatestRelease';
 import ThisWeekReleases from './components/ThisWeekReleases';
 import NextWeekReleases from './components/NextWeekReleases';
 import BoyReleases from './components/BoyReleases';
+import { GoHome } from 'react-icons/go';
 
 function App() {
 	const [gameQuery, setGameQuery] = useState({
@@ -22,6 +23,7 @@ function App() {
 		thisWeek: false,
 		nextWeek: false,
 		allYear: false,
+		searchValue: '',
 	});
 
 	return (
@@ -37,7 +39,18 @@ function App() {
 			}}
 		>
 			<GridItem area={'nav'}>
-				<NavBar />
+				<NavBar
+					onSearchEnter={(value) =>
+						setGameQuery({
+							...gameQuery,
+							searchValue: value,
+							lastestRelease: false,
+							thisWeek: false,
+							nextWeek: false,
+							allYear: false,
+						})
+					}
+				/>
 			</GridItem>
 			<Show above='lg'>
 				<GridItem area={'aside'}>
@@ -45,8 +58,34 @@ function App() {
 						ml={'30px'}
 						position={'sticky'}
 						minH={'100vh'}
-						marginTop={'7.6rem'}
 					>
+						<Button
+							variant={'link'}
+							style={{ textDecoration: 'none' }}
+							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							fontSize={'24px'}
+							fontWeight={'700'}
+							display={'flex'}
+							columnGap={2}
+							mt={'2rem'}
+							mb={'4rem'}
+							onClick={() =>
+								setGameQuery({
+									...gameQuery,
+									selected: {},
+									selectedPlatform: {},
+									orderedValue: '',
+									lastestRelease: false,
+									thisWeek: false,
+									nextWeek: false,
+									allYear: false,
+									searchValue: '',
+								})
+							}
+						>
+							<GoHome />
+							Home
+						</Button>
 						<ReleasesList
 							onSelectLast30Days={() =>
 								setGameQuery({
@@ -55,6 +94,8 @@ function App() {
 									thisWeek: false,
 									nextWeek: false,
 									allYear: false,
+									selectedPlatform: {},
+									orderedValue: '',
 								})
 							}
 							onSelectThisWeek={() =>
@@ -64,6 +105,8 @@ function App() {
 									lastestRelease: false,
 									nextWeek: false,
 									allYear: false,
+									selectedPlatform: {},
+									orderedValue: '',
 								})
 							}
 							onSelectNextWeek={() =>
@@ -73,6 +116,8 @@ function App() {
 									thisWeek: false,
 									lastestRelease: false,
 									allYear: false,
+									selectedPlatform: {},
+									orderedValue: '',
 								})
 							}
 							onSelectAllYear={() =>
@@ -82,8 +127,11 @@ function App() {
 									nextWeek: false,
 									thisWeek: false,
 									lastestRelease: false,
+									selectedPlatform: {},
+									orderedValue: '',
 								})
 							}
+							gameQuery={gameQuery}
 						/>
 						<GenreList
 							onSelected={(genre) =>
@@ -93,6 +141,9 @@ function App() {
 									lastestRelease: false,
 									thisWeek: false,
 									nextWeek: false,
+									allYear: false,
+									selectedPlatform: {},
+									orderedValue: '',
 								})
 							}
 							gameQuery={gameQuery}
@@ -102,7 +153,7 @@ function App() {
 			</Show>
 			<GridItem area={'main'}>
 				<CardHeading gameQuery={gameQuery} />
-				<Box marginX={'10'}>
+				<Box marginX={'5'}>
 					{(Object.keys(gameQuery?.selected).length !== 0 ||
 						Object.keys(
 							gameQuery?.lastestRelease.length !== 0
@@ -117,6 +168,7 @@ function App() {
 								}
 								gameQuery={gameQuery}
 							/>
+
 							<SortSelector
 								onSort={(value) =>
 									setGameQuery({
@@ -138,7 +190,13 @@ function App() {
 						<NextWeekReleases gameQuery={gameQuery} />
 					)}
 					{gameQuery.allYear && <BoyReleases gameQuery={gameQuery} />}
-					<GameGrid gameQuery={gameQuery} />
+
+					{!gameQuery.lastestRelease &&
+						!gameQuery.thisWeek &&
+						!gameQuery.nextWeek &&
+						!gameQuery.allYear && (
+							<GameGrid gameQuery={gameQuery} />
+						)}
 				</Box>
 			</GridItem>
 		</Grid>
