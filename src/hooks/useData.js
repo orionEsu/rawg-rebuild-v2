@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 const useData = (path, params, gameQuery) => {
 	const [data, setData] = useState([]);
 	const [error, setError] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+	const [dataFetched, setDataFetched] = useState(false);
 
 	useEffect(() => {
 		const controller = new AbortController();
-		setIsLoading(true);
-
 		async function getPost() {
 			try {
 				const res = await url.get(path, {
@@ -22,6 +21,7 @@ const useData = (path, params, gameQuery) => {
 
 				setError('');
 				setData(res.data.results);
+				setDataFetched(true)
 			} catch (error) {
 				if (error.message !== 'canceled') setError(error.message);
 			} finally {
@@ -38,6 +38,8 @@ const useData = (path, params, gameQuery) => {
 		gameQuery?.searchValue,
 	]);
 
+	if(!dataFetched) return {data: [], error: '', isLoading: true}
+ 
 	return { data, error, isLoading };
 };
 
