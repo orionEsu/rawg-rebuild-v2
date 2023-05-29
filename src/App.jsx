@@ -158,7 +158,7 @@ function App() {
 						Object.keys(
 							gameQuery?.lastestRelease.length !== 0
 						)) && (
-						<HStack spacing={8}>
+						<HStack spacing={8} mb={8}>
 							<PlatformSelector
 								onSelectedPlatform={(platform) =>
 									setGameQuery({
