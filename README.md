@@ -1,6 +1,6 @@
 # Rawg Rebuild
 
-This project is a rebuild of the [Rawg Website](rawg.io), showcasing a minimal version of its features. It is built using React and leverages the RAWG Video Games Database API to fetch and display game data.
+This project is a rebuild of the [Rawg Website](https://rawg.io/), showcasing a minimal version of its features. It is built using React and leverages the RAWG Video Games Database API to fetch and display game data.
 
 ![Screenshot](src/assets/Rawg%20Screenshot.png) 
 
