@@ -18,7 +18,7 @@ const GenreList = ({ onSelected, gameQuery }) => {
 				Genres
 			</Heading>
 			<List>
-				{genres.map((genre) => (
+				{genres?.map((genre) => (
 					<ListItem
 						key={genre.id}
 						mb={3}
