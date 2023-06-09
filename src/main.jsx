@@ -7,7 +7,14 @@ import App from './App.jsx';
 import './index.css';
 import theme from './theme.js';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			retry: 5,
+			refetchOnReconnect: true,
+		},
+	},
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
