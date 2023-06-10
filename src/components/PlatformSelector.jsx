@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 const PlatformSelector = ({ onSelectedPlatform, gameQuery }) => {
 	const { data: platforms, error } = usePlatforms();
 
-	const filteredPlatform = platforms.filter(
+	const filteredPlatform = platforms?.filter(
 		(el) => el.slug !== '3do' && el.slug !== 'neo-geo'
 	);
 
@@ -31,7 +31,7 @@ const PlatformSelector = ({ onSelectedPlatform, gameQuery }) => {
 				{gameQuery?.selectedPlatform?.name || 'Platforms'}
 			</MenuButton>
 			<MenuList>
-				{filteredPlatform.map((platform) => (
+				{filteredPlatform?.map((platform) => (
 					<MenuItem
 						key={platform.id}
 						onClick={() => onSelectedPlatform(platform)}

@@ -1,13 +1,13 @@
+import { SimpleGrid } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { arr } from '../data/loadingData';
 import useGames from '../hooks/useGames';
 import AlertCom from './AlertCom';
-import { SimpleGrid, extendTheme } from '@chakra-ui/react';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
-import { arr } from '../data/loadingData';
 
 const GameGrid = ({ gameQuery }) => {
-	const { data: games, error, isLoading } = useGames('games', gameQuery);
+	const { data: games, error, isLoading } = useGames(gameQuery);
 
 	if (error) return <AlertCom msg={error} />;
 	return (
@@ -18,7 +18,7 @@ const GameGrid = ({ gameQuery }) => {
 		>
 			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
 
-			{games.map((game) => (
+			{games?.map((game) => (
 				<GameCard
 					game={game}
 					key={game.id}

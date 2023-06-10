@@ -1,16 +1,13 @@
+import { SimpleGrid } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import { arr } from '../data/loadingData';
+import useThisWeekReleases from '../hooks/useThisWeekReleases';
 import AlertCom from './AlertCom';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
-import { arr } from '../data/loadingData';
-import { SimpleGrid } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
-import useLatest from '../hooks/useLatest';
 
 const ThisWeekReleases = ({ gameQuery }) => {
-	const { data, error, isLoading } = useLatest(
-		'games/lists/recent-games?discover=true',
-		gameQuery
-	);
+	const { data, error, isLoading } = useThisWeekReleases(gameQuery);
 	if (error) return <AlertCom msg={error} />;
 
 	return (
@@ -21,13 +18,12 @@ const ThisWeekReleases = ({ gameQuery }) => {
 		>
 			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
 
-			{data &&
-				data.map((game) => (
-					<GameCard
-						game={game}
-						key={game.id}
-					/>
-				))}
+			{data?.map((game) => (
+				<GameCard
+					game={game}
+					key={game.id}
+				/>
+			))}
 		</SimpleGrid>
 	);
 };
