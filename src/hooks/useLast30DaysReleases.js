@@ -9,8 +9,8 @@ const useLast30DaysReleases = (gameQuery) => {
 	const end_date = `${year}-${modifiedMonth}-${lastDayOfTheMonth}`;
 
 	const depObj = {
-		platforms: gameQuery?.selectedPlatform?.id,
-		ordering: gameQuery.orderedValue,
+		platforms: gameQuery?.platformId,
+		ordering: gameQuery?.orderedValue,
 	};
 	// 'games/lists/recent-games-past?discover=true',
 

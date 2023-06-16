@@ -1,22 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
-import instance from '../services/url-client';
+import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 
-const useGames = (gameQuery) =>
-	useQuery({
-		queryKey: ['games', gameQuery],
-		queryFn: async () => {
-			const res = await instance.get('games', {
+const apiClient = new APIClient('games');
+const useGames = (gameQuery) => {
+	const depObj = {
+		genres: gameQuery?.genreId || null,
+		parent_platforms: gameQuery?.platformId || null,
+		ordering: gameQuery?.orderedValue || null,
+		search: gameQuery?.searchValue || null,
+	};
+
+	return useQuery({
+		queryKey: ['games', depObj],
+		queryFn: () =>
+			apiClient.getGames({
 				params: {
-					genres: gameQuery?.selected?.id,
-					platforms: gameQuery?.selectedPlatform?.id,
-					ordering: gameQuery.orderedValue,
-					search: gameQuery?.searchValue,
+					...depObj,
 				},
-			});
-			return res.data.results;
-		},
+			}),
 		staleTime: hrToMs(24),
 	});
+};
 
 export default useGames;

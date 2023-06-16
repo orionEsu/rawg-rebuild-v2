@@ -9,7 +9,7 @@ const useThisYearsReleases = (gameQuery) => {
 	const end_date = `${year}-12-31`;
 
 	const depObj = {
-		platforms: gameQuery?.selectedPlatform?.id,
+		platforms: gameQuery?.platformId,
 		ordering: gameQuery.orderedValue,
 	};
 
@@ -19,7 +19,8 @@ const useThisYearsReleases = (gameQuery) => {
 			const res = await instance.get('games', {
 				params: {
 					dates: `${start_date},${end_date}`,
-					...depObj,
+					platforms: gameQuery?.platformId,
+					ordering: gameQuery.orderedValue,
 				},
 			});
 			return res.data.results;

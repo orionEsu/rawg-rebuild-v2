@@ -9,7 +9,7 @@ const useNextWeekReleases = (gameQuery) => {
 	const end_date = `${year}-${modifiedMonth}-${date + 7}`;
 
 	const depObj = {
-		platforms: gameQuery?.selectedPlatform?.id,
+		platforms: gameQuery?.platformId,
 		ordering: gameQuery.orderedValue,
 	};
 

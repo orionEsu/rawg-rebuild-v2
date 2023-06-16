@@ -1,14 +1,12 @@
-import instance from '../services/url-client';
 import { useQuery } from '@tanstack/react-query';
 import { hrToMs } from '../services/timeConverter';
+import APIClient from '../services/api-client';
 
+const apiClient = new APIClient('genres');
 const useGenres = () =>
 	useQuery({
 		queryKey: ['genres'],
-		queryFn: async () => {
-			const res = await instance.get('genres');
-			return res.data.results;
-		},
+		queryFn: apiClient.getGames,
 		staleTime: hrToMs(24),
 	});
 

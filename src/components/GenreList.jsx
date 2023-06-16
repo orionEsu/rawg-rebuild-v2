@@ -18,7 +18,7 @@ const GenreList = ({ onSelected, gameQuery }) => {
 				Genres
 			</Heading>
 			<List>
-				{genres?.map((genre) => (
+				{genres?.results?.map((genre) => (
 					<ListItem
 						key={genre.id}
 						mb={3}
@@ -29,14 +29,14 @@ const GenreList = ({ onSelected, gameQuery }) => {
 							variant={'link'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
-							onClick={() => onSelected(genre)}
+							onClick={() => onSelected(genre.id)}
 							fontWeight={
 								gameQuery.allYear ||
 								gameQuery.nextWeek ||
 								gameQuery.thisWeek ||
 								gameQuery.lastestRelease
 									? 'normal'
-									: genre.id === gameQuery?.selected.id
+									: genre.id === gameQuery?.genreId
 									? 'bold'
 									: ''
 							}

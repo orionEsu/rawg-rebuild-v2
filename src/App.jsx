@@ -16,8 +16,8 @@ import { GoHome } from 'react-icons/go';
 
 function App() {
 	const [gameQuery, setGameQuery] = useState({
-		selected: {},
-		selectedPlatform: {},
+		genreId: '',
+		platformId: '',
 		orderedValue: '',
 		lastestRelease: false,
 		thisWeek: false,
@@ -72,8 +72,8 @@ function App() {
 							onClick={() =>
 								setGameQuery({
 									...gameQuery,
-									selected: {},
-									selectedPlatform: {},
+									genreId: {},
+									platformId: {},
 									orderedValue: '',
 									lastestRelease: false,
 									thisWeek: false,
@@ -94,7 +94,7 @@ function App() {
 									thisWeek: false,
 									nextWeek: false,
 									allYear: false,
-									selectedPlatform: {},
+									platformId: {},
 									orderedValue: '',
 								})
 							}
@@ -105,7 +105,7 @@ function App() {
 									lastestRelease: false,
 									nextWeek: false,
 									allYear: false,
-									selectedPlatform: {},
+									platformId: {},
 									orderedValue: '',
 								})
 							}
@@ -116,7 +116,7 @@ function App() {
 									thisWeek: false,
 									lastestRelease: false,
 									allYear: false,
-									selectedPlatform: {},
+									platformId: {},
 									orderedValue: '',
 								})
 							}
@@ -127,7 +127,7 @@ function App() {
 									nextWeek: false,
 									thisWeek: false,
 									lastestRelease: false,
-									selectedPlatform: {},
+									platformId: {},
 									orderedValue: '',
 								})
 							}
@@ -137,12 +137,12 @@ function App() {
 							onSelected={(genre) =>
 								setGameQuery({
 									...gameQuery,
-									selected: genre,
+									genreId: genre,
 									lastestRelease: false,
 									thisWeek: false,
 									nextWeek: false,
 									allYear: false,
-									selectedPlatform: {},
+									platformId: {},
 									orderedValue: '',
 								})
 							}
@@ -152,18 +152,21 @@ function App() {
 				</GridItem>
 			</Show>
 			<GridItem area={'main'}>
-				<CardHeading gameQuery={gameQuery} />
 				<Box marginX={'5'}>
-					{(Object.keys(gameQuery?.selected).length !== 0 ||
+					<CardHeading gameQuery={gameQuery} />
+					{(Object.keys(gameQuery?.genreId).length !== 0 ||
 						Object.keys(
 							gameQuery?.lastestRelease.length !== 0
 						)) && (
-						<HStack spacing={8} mb={8}>
+						<HStack
+							spacing={8}
+							mb={8}
+						>
 							<PlatformSelector
-								onSelectedPlatform={(platform) =>
+								onSelectedPlatform={(platformId) =>
 									setGameQuery({
 										...gameQuery,
-										selectedPlatform: platform,
+										platformId: platformId,
 									})
 								}
 								gameQuery={gameQuery}

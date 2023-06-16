@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import instance from '../services/url-client';
+import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
+
+const apiClient = new APIClient('platforms/lists/parents');
 
 const usePlatforms = () =>
 	useQuery({
 		queryKey: ['platforms'],
-		queryFn: async () => {
-			const res = await instance.get('platforms/lists/parents');
-			return res.data.results;
-		},
+		queryFn: apiClient.getGames,
 		staleTime: hrToMs(24),
 	});
 

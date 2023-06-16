@@ -9,7 +9,7 @@ import GameCard from './GameCard';
 const GameGrid = ({ gameQuery }) => {
 	const { data: games, error, isLoading } = useGames(gameQuery);
 
-	if (error) return <AlertCom msg={error} />;
+	if (error) return <AlertCom msg={error.message} />;
 	return (
 		<SimpleGrid
 			marginTop={5}
@@ -18,7 +18,7 @@ const GameGrid = ({ gameQuery }) => {
 		>
 			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
 
-			{games?.map((game) => (
+			{games?.results.map((game) => (
 				<GameCard
 					game={game}
 					key={game.id}
