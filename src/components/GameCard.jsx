@@ -1,17 +1,12 @@
-import {
-	Card,
-	CardHeader,
-	HStack,
-	Heading,
-	Image,
-} from '@chakra-ui/react';
+/* eslint-disable react/prop-types */
+import { Card, CardHeader, HStack, Heading, Image } from '@chakra-ui/react';
 import getCroppedUrl from '../services/image-url';
-import PropTypes from 'prop-types';
 import CardIcons from './CardIcons';
 import CriticScore from './CriticScore';
 import Emoji from './Emoji';
+import { forwardRef } from 'react';
 
-const GameCard = ({ game }) => {
+const GameCard = forwardRef(({ game }, ref) => {
 	const platformObj = game.parent_platforms.map((p) => p.platform);
 
 	return (
@@ -19,6 +14,7 @@ const GameCard = ({ game }) => {
 			key={game.id}
 			borderRadius={10}
 			overflow={'hidden'}
+			ref={ref}
 		>
 			<Image src={getCroppedUrl(game.background_image)} />
 
@@ -39,10 +35,8 @@ const GameCard = ({ game }) => {
 			</CardHeader>
 		</Card>
 	);
-};
+});
 
-GameCard.propTypes = {
-	game: PropTypes.object,
-};
+GameCard.displayName = 'GameCard';
 
 export default GameCard;

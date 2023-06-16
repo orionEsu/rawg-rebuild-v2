@@ -2,8 +2,11 @@ import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 import '../index.css';
+import useGameQueryStore from '../store';
 
-const SearchInput = ({ onSearchEnter }) => {
+const SearchInput = () => {
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
+
 	const searchValue = useRef(null);
 
 	return (
@@ -11,7 +14,7 @@ const SearchInput = ({ onSearchEnter }) => {
 			onSubmit={(e) => {
 				e.preventDefault();
 				if (searchValue.current)
-					onSearchEnter(searchValue.current.value);
+					setSearchValue(searchValue.current.value);
 				searchValue.current.value = '';
 			}}
 		>

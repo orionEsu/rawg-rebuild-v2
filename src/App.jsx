@@ -3,28 +3,19 @@ import './App.css';
 import NavBar from './components/NavBar';
 import GameGrid from './components/GameGrid';
 import GenreList from './components/GenreList';
-import ReleasesList from './components/ReleasesList';
-import { useState } from 'react';
+// import ReleasesList from './components/ReleasesList';
 import PlatformSelector from './components/PlatformSelector';
 import SortSelector from './components/SortSelector';
 import CardHeading from './components/CardHeading';
-import LatestRelease from './components/LatestRelease';
-import ThisWeekReleases from './components/ThisWeekReleases';
-import NextWeekReleases from './components/NextWeekReleases';
-import BoyReleases from './components/BoyReleases';
+// import LatestRelease from './components/LatestRelease';
+// import ThisWeekReleases from './components/ThisWeekReleases';
+// import NextWeekReleases from './components/NextWeekReleases';
+// import BoyReleases from './components/BoyReleases';
 import { GoHome } from 'react-icons/go';
+import useGameQueryStore from './store';
 
 function App() {
-	const [gameQuery, setGameQuery] = useState({
-		genreId: '',
-		platformId: '',
-		orderedValue: '',
-		lastestRelease: false,
-		thisWeek: false,
-		nextWeek: false,
-		allYear: false,
-		searchValue: '',
-	});
+	const setDefault = useGameQueryStore((state) => state.setDefault);
 
 	return (
 		<Grid
@@ -39,18 +30,7 @@ function App() {
 			}}
 		>
 			<GridItem area={'nav'}>
-				<NavBar
-					onSearchEnter={(value) =>
-						setGameQuery({
-							...gameQuery,
-							searchValue: value,
-							lastestRelease: false,
-							thisWeek: false,
-							nextWeek: false,
-							allYear: false,
-						})
-					}
-				/>
+				<NavBar />
 			</GridItem>
 			<Show above='lg'>
 				<GridItem area={'aside'}>
@@ -69,24 +49,12 @@ function App() {
 							columnGap={2}
 							mt={'2rem'}
 							mb={'4rem'}
-							onClick={() =>
-								setGameQuery({
-									...gameQuery,
-									genreId: {},
-									platformId: {},
-									orderedValue: '',
-									lastestRelease: false,
-									thisWeek: false,
-									nextWeek: false,
-									allYear: false,
-									searchValue: '',
-								})
-							}
+							onClick={() => setDefault()}
 						>
 							<GoHome />
 							Home
 						</Button>
-						<ReleasesList
+						{/* <ReleasesList
 							onSelectLast30Days={() =>
 								setGameQuery({
 									...gameQuery,
@@ -132,58 +100,30 @@ function App() {
 								})
 							}
 							gameQuery={gameQuery}
-						/>
-						<GenreList
-							onSelected={(genre) =>
-								setGameQuery({
-									...gameQuery,
-									genreId: genre,
-									lastestRelease: false,
-									thisWeek: false,
-									nextWeek: false,
-									allYear: false,
-									platformId: {},
-									orderedValue: '',
-								})
-							}
-							gameQuery={gameQuery}
-						/>
+						/> */}
+						<GenreList />
 					</Box>
 				</GridItem>
 			</Show>
 			<GridItem area={'main'}>
 				<Box marginX={'5'}>
-					<CardHeading gameQuery={gameQuery} />
-					{(Object.keys(gameQuery?.genreId).length !== 0 ||
+					<CardHeading />
+					{/* {(Object.keys(gameQuery?.genreId).length !== 0 ||
 						Object.keys(
 							gameQuery?.lastestRelease.length !== 0
-						)) && (
-						<HStack
-							spacing={8}
-							mb={8}
-						>
-							<PlatformSelector
-								onSelectedPlatform={(platformId) =>
-									setGameQuery({
-										...gameQuery,
-										platformId: platformId,
-									})
-								}
-								gameQuery={gameQuery}
-							/>
+						)) && ( */}
 
-							<SortSelector
-								onSort={(value) =>
-									setGameQuery({
-										...gameQuery,
-										orderedValue: value,
-									})
-								}
-								gameQuery={gameQuery}
-							/>
-						</HStack>
-					)}
-					{gameQuery.lastestRelease && (
+					<HStack
+						spacing={8}
+						mb={8}
+					>
+						<PlatformSelector />
+
+						<SortSelector />
+					</HStack>
+
+					{/* )} */}
+					{/* {gameQuery.lastestRelease && (
 						<LatestRelease gameQuery={gameQuery} />
 					)}
 					{gameQuery.thisWeek && (
@@ -192,14 +132,16 @@ function App() {
 					{gameQuery.nextWeek && (
 						<NextWeekReleases gameQuery={gameQuery} />
 					)}
-					{gameQuery.allYear && <BoyReleases gameQuery={gameQuery} />}
+					{gameQuery.allYear && <BoyReleases gameQuery={gameQuery} />} */}
 
-					{!gameQuery.lastestRelease &&
+					{/* {!gameQuery.lastestRelease &&
 						!gameQuery.thisWeek &&
 						!gameQuery.nextWeek &&
 						!gameQuery.allYear && (
 							<GameGrid gameQuery={gameQuery} />
-						)}
+						)} */}
+
+					<GameGrid />
 				</Box>
 			</GridItem>
 		</Grid>

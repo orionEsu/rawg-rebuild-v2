@@ -1,10 +1,9 @@
-// import { Image } from '@chakra-ui/react';
-import { Box, Flex, HStack, Text } from '@chakra-ui/react';
+import { Box, HStack, Text } from '@chakra-ui/react';
 import '../index.css';
-import SwitchMode from './SwitchMode';
 import SearchInput from './SearchInput';
+import SwitchMode from './SwitchMode';
 
-const NavBar = ({ onSearchEnter }) => {
+const NavBar = () => {
 	return (
 		<>
 			<Box
@@ -37,7 +36,7 @@ const NavBar = ({ onSearchEnter }) => {
 					justifyContent={'space-between'}
 					gap={10}
 				>
-					<SearchInput onSearchEnter={onSearchEnter} />
+					<SearchInput />
 					<SwitchMode />
 				</HStack>
 			</Box>

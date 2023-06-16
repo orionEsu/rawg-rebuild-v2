@@ -3,8 +3,11 @@ import getCroppedUrl from '../services/image-url';
 import AlertCom from './AlertCom';
 import useGenres from '../hooks/useGenres';
 import PropTypes from 'prop-types';
+import useGameQueryStore from '../store';
 
-const GenreList = ({ onSelected, gameQuery }) => {
+const GenreList = () => {
+	const genreId = useGameQueryStore((state) => state.gameQuery.genreId);
+	const setGenreId = useGameQueryStore((state) => state.setGenreId);
 	const { data: genres, error } = useGenres();
 
 	if (error) return <AlertCom msg={error} />;
@@ -29,16 +32,19 @@ const GenreList = ({ onSelected, gameQuery }) => {
 							variant={'link'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
-							onClick={() => onSelected(genre.id)}
+							onClick={() => setGenreId(genre.id)}
+							// fontWeight={
+							// 	gameQuery.allYear ||
+							// 	gameQuery.nextWeek ||
+							// 	gameQuery.thisWeek ||
+							// 	gameQuery.lastestRelease
+							// 		? 'normal'
+							// : genre.id === gameQuery?.genreId
+							// ? 'bold'
+							// : ''
+							// }
 							fontWeight={
-								gameQuery.allYear ||
-								gameQuery.nextWeek ||
-								gameQuery.thisWeek ||
-								gameQuery.lastestRelease
-									? 'normal'
-									: genre.id === gameQuery?.genreId
-									? 'bold'
-									: ''
+								genre.id === genreId ? 'bold' : 'normal'
 							}
 						>
 							<Image
