@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const CriticScore = ({ score }) => {
 	let color = score > 70 ? 'green' : score > 60 ? 'yellow' : '';
 
+	if (!score) return;
 	return (
 		<Badge
 			variant={'outline'}
