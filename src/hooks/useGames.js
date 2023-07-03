@@ -1,17 +1,19 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
+import useGameQueryStore from '../store';
 
-const apiClient = new APIClient('games');
+const useGames = (endpoint, key) => {
+	const gameQuery = useGameQueryStore((state) => state.gameQuery);
+	const apiClient = new APIClient(`games${endpoint}`);
 
-const useGames = (gameQuery) => {
 	return useInfiniteQuery({
-		queryKey: ['games', gameQuery],
+		queryKey: [key, gameQuery],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
 				params: {
-					genres: gameQuery?.genreId,
-					parent_platforms: gameQuery?.platformId,
+					// genres: gameQuery?.genreId,
+					// parent_platforms: gameQuery?.platformId,
 					ordering: gameQuery?.orderedValue,
 					search: gameQuery?.searchValue,
 					page: pageParam,
