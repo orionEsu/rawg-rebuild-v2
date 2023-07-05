@@ -4,13 +4,16 @@ import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
 
 const useGenericFetch = (endpoint, type, key) => {
+	
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games?${type}=${endpoint}`);
+
 	return useInfiniteQuery({
 		queryKey: [
 			key,
 			endpoint,
 			type === 'platforms' ? gameQuery.platformId : null,
+			gameQuery.sortValue
 		],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
@@ -19,7 +22,7 @@ const useGenericFetch = (endpoint, type, key) => {
 					...(type === 'platforms' && {
 						platforms: gameQuery?.platformId,
 					}),
-					ordering: gameQuery?.orderedValue,
+					ordering: gameQuery?.sortValue,
 					page: pageParam,
 				},
 			}),
