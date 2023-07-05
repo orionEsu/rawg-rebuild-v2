@@ -8,18 +8,16 @@ const useGames = (endpoint, key) => {
 	const apiClient = new APIClient(`games${endpoint}`);
 
 	return useInfiniteQuery({
-		queryKey: [key, gameQuery],
+		queryKey: [key, gameQuery.sortValue],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
 				params: {
-					// genres: gameQuery?.genreId,
-					// parent_platforms: gameQuery?.platformId,
-					ordering: gameQuery?.orderedValue,
+					filter: true,
+					ordering: gameQuery?.sortValue,
 					search: gameQuery?.searchValue,
 					page: pageParam,
 				},
 			}),
-		// page: pageParam,
 		staleTime: hrToMs(24),
 		keepPreviousData: true,
 		getNextPageParam: (lastPage, allPages) => {
