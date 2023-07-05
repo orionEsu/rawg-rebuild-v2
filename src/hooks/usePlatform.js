@@ -1,8 +1,14 @@
-import usePlatforms from './usePlatforms';
+import { useQuery } from '@tanstack/react-query';
+import APIClient from '../services/api-client';
+import { hrToMs } from '../services/timeConverter';
 
-const usePlatform = (platformId) => {
-	const { data: platforms } = usePlatforms();
-	return platforms?.results?.find((el) => el.id === platformId);
-};
+const apiClient = new APIClient('platforms');
+
+const usePlatform = () =>
+	useQuery({
+		queryKey: ['singlePlatform'],
+		queryFn: apiClient.getGames,
+		staleTime: hrToMs(24),
+	});
 
 export default usePlatform;
