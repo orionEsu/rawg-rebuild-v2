@@ -7,12 +7,18 @@ const useGenericFetch = (endpoint, type, key) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games?${type}=${endpoint}`);
 	return useInfiniteQuery({
-		queryKey: [key, endpoint],
+		queryKey: [
+			key,
+			endpoint,
+			type === 'platforms' ? gameQuery.platformId : null,
+		],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
 				params: {
 					filter: true,
-					// comments: true,
+					...(type === 'platforms' && {
+						platforms: gameQuery?.platformId,
+					}),
 					ordering: gameQuery?.orderedValue,
 					page: pageParam,
 				},
