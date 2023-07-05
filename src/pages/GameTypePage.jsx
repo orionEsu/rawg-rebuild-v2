@@ -5,18 +5,9 @@ import GameGrid from '../components/GameGrid';
 import GameHeading from '../components/GameHeading';
 import PlatformSelector from '../components/PlatformSelector';
 import SortSelector from '../components/SortSelector';
-import platforms from '../data/platforms';
 import useGenericFetch from '../hooks/useGenericFetch';
 import useGameQueryStore from '../store';
-
-const findPlatform = (slug) => {
-	const filteredPlatform = platforms?.results.filter(
-		(el) => el.slug !== '3do' && el.slug !== 'neo-geo'
-	);
-	return filteredPlatform
-		?.map((el) => el.platforms.at(0))
-		.find((platform) => platform.slug === slug);
-};
+import useFindPlatform from '../services/findPlatform';
 
 const GameTypePage = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
@@ -24,7 +15,8 @@ const GameTypePage = () => {
 	let slug = params.slug;
 	let type;
 
-	const selectedPlatform = findPlatform(slug);
+	// const selectedPlatform = findPlatform(slug);
+	const selectedPlatform = useFindPlatform(slug);
 
 	if (!selectedPlatform) type = 'genres';
 
@@ -32,6 +24,12 @@ const GameTypePage = () => {
 		type = 'platforms';
 		slug = selectedPlatform.id;
 	}
+
+	useEffect(() => {
+		if (type === 'genres' && isNaN(slug)) {
+			setPlatformId('');
+		}
+	}, [type, slug]);
 
 	const {
 		data,
@@ -41,12 +39,6 @@ const GameTypePage = () => {
 		fetchNextPage,
 		hasNextPage,
 	} = useGenericFetch(slug, type, `${slug}Games`);
-
-	useEffect(() => {
-		if (type !== 'platforms' && data) {
-			setPlatformId('');
-		}
-	}, [type]);
 
 	return (
 		<>
