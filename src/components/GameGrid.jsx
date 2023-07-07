@@ -1,22 +1,22 @@
-import { SimpleGrid, Spinner } from '@chakra-ui/react';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+/* eslint-disable react/prop-types */
+import { SimpleGrid } from '@chakra-ui/react';
+import React, { useCallback, useRef } from 'react';
 import { arr } from '../data/loadingData';
-import useGames from '../hooks/useGames';
-import useGameQueryStore from '../store';
 import AlertCom from './AlertCom';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
 
-const GameGrid = () => {
-	const gameQuery = useGameQueryStore((state) => state.gameQuery);
+const GameGrid = (props) => {
 	const {
-		data,
-		error,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useGames(gameQuery);
+		data: {
+			data,
+			error,
+			isFetching,
+			isFetchingNextPage,
+			fetchNextPage,
+			hasNextPage,
+		},
+	} = props.data;
 
 	const observer = useRef();
 	const getLastElementRef = useCallback(
@@ -41,8 +41,8 @@ const GameGrid = () => {
 			columns={{ sm: 1, md: 2, lg: 3 }}
 			spacing={'25px'}
 		>
-			{data?.pages?.map((game) => (
-				<React.Fragment key={game.id}>
+			{data?.pages?.map((game, index) => (
+				<React.Fragment key={index}>
 					{game?.results.map((el, index) => {
 						if (game.results.length === index + 1) {
 							return (
@@ -63,7 +63,7 @@ const GameGrid = () => {
 					})}
 				</React.Fragment>
 			))}
-			{isFetching && arr.map((el) => <CardSkeleton key={el} />)}
+			{isFetchingNextPage && arr.map((el, i) => <CardSkeleton key={i} />)}
 		</SimpleGrid>
 	);
 };

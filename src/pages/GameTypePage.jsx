@@ -1,63 +1,58 @@
-import { Box, HStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import GameGrid from '../components/GameGrid';
-import GameHeading from '../components/GameHeading';
-import PlatformSelector from '../components/PlatformSelector';
-import SortSelector from '../components/SortSelector';
+import Games from '../components/Games';
 import useGenericFetch from '../hooks/useGenericFetch';
+import useFindPlatformBySlug from '../hooks/useFindPlatformBySlug';
 import useGameQueryStore from '../store';
-import useFindPlatform from '../services/findPlatform';
 
 const GameTypePage = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
+	const setSortValue = useGameQueryStore((state) => state.setSortValue);
 	const params = useParams();
 	let slug = params.slug;
 	let type;
 
-	// const selectedPlatform = findPlatform(slug);
-	const selectedPlatform = useFindPlatform(slug);
+	const selectedPlatform = useFindPlatformBySlug(slug);
 
 	if (!selectedPlatform) type = 'genres';
 
 	if (selectedPlatform) {
-		type = 'platforms';
+		type = 'parent_platforms';
 		slug = selectedPlatform.id;
 	}
-
-	useEffect(() => {
-		if (type === 'genres' && isNaN(slug)) {
-			setPlatformId('');
-		}
-	}, [type, slug]);
 
 	const {
 		data,
 		error,
 		isFetching,
+		isInitialLoading,
 		isFetchingNextPage,
 		fetchNextPage,
 		hasNextPage,
 	} = useGenericFetch(slug, type, `${slug}Games`);
 
+	useEffect(() => {
+		if (data) {
+			setSortValue('');
+
+			if (type === 'genres' && isNaN(slug)) {
+				setPlatformId('');
+			}
+		}
+	}, [type, slug]);
+
 	return (
-		<>
-			<GameHeading data={data?.pages?.at(0)} />
-			<Box mt={5}>
-				<HStack mb={8}>
-					<SortSelector />
-					<PlatformSelector />
-				</HStack>
-				<GameGrid
-					data={data}
-					error={error}
-					isFetching={isFetching}
-					isFetchingNextPage={isFetchingNextPage}
-					fetchNextPage={fetchNextPage}
-					hasNextPage={hasNextPage}
-				/>
-			</Box>
-		</>
+		<Games
+			data={{
+				data,
+				error,
+				isInitialLoading,
+				isFetching,
+				isFetchingNextPage,
+				fetchNextPage,
+				hasNextPage,
+			}}
+		/>
 	);
 };
 
