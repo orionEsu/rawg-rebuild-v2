@@ -1,18 +1,27 @@
+import padNum from './padNum';
+
 export default () => {
 	const today = new Date();
 	const year = today.getFullYear();
-	const month = today.getMonth() + 1;
+	const { date, month } = padNum(today.getDate() + 1, today.getMonth() + 1);
 
-	const modifiedMonth =
-		today.getMonth().toString().length === 1 ? `0${month}` : month;
-	const date =
-		today.getDate().toString().length === 1
-			? `0${today.getDate()}`
-			: today.getDate();
+	const day = today.getDay();
+	const lastDayOfTheMonth = new Date(year, month, 0).getDate();
 
-    const day = today.getDay();
-    
-    const lastDayOfTheMonth = new Date(year, modifiedMonth, 0).getDate();
+	const startDate = new Date();
+	startDate.setDate(today.getDate() - 30); // 30 days ago
+	const { date: sdm, month: startDateMonth } = padNum(
+		0,
+		startDate.getMonth() + 1
+	);
 
-	return { today, year, modifiedMonth, date, day, lastDayOfTheMonth };
+	return {
+		today,
+		year,
+		month,
+		date,
+		day,
+		lastDayOfTheMonth,
+		startDateMonth,
+	};
 };
