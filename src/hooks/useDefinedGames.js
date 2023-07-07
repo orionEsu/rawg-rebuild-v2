@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
-import findPlatform from '../services/findPlatform';
+import findPlatform from './useFindPlatformBySlug';
 import { useEffect } from 'react';
 // import { useEffect } from 'react';
 
