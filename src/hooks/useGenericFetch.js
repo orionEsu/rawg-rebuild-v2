@@ -12,15 +12,15 @@ const useGenericFetch = (endpoint, type, key) => {
 		queryKey: [
 			key,
 			endpoint,
-			type === 'platforms' ? gameQuery.platformId : null,
+			type === 'parent_platforms' ? gameQuery.platformId : null,
 			gameQuery.sortValue
 		],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
 				params: {
 					filter: true,
-					...(type === 'platforms' && {
-						platforms: gameQuery?.platformId,
+					...(type === 'parent_platforms' && {
+						parent_platforms: gameQuery?.platformId,
 					}),
 					ordering: gameQuery?.sortValue,
 					page: pageParam,
