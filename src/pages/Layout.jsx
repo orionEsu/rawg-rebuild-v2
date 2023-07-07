@@ -1,6 +1,5 @@
 import { Box, Grid, GridItem, Show } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import GameHeading from '../components/GameHeading';
 import NavBar from '../components/NavBar';
 import SideBar from '../components/SideBar';
 
@@ -29,7 +28,6 @@ const Layout = () => {
 				<Box
 					paddingRight={'40px'}
 				>
-					<GameHeading />
 					<Outlet />
 				</Box>
 			</GridItem>
