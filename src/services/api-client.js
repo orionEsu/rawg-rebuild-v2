@@ -14,6 +14,15 @@ class APIClient {
 
 	getGames = (params) =>
 		instance.get(this.endpoint, params).then((res) => res.data);
+
+	get = () =>
+		instance
+			.get(this.endpoint, {
+				params: {
+					filter: true,
+				},
+			})
+			.then((res) => res.data);
 }
 
 export default APIClient;
