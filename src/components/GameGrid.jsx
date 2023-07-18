@@ -40,6 +40,7 @@ const GameGrid = (props) => {
 			marginTop={5}
 			columns={{ sm: 1, md: 2, lg: 3 }}
 			spacing={'25px'}
+			
 		>
 			{data?.pages?.map((game, index) => (
 				<React.Fragment key={index}>
