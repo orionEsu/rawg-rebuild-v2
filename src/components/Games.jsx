@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Spinner, Box, HStack } from '@chakra-ui/react';
+import { Spinner, Box, HStack, Text } from '@chakra-ui/react';
 import GameHeading from './GameHeading';
 import SortSelector from './SortSelector';
 import PlatformSelector from './PlatformSelector';
@@ -15,8 +15,24 @@ const Games = (props) => {
 	return (
 		<>
 			{isInitialLoading && <Spinner size={'xl'} />}
-
-			<Box>
+			{gameQuery.searchValue && (
+				<Text
+					display={'flex'}
+					fontWeight={'500'}
+					color={'gray.600'}
+					fontSize={'xl'}
+					justifyContent={'right'}
+				>
+					Found {data?.pages.at(0).count} Items
+				</Text>
+			)}
+			<Box
+				paddingRight={{
+					base: '',
+					lg: '40px',
+				}}
+				paddingInline={{ base: 14, lg: 0 }}
+			>
 				{!gameQuery.searchValue && (
 					<GameHeading data={data?.pages?.at(0)} />
 				)}
