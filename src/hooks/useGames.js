@@ -3,12 +3,13 @@ import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
 
+
 const useGames = (endpoint, key) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games${endpoint}`);
 
 	return useInfiniteQuery({
-		queryKey: [key, gameQuery.sortValue],
+		queryKey: [key, gameQuery.sortValue, gameQuery.searchValue],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
 				params: {
