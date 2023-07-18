@@ -1,4 +1,36 @@
 form {
-    width: 100%;
-    max-width: 800px;
+	width: 100%;
+	max-width: 800px;
+}
+.suggested__games-link{
+	text-decoration: none;
+	color: #fff;
+	font-size: 16px;
+	background-image: linear-gradient(
+		0deg,
+		hsla(0, 0%, 100%, 0) 0,
+		hsla(0, 0%, 100%, 0.4) 0,
+		hsla(0, 0%, 100%, 0.4) 1px,
+		hsla(0, 0%, 100%, 0) 0
+	);
+	transition: color 0.2s ease-in-out;
+}
+
+.suggested__games-link:hover {
+	color: hsla(0, 0%, 100%, 0.4);
+}
+
+.video_player {
+	/* object-fit: none; */
+	object-position: center;
+	border-radius: 10px;
+}
+
+.start_video{
+	object-fit: centain;
+}
+
+.art-wrapper{
+	-webkit-mask-image: linear-gradient(#000, rgba(0,0,0,.3));
+	mask-image: linear-gradient(#000, rgba(0,0,0,.3));
 }
