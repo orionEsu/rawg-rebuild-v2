@@ -11,11 +11,18 @@ import ThisWeekReleases from './components/ThisWeekReleases';
 import NextWeekReleases from './components/NextWeekReleases';
 import BOYReleases from './components/BoyReleases';
 import TopOf2022 from './pages/TopOf2022';
-
+import GameDetailsPage from './pages/GameDetailsPage';
+import ScrollToTop from './components/ScrollToTop';
 const router = createBrowserRouter([
 	{
 		path: '',
-		element: <Layout />,
+		element: (
+			<>
+				<Layout />
+				<ScrollToTop />
+			</>
+		),
+
 		children: [
 			{ index: true, element: <HomePage /> },
 			{
@@ -24,6 +31,7 @@ const router = createBrowserRouter([
 			},
 			{ path: 'games/:type/:slug', element: <GameDescriptionTypePage /> },
 			{ path: 'games/:slug', element: <GameTypePage /> },
+			{ path: 'games/:slug/details', element: <GameDetailsPage /> },
 			{ path: 'genres', element: <GenresPage /> },
 			{ path: 'platforms', element: <PlatformPage /> },
 			{ path: 'last-30-days', element: <Last30Days /> },
