@@ -1,21 +1,32 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+	Input,
+	InputGroup,
+	InputLeftElement,
+	FormControl,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 import '../index.css';
 import useGameQueryStore from '../store';
+import { useNavigate } from 'react-router-dom';
 
 const SearchInput = () => {
 	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
 
 	const searchValue = useRef(null);
+	const navigate = useNavigate();
 
 	return (
-		<form
+		<FormControl
 			onSubmit={(e) => {
 				e.preventDefault();
 				if (searchValue.current)
 					setSearchValue(searchValue.current.value);
+				navigate('/games');
 				searchValue.current.value = '';
+			}}
+			width={{
+				md: '500px',
 			}}
 		>
 			<InputGroup size={'lg'}>
@@ -28,14 +39,17 @@ const SearchInput = () => {
 				</InputLeftElement>
 
 				<Input
+					variant={'flushed'}
 					placeholder='Search Games....'
-					borderRadius={15}
-					color={'gray.300'}
-					fontSize={'16px'}
+					_placeholder={{
+						opacity: 1,
+						color: 'gray.200',
+					}}
+					focusBorderColor='gray.300'
 					ref={searchValue}
 				/>
 			</InputGroup>
-		</form>
+		</FormControl>
 	);
 };
 
