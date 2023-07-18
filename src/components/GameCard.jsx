@@ -1,20 +1,21 @@
 /* eslint-disable react/prop-types */
 import { Card, CardHeader, HStack, Heading, Image } from '@chakra-ui/react';
+import { forwardRef } from 'react';
 import getCroppedUrl from '../services/image-url';
 import CardIcons from './CardIcons';
 import CriticScore from './CriticScore';
 import Emoji from './Emoji';
-import { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const GameCard = forwardRef(({ game }, ref) => {
-	const platformObj = game.parent_platforms.map((p) => p.platform);
+	const platformObj = game?.parent_platforms?.map((p) => p.platform);
 
 	return (
 		<Card
-			key={game.id}
 			borderRadius={10}
 			overflow={'hidden'}
 			ref={ref}
+			boxShadow={'0 10px 20px 0 rgba(0,0,0,.07)'}
 		>
 			<Image src={getCroppedUrl(game.background_image)} />
 
@@ -28,10 +29,16 @@ const GameCard = forwardRef(({ game }, ref) => {
 					</HStack>
 					<CriticScore score={game.metacritic} />
 				</HStack>
-				<HStack align={'center'}>
-					<Heading fontSize={'24px'}>{game.name}</Heading>
-					<Emoji rating={game.rating_top} />
-				</HStack>
+
+				<Link to={`/games/${game.slug}/details`}>
+					<Heading
+						fontSize={'24px'}
+						color={'gray.50'}
+					>
+						{game.name}
+						<Emoji rating={game.rating_top} />
+					</Heading>
+				</Link>
 			</CardHeader>
 		</Card>
 	);
