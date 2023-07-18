@@ -7,7 +7,7 @@ const SortSelector = () => {
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
 
 	const sortOrders = [
-		{ value: '', label: 'Relevance' },
+		{ value: '', label: 'Popularity' },
 		{ value: '-name', label: 'Name' },
 		{ value: '-released', label: 'Released' },
 		{ value: '-added', label: 'Added' },
@@ -21,11 +21,10 @@ const SortSelector = () => {
 		<Menu>
 			<MenuButton
 				borderRadius='md'
-				borderWidth='1px'
 				as={Button}
 				rightIcon={<BsChevronDown />}
 			>
-				Order By: {currentOrder?.label || 'Relevance'}
+				Order By: {currentOrder?.label || 'Popularity'}
 			</MenuButton>
 			<MenuList>
 				{sortOrders.map((order) => (
