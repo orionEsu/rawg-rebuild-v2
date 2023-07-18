@@ -1,34 +1,52 @@
-import { SimpleGrid } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
-import { arr } from '../data/loadingData';
-import useThisWeekReleases from '../hooks/useThisWeekReleases';
-import AlertCom from './AlertCom';
-import CardSkeleton from './CardSkeleton';
-import GameCard from './GameCard';
+import { useEffect } from 'react';
+import useReleases from '../hooks/useReleases';
+import dateGetter from '../services/dateGetter';
+import padNum from '../services/padNum';
+import useGameQueryStore from '../store';
+import Games from './Games';
 
-const ThisWeekReleases = ({ gameQuery }) => {
-	const { data, error, isLoading } = useThisWeekReleases(gameQuery);
-	if (error) return <AlertCom msg={error} />;
+const ThisWeekReleases = () => {
+	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
+	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	
+	useEffect(() => {
+		setSortValue('');
+		setPlatformId('');
+	}, []);
+
+
+	const { today, year, month, day } = dateGetter();
+
+	const val = today.getDate() - day + (day === 0 ? -6 : 1);
+	const diffMonday = padNum(val, val + 6);
+	const diffSunday = padNum(val, val + 6);
+	const startDate = `${year}-${month}-${diffMonday}`;
+	const endDate = `${year}-${month}-${diffSunday}`;
+
+
+	const {
+		data,
+		error,
+		isInitialLoading,
+		isFetching,
+		isFetchingNextPage,
+		fetchNextPage,
+		hasNextPage,
+	} = useReleases('this-week-releases', startDate, endDate);
 
 	return (
-		<SimpleGrid
-			marginTop={5}
-			columns={3}
-			spacing={'25px'}
-		>
-			{isLoading && arr.map((el) => <CardSkeleton key={el} />)}
-
-			{data?.map((game) => (
-				<GameCard
-					game={game}
-					key={game.id}
-				/>
-			))}
-		</SimpleGrid>
+		<Games
+			data={{
+				data,
+				error,
+				isInitialLoading,
+				isFetching,
+				isFetchingNextPage,
+				fetchNextPage,
+				hasNextPage,
+			}}
+		/>
 	);
 };
 
-ThisWeekReleases.propTypes = {
-	gameQuery: PropTypes.object,
-};
 export default ThisWeekReleases;
