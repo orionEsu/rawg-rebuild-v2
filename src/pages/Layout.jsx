@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, Show } from '@chakra-ui/react';
+import { Grid, GridItem, Show } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import SideBar from '../components/SideBar';
@@ -8,28 +8,24 @@ const Layout = () => {
 		<Grid
 			templateAreas={{
 				base: `'nav' 'main'`,
-				lg: `'nav nav' 
+				xl: `'nav nav' 
 					'aside main'`,
 			}}
 			templateColumns={{
 				base: '1fr',
-				lg: '260px 1fr',
+				xl: '240px 1fr',
 			}}
 		>
 			<GridItem area={'nav'}>
 				<NavBar />
 			</GridItem>
-			<Show above='lg'>
+			<Show above='xl'>
 				<GridItem area={'aside'}>
 					<SideBar />
 				</GridItem>
 			</Show>
 			<GridItem area={'main'}>
-				<Box
-					paddingRight={'40px'}
-				>
-					<Outlet />
-				</Box>
+				<Outlet />
 			</GridItem>
 		</Grid>
 	);

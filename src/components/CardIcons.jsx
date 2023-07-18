@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { iconMap } from '../data/iconMap';
 
 const CardIcons = ({ platform }) => {
-	return platform.map((el) => (
+	return platform?.map((el) => (
 		<Icon
 			as={iconMap[el.slug]}
 			key={el.id}
+			margin={0}
 		/>
 	));
 };

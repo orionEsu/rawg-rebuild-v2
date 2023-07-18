@@ -59,8 +59,9 @@ const GameHeading = ({ data }) => {
 		<>
 			<Box>
 				<Heading
-					fontSize={'70px'}
+					size={{ base: '3xl', md: '4xl' }}
 					color={'gray.50'}
+					mb={2}
 				>
 					{data?.seo_h1}
 				</Heading>
