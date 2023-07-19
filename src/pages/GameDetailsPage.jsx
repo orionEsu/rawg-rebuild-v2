@@ -47,6 +47,7 @@ const GameDetailsPage = () => {
 		);
 	}
 	const platformObj = data?.parent_platforms?.map((p) => p.platform);
+	console.log(platformObj);
 
 	let ratingText = '';
 	if (data?.rating_top === 3) {
@@ -240,6 +241,7 @@ const GameDetailsPage = () => {
 								<SimpleGrid
 									columns={{ base: 1, md: 2 }}
 									rowGap={5}
+									columnGap={10}
 									mt={8}
 								>
 									<Box width={'100%'}>
@@ -260,8 +262,8 @@ const GameDetailsPage = () => {
 												>
 													{el.name}
 												</Link>
-												{data?.length !== index + 1 &&
-													', '}
+												{platformObj?.length !==
+													index + 1 && ', '}
 											</>
 										))}
 									</Box>
@@ -300,8 +302,8 @@ const GameDetailsPage = () => {
 												>
 													{el.name}
 												</Link>
-												{data?.length !== index + 1 &&
-													', '}
+												{data?.genres?.length !==
+													index + 1 && ', '}
 											</>
 										))}
 									</Box>
@@ -323,7 +325,7 @@ const GameDetailsPage = () => {
 										</Box>
 									)}
 
-									<Box>
+									<Box width={'100%'}>
 										<Heading
 											fontSize={'sm'}
 											color={'hsla(0,0%,100%,.2)'}
@@ -332,23 +334,21 @@ const GameDetailsPage = () => {
 											Developers
 										</Heading>
 
-										<HStack>
-											{data?.developers.map(
-												(el, index) => (
-													<>
-														<Text key={el.id}>
-															{el.name}
-														</Text>
-														{data?.developers
-															.length !==
-															index + 1 && ', '}
-													</>
-												)
-											)}
-										</HStack>
+										{data?.developers.map((el, index) => (
+											<>
+												<Text
+													key={el.id}
+													display={'inline'}
+												>
+													{el.name}
+												</Text>
+												{data?.developers.length !==
+													index + 1 && ', '}
+											</>
+										))}
 									</Box>
 
-									<Box>
+									<Box width={'100%'}>
 										<Heading
 											fontSize={'sm'}
 											color={'hsla(0,0%,100%,.2)'}
@@ -357,20 +357,20 @@ const GameDetailsPage = () => {
 											Publishers
 										</Heading>
 
-										<HStack>
 											{data?.publishers.map(
 												(el, index) => (
 													<>
-														<Text key={el.id}>
+														<Text key={el.id} display={'inline'}>
 															{el.name}
+
+															{data?.publishers
+																.length !==
+																index + 1 &&
+																', '}
 														</Text>
-														{data?.publishers
-															.length !==
-															index + 1 && ', '}
 													</>
 												)
 											)}
-										</HStack>
 									</Box>
 
 									<Box>
@@ -464,18 +464,18 @@ const GameDetailsPage = () => {
 							</Box>
 						</Grid>
 
-						<Box>
-							<Heading
-								fontSize={'3xl'}
-								color={'#fff'}
-								marginBottom={5}
-								marginTop={10}
-								fontWeight={400}
-							>
-								Games like {data?.name}
-							</Heading>
-
+						{suggestedData?.results.length !== 0 && (
 							<Box>
+								<Heading
+									fontSize={'3xl'}
+									color={'#fff'}
+									marginBottom={5}
+									marginTop={10}
+									fontWeight={400}
+								>
+									Games like {data?.name}
+								</Heading>
+
 								<SimpleGrid
 									columns={{ sm: 1, md: 2, xl: 3 }}
 									spacing={'25px'}
@@ -488,7 +488,7 @@ const GameDetailsPage = () => {
 									))}
 								</SimpleGrid>
 							</Box>
-						</Box>
+						)}
 
 						{modifiedTrailers?.length !== 0 && (
 							<Box mt={12}>
