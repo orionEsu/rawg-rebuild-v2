@@ -15,8 +15,8 @@ const NextWeekReleases = () => {
 	}, []);
 
 	const { today, year, month, date } = dateGetter();
-	const updatedDate = padNum(today.getDate() + 7, 0);
-	const startDate = `${year}-${month}-${date}`;
+	const updatedDate = padNum(today.getDate() + 7);
+	const startDate = `${year}-${month}-${date - 1}`;
 	const endDate = `${year}-${month}-${updatedDate}`;
 
 	const {
