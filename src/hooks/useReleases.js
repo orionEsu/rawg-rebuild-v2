@@ -7,7 +7,8 @@ const apiClient = new APIClient('games');
 
 const useReleases = (tag, startDate, endDate) => {
 	const gameQuery = useGameQueryStore((s) => s.gameQuery);
-	
+	const params = gameQuery.platformId || gameQuery.sortValue;
+
 	return useInfiniteQuery({
 		queryKey: [
 			tag,
@@ -19,8 +20,10 @@ const useReleases = (tag, startDate, endDate) => {
 				params: {
 					filter: true,
 					dates: `${startDate},${endDate}`,
-					parent_platforms: gameQuery?.platformId,
-					ordering: gameQuery?.sortValue,
+					...(params && {
+						parent_platforms: gameQuery?.platformId,
+						ordering: gameQuery?.sortValue,
+					}),
 					page: pageParam,
 				},
 			}),
