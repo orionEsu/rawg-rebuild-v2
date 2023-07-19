@@ -18,8 +18,8 @@ const ThisWeekReleases = () => {
 	const { today, year, month, day } = dateGetter();
 
 	const val = today.getDate() - day + (day === 0 ? -6 : 1);
-	const diffMonday = padNum(val, val + 6);
-	const diffSunday = padNum(val, val + 6);
+	const diffMonday = padNum(val);
+	const diffSunday = padNum(val + 6);
 	const startDate = `${year}-${month}-${diffMonday}`;
 	const endDate = `${year}-${month}-${diffSunday}`;
 
