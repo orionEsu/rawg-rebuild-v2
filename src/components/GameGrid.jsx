@@ -12,6 +12,7 @@ const GameGrid = (props) => {
 			data,
 			error,
 			isFetching,
+			isInitialLoading,
 			isFetchingNextPage,
 			fetchNextPage,
 			hasNextPage,
@@ -30,7 +31,7 @@ const GameGrid = (props) => {
 			});
 			if (node) observer.current.observe(node);
 		},
-		[isFetching, hasNextPage]
+		[hasNextPage]
 	);
 
 	if (error) return <AlertCom msg={error.message} />;
@@ -38,10 +39,12 @@ const GameGrid = (props) => {
 	return (
 		<SimpleGrid
 			marginTop={5}
-			columns={{ sm: 1, md: 2, lg: 3 }}
+			columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
 			spacing={'25px'}
-			
+			paddingBottom={14}
 		>
+			{isInitialLoading && arr.map((el, i) => <CardSkeleton key={i} />)}
+
 			{data?.pages?.map((game, index) => (
 				<React.Fragment key={index}>
 					{game?.results.map((el, index) => {
@@ -64,7 +67,9 @@ const GameGrid = (props) => {
 					})}
 				</React.Fragment>
 			))}
-			{isFetchingNextPage && arr.map((el, i) => <CardSkeleton key={i} />)}
+			{hasNextPage &&
+				isFetchingNextPage &&
+				arr.map((el, i) => <CardSkeleton key={i} />)}
 		</SimpleGrid>
 	);
 };
