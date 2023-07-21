@@ -1,0 +1,20 @@
+import AlertCom from '../components/AlertCom';
+import TypeGrid from '../components/TypeGrid';
+import useParentPlatform from '../hooks/useParentPlatform';
+import filteredPlatform from '../services/filteredPlatforms';
+
+const PlatformPage = () => {
+	const { data, isLoading, error } = useParentPlatform();
+	const platforms = filteredPlatform(data);
+
+	if (error) return <AlertCom msg={error.message} />;
+
+	return (
+		<TypeGrid
+			data={platforms}
+			isLoading={isLoading}
+		/>
+	);
+};
+
+export default PlatformPage;
