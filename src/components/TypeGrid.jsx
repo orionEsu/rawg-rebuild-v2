@@ -1,0 +1,60 @@
+/* eslint-disable react/prop-types */
+import { SimpleGrid, Card, Heading, Skeleton } from '@chakra-ui/react';
+import { arr } from '../data/loadingData';
+import getCroppedUrl from '../services/image-url';
+import { Link } from 'react-router-dom';
+
+const TypeGrid = ({ data, isLoading }) => {
+	return (
+		<SimpleGrid
+			columns={{ sm: 1, md: 2, lg: 3 }}
+			spacing={4}
+			paddingRight={{
+				base: 5,
+				sm: 8,
+				md: 14,
+				xl: '40px',
+			}}
+			paddingLeft={{
+				base: 5,
+				md: 14,
+				xl: 0,
+			}}
+            paddingBottom={14}
+            marginTop={5}
+		>
+			{isLoading &&
+				arr.map((el) => (
+					<Skeleton
+						height={'88px'}
+						key={el.id}
+					/>
+				))}
+
+			{data?.map((el) => (
+				<Card
+					padding={8}
+					key={el.id}
+					backgroundPosition={'center'}
+					backgroundRepeat={'no-repeat'}
+					backgroundSize={'cover'}
+					backgroundImage={`linear-gradient(rgba(32, 32, 32, 0.5), rgb(32, 32, 32,0.9) 70%), url(${getCroppedUrl(
+						el.image_background
+					)})`}
+				>
+					<Heading
+						size={'md'}
+						textAlign={'center'}
+						className='suggested__games-link'
+						width={'fit-content'}
+						margin={'auto'}
+					>
+						<Link to={`/games/${el.slug}`}>{el.name}</Link>
+					</Heading>
+				</Card>
+			))}
+		</SimpleGrid>
+	);
+};
+
+export default TypeGrid;
