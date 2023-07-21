@@ -44,7 +44,7 @@ const useDefinedGames = (type, slug) => {
 		staleTime: hrToMs(24),
 		keepPreviousData: true,
 		getNextPageParam: (lastPage, allPages) => {
-			return lastPage.results !== 0 ? allPages.length + 1 : null;
+			return lastPage.next ? allPages.length + 1 : null;
 		},
 	});
 };
