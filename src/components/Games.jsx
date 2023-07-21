@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
-import { Spinner, Box, HStack, Text } from '@chakra-ui/react';
-import GameHeading from './GameHeading';
-import SortSelector from './SortSelector';
-import PlatformSelector from './PlatformSelector';
-import GameGrid from './GameGrid';
+import { Box, HStack, Text } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import useGameQueryStore from '../store';
+import GameGrid from './GameGrid';
+import GameHeading from './GameHeading';
+import PlatformSelector from './PlatformSelector';
+import SortSelector from './SortSelector';
 
 const Games = (props) => {
 	const { pathname } = useLocation();
-	const { data, isInitialLoading } = props.data;
+	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 
 	return (
 		<>
-			{isInitialLoading && <Spinner size={'xl'} />}
 			{gameQuery.searchValue && (
 				<Text
 					display={'flex'}
@@ -28,24 +27,31 @@ const Games = (props) => {
 			)}
 			<Box
 				paddingRight={{
-					base: '',
-					lg: '40px',
+					base: 8,
+					md: 12,
+					lg: 14,
+					xl: '40px',
 				}}
-				paddingInline={{ base: 14, lg: 0 }}
+				paddingLeft={{
+					base: 8,
+					md: 12,
+					lg: 14,
+					xl: 0,
+				}}
 			>
-				{!gameQuery.searchValue && (
+				{!gameQuery.searchValue && data && (
 					<GameHeading data={data?.pages?.at(0)} />
 				)}
 				<Box mt={5}>
 					<HStack mb={8}>
-						{data && (
-							<>
-								{!gameQuery.searchValue && <SortSelector />}
-								{pathname !== '/' && pathname !== '/games' && (
-									<PlatformSelector />
-								)}
-							</>
-						)}
+						(
+						<>
+							{!gameQuery.searchValue && <SortSelector />}
+							{pathname !== '/' && pathname !== '/games' && (
+								<PlatformSelector />
+							)}
+						</>
+						)
 					</HStack>
 					<GameGrid data={props} />
 				</Box>
