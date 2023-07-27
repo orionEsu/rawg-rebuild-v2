@@ -19,10 +19,14 @@ const Games = (props) => {
 					display={'flex'}
 					fontWeight={'500'}
 					color={'gray.600'}
-					fontSize={'xl'}
+					fontSize={'lg'}
 					justifyContent={'right'}
+					mr={'45px'}
 				>
-					Found {data?.pages.at(0).count} Items
+					Searched for {gameQuery.searchValue}{' '}
+					{data && (
+						<span>: Found {data?.pages.at(0).count} Games</span>
+					)}
 				</Text>
 			)}
 			<Box
@@ -38,6 +42,7 @@ const Games = (props) => {
 					lg: 14,
 					xl: 0,
 				}}
+				marginTop={4}
 			>
 				{!gameQuery.searchValue && data && (
 					<GameHeading data={data?.pages?.at(0)} />
@@ -47,7 +52,7 @@ const Games = (props) => {
 						(
 						<>
 							{!gameQuery.searchValue && <SortSelector />}
-							{pathname !== '/' && pathname !== '/games' && (
+							{pathname !== '/' && !gameQuery.searchValue && (
 								<PlatformSelector />
 							)}
 						</>
