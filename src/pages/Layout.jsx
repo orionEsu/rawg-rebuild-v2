@@ -16,11 +16,21 @@ const Layout = () => {
 				xl: '240px 1fr',
 			}}
 		>
-			<GridItem area={'nav'}>
+			<div className='scrollWatcher'></div>
+			<GridItem
+				area={'nav'}
+				position={'sticky'}
+				top={0}
+				className='navBar'
+				zIndex={100}
+			>
 				<NavBar />
 			</GridItem>
 			<Show above='xl'>
-				<GridItem area={'aside'}>
+				<GridItem
+					area={'aside'}
+					className={'sidebar'}
+				>
 					<SideBar />
 				</GridItem>
 			</Show>
