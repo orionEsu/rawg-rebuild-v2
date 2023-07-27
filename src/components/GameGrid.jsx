@@ -35,6 +35,8 @@ const GameGrid = (props) => {
 	);
 
 	if (error) return <AlertCom msg={error.message} />;
+	if (data?.pages.at(0).results.length === 0)
+		return <AlertCom msg={'No Game in this Category'} />;
 
 	return (
 		<SimpleGrid
