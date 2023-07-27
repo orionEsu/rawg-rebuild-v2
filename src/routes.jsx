@@ -13,6 +13,8 @@ import BOYReleases from './components/BoyReleases';
 import TopOf2022 from './pages/TopOf2022';
 import GameDetailsPage from './pages/GameDetailsPage';
 import ScrollToTop from './components/ScrollToTop';
+import GameSearch from './components/GameSearch';
+import ErrorBoundary from './pages/ErrorBoundary';
 const router = createBrowserRouter([
 	{
 		path: '',
@@ -22,12 +24,17 @@ const router = createBrowserRouter([
 				<ScrollToTop />
 			</>
 		),
+		errorElement: <ErrorBoundary />,
 
 		children: [
 			{ index: true, element: <HomePage /> },
 			{
 				path: 'games',
 				element: <AllGamesPage />,
+			},
+			{
+				path: 'search/:query',
+				element: <GameSearch />,
 			},
 			{ path: 'games/:type/:slug', element: <GameDescriptionTypePage /> },
 			{ path: 'games/:slug', element: <GameTypePage /> },
