@@ -1,34 +1,27 @@
-import {
-	Input,
-	InputGroup,
-	InputLeftElement,
-	FormControl,
-} from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 import '../index.css';
-import useGameQueryStore from '../store';
 import { useNavigate } from 'react-router-dom';
 
 const SearchInput = () => {
-	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
-
 	const searchValue = useRef(null);
 	const navigate = useNavigate();
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const searchedValue = searchValue.current.value;
+		if (searchedValue === ' ' || searchedValue === null) {
+			document.querySelector('.error_message').classList.add('show');
+		} else {
+			navigate(`/search/${searchedValue}`);
+			document.querySelector('.error_message').classList.remove('show');
+			e.target.reset();
+		}
+	};
+
 	return (
-		<FormControl
-			onSubmit={(e) => {
-				e.preventDefault();
-				if (searchValue.current)
-					setSearchValue(searchValue.current.value);
-				navigate('/games');
-				searchValue.current.value = '';
-			}}
-			width={{
-				md: '500px',
-			}}
-		>
+		<form onSubmit={(e) => handleSubmit(e)}>
 			<InputGroup size={'lg'}>
 				<InputLeftElement
 					color='gray.300'
@@ -40,16 +33,18 @@ const SearchInput = () => {
 
 				<Input
 					variant={'flushed'}
+					type='text'
 					placeholder='Search Games....'
 					_placeholder={{
 						opacity: 1,
-						color: 'gray.200',
+						color: 'gray.500',
 					}}
 					focusBorderColor='gray.300'
 					ref={searchValue}
 				/>
 			</InputGroup>
-		</FormControl>
+			<p className='error_message'>Enter Game Name</p>
+		</form>
 	);
 };
 
