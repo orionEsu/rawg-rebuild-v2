@@ -47,7 +47,6 @@ const GameDetailsPage = () => {
 		);
 	}
 	const platformObj = data?.parent_platforms?.map((p) => p.platform);
-	console.log(platformObj);
 
 	let ratingText = '';
 	if (data?.rating_top === 3) {
