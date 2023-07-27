@@ -11,11 +11,24 @@ import { Link } from 'react-router-dom';
 const SideBar = () => {
 	const setDefault = useGameQueryStore((state) => state.setDefault);
 
+	const nav = document.querySelector('.navBar');
+	const scrollWatcher = document.querySelector('.scrollWatcher');
+	const navObserver = new IntersectionObserver(
+		(entries) => {
+			nav.classList.toggle('sticking', !entries[0].isIntersecting);
+		},
+		{
+			rootMargin: '20px 0px 0px 0px',
+		}
+	);
+	navObserver?.observe(scrollWatcher);
+
+	
 	return (
 		<Box
-			position={'sticky'}
 			minH={'100vh'}
 			paddingLeft={'40px'}
+			className={'sidebar-content'}
 		>
 			<Link to={''}>
 				<Button
