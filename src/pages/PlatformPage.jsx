@@ -6,6 +6,9 @@ import filteredPlatform from '../services/filteredPlatforms';
 const PlatformPage = () => {
 	const { data, isLoading, error } = useParentPlatform();
 	const platforms = filteredPlatform(data);
+	const parentPlatforms = data?.results.filter(
+		(el) => el.slug !== '3do' && el.slug !== 'neo-geo'
+	);
 
 	if (error) return <AlertCom msg={error.message} />;
 
@@ -13,6 +16,7 @@ const PlatformPage = () => {
 		<TypeGrid
 			data={platforms}
 			isLoading={isLoading}
+			parentPlatforms={parentPlatforms}
 		/>
 	);
 };
