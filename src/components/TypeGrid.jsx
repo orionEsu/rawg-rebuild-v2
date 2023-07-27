@@ -4,7 +4,7 @@ import { arr } from '../data/loadingData';
 import getCroppedUrl from '../services/image-url';
 import { Link } from 'react-router-dom';
 
-const TypeGrid = ({ data, isLoading }) => {
+const TypeGrid = ({ data, isLoading, parentPlatforms }) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3 }}
@@ -20,8 +20,8 @@ const TypeGrid = ({ data, isLoading }) => {
 				md: 14,
 				xl: 0,
 			}}
-            paddingBottom={14}
-            marginTop={5}
+			paddingBottom={14}
+			marginTop={5}
 		>
 			{isLoading &&
 				arr.map((el) => (
@@ -31,7 +31,7 @@ const TypeGrid = ({ data, isLoading }) => {
 					/>
 				))}
 
-			{data?.map((el) => (
+			{data?.map((el, index) => (
 				<Card
 					padding={8}
 					key={el.id}
@@ -49,7 +49,15 @@ const TypeGrid = ({ data, isLoading }) => {
 						width={'fit-content'}
 						margin={'auto'}
 					>
-						<Link to={`/games/${el.slug}`}>{el.name}</Link>
+						{parentPlatforms ? (
+							<Link to={`/games/${parentPlatforms[index].slug}`}>
+								{el.name}
+							</Link>
+						) : (
+							<Link to={`/games/${el.slug}`}>
+								{el.name}
+							</Link>
+						)}
 					</Heading>
 				</Card>
 			))}
