@@ -56,7 +56,7 @@ const GameHeading = ({ data }) => {
 	}
 
 	pathname === '/'
-		? (document.title = 'RAWG ▫  Discover Video Games')
+		? document.title
 		: (document.title = ` ${data?.seo_h1} ▫ RAWG`);
 
 	return (
@@ -65,7 +65,7 @@ const GameHeading = ({ data }) => {
 				<Heading
 					size={{ base: '3xl', md: '4xl' }}
 					color={'gray.50'}
-					mb={2}
+					mb={4}
 				>
 					{data?.seo_h1}
 				</Heading>
