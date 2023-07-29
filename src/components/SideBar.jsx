@@ -34,10 +34,10 @@ const SideBar = () => {
 			const sidebarContentHeight =
 				sidebarContent?.getBoundingClientRect().height;
 
-			if (sidebarContent && scrollTop >= 1351.17 - viewPort) {
+			if (sidebarContent && scrollTop >= 1351.17 - viewPort + 80) {
 				setSidebarStyles({
 					position: 'fixed',
-					transform: `translateY(-${1351.17 - viewPort}px)`,
+					transform: `translateY(-${1351.17 - viewPort + 80}px)`,
 				});
 			} else {
 				setSidebarStyles({
