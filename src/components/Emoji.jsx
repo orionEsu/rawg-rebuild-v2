@@ -13,7 +13,7 @@ const Emoji = ({ rating }) => {
 		5: { src: thumbsUp, alt: 'exceptional', boxSize: '25px' },
 	};
 
-	return <Image {...emojiMap[rating]} />;
+	return <Image {...emojiMap[rating]} display={'inline'} marginLeft={'.3rem'}/>;
 };
 
 Emoji.propTypes = {
