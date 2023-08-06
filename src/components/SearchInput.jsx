@@ -3,10 +3,12 @@ import { SearchIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 import '../index.css';
 import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchInput = () => {
 	const searchValue = useRef(null);
 	const navigate = useNavigate();
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -14,7 +16,8 @@ const SearchInput = () => {
 		if (searchedValue === ' ' || searchedValue === null) {
 			document.querySelector('.error_message').classList.add('show');
 		} else {
-			navigate(`/search/${searchedValue}`);
+			navigate(`/search`);
+			setSearchParams({query: searchedValue})
 			document.querySelector('.error_message').classList.remove('show');
 			e.target.reset();
 		}
