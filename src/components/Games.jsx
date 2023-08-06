@@ -12,6 +12,18 @@ const Games = (props) => {
 	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 
+		const nav = document.querySelector('.navBar');
+		const scrollWatcher = document.querySelector('.scrollWatcher');
+		const navObserver = new IntersectionObserver(
+			(entries) => {
+				nav.classList.toggle('sticking', !entries[0].isIntersecting);
+			},
+			{
+				rootMargin: '20px 0px 0px 0px',
+			}
+		);
+		scrollWatcher && navObserver?.observe(scrollWatcher);
+
 	return (
 		<>
 			{gameQuery.searchValue && (
