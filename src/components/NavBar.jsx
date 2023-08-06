@@ -45,7 +45,7 @@ const NavBar = () => {
 					base: 'column',
 					lg: 'row',
 				}}
-				rowGap={5}
+				rowGap={{ base: 1, lg: 5 }}
 			>
 				<Box
 					display={{
@@ -99,7 +99,9 @@ const NavBar = () => {
 				<DrawerContent>
 					<DrawerCloseButton />
 
-					<DrawerBody pl={'40px'}>
+					<DrawerBody
+						pl={'40px'}
+					>
 						<Link to={''}>
 							<Button
 								variant={'link'}
