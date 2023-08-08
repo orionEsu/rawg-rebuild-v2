@@ -7,8 +7,6 @@ const CriticScore = ({ score }) => {
 	if (!score) return;
 	return (
 		<Badge
-			// variant={'outline'}
-			// colorScheme={color}
 			color={color}
 			px={2}
 			py={1}
