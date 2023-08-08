@@ -35,7 +35,12 @@ const NavBar = () => {
 	return (
 		<>
 			<Box
-				px={10}
+				px={{
+					base: 8,
+					md: 12,
+					lg: 14,
+					xl: '40px'
+				}}
 				paddingBlock={'1rem'}
 				display={'flex'}
 				alignContent={'center'}
@@ -99,9 +104,7 @@ const NavBar = () => {
 				<DrawerContent>
 					<DrawerCloseButton />
 
-					<DrawerBody
-						pl={'40px'}
-					>
+					<DrawerBody pl={'40px'}>
 						<Link to={''}>
 							<Button
 								variant={'link'}
@@ -121,17 +124,17 @@ const NavBar = () => {
 							</Button>
 						</Link>
 
-						<NewReleasesList />
-						<TopReleases />
-						<BrowseList />
+						<NewReleasesList onClose={onClose} />
+						<TopReleases onClose={onClose} />
+						<BrowseList onClose={onClose} />
 
 						<Box
 							mb={'30px'}
 							mt={'30px'}
 						>
-							<PlatformList />
+							<PlatformList onClose={onClose} />
 						</Box>
-						<GenreList />
+						<GenreList onClose={onClose} />
 					</DrawerBody>
 
 					{/* <DrawerFooter>
