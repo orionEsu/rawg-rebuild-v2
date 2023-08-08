@@ -7,7 +7,10 @@ const CardIcons = ({ platform }) => {
 		<Icon
 			as={iconMap[el.slug]}
 			key={el.id}
-			margin={0}
+			sx={{
+				'marginInlineStart': ' 0 !important',
+			}}
+		
 		/>
 	));
 };
