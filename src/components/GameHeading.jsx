@@ -2,6 +2,7 @@
 import { Box, Heading } from '@chakra-ui/react';
 import ExpandableText from './ExpandableText';
 import { useLocation } from 'react-router-dom';
+import filterSpecialCharacters from '../services/filterSpecialCharacters';
 
 const GameHeading = ({ data }) => {
 	const { pathname } = useLocation();
@@ -40,7 +41,6 @@ const GameHeading = ({ data }) => {
 		};
 	}
 
-
 	if (pathname === '/best-of-the-year') {
 		data = {
 			seo_h1: data?.seo_title,
@@ -66,13 +66,15 @@ const GameHeading = ({ data }) => {
 					size={{ base: '3xl', md: '4xl' }}
 					color={'gray.50'}
 					mb={4}
+					textTransform={'capitalize'}
+					fontFamily={'orbitron'}
 				>
 					{data?.seo_h1}
 				</Heading>
 			</Box>
 
 			<ExpandableText>
-				{data?.description && data?.description.slice(3, -4)}
+				{filterSpecialCharacters(data?.description)}
 			</ExpandableText>
 		</>
 	);
