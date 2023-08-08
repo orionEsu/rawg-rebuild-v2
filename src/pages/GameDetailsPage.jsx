@@ -22,6 +22,7 @@ import useScreenshots from '../hooks/useScreenshots';
 import useSuggested from '../hooks/useSuggested';
 import getMonthName from '../services/getMonthName';
 import AlertCom from '../components/AlertCom';
+import getCroppedUrl from '../services/image-url';
 // when moving from a game back to best of the year page, best of the year page do not load, the results array ie empty
 const GameDetailsPage = () => {
 	const { slug } = useParams();
@@ -158,7 +159,7 @@ const GameDetailsPage = () => {
 												{month}, {year}
 											</Box>
 										)}
-										<HStack>
+										<HStack gap={'.6rem'}>
 											<CardIcons platform={platforms} />
 										</HStack>
 										{data?.playtime !== 0 && (
@@ -182,6 +183,7 @@ const GameDetailsPage = () => {
 											base: 'center',
 											lg: 'left',
 										}}
+										fontFamily={'orbitron'}
 									>
 										{data?.name}
 									</Heading>
@@ -356,20 +358,19 @@ const GameDetailsPage = () => {
 											Publishers
 										</Heading>
 
-											{data?.publishers.map(
-												(el, index) => (
-													<>
-														<Text key={el.id} display={'inline'}>
-															{el.name}
+										{data?.publishers.map((el, index) => (
+											<>
+												<Text
+													key={el.id}
+													display={'inline'}
+												>
+													{el.name}
 
-															{data?.publishers
-																.length !==
-																index + 1 &&
-																', '}
-														</Text>
-													</>
-												)
-											)}
+													{data?.publishers.length !==
+														index + 1 && ', '}
+												</Text>
+											</>
+										))}
 									</Box>
 
 									<Box>
@@ -451,7 +452,7 @@ const GameDetailsPage = () => {
 								>
 									{screenshots?.results?.map((el) => (
 										<Image
-											src={el.image}
+											src={getCroppedUrl(el.image)}
 											key={el.id}
 											borderRadius={'3px'}
 											onClick={(el) =>
