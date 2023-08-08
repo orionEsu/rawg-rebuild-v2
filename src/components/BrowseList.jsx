@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import useGameQueryStore from '../store';
 
-const BrowseList = () => {
+const BrowseList = ({onClose}) => {
 	const setSearchValue = useGameQueryStore((s) => s.setSearchValue);
 	const setSortValue = useGameQueryStore((s) => s.setSortValue);
 	const { colorMode } = useColorMode();
@@ -29,7 +29,7 @@ const BrowseList = () => {
 				maxWidth={'fit-content'}
 				onClick={() => {
 					setSearchValue('');
-					setSortValue('')
+					setSortValue('');
 				}}
 			>
 				<Link to={'games'}>All Games</Link>
@@ -52,6 +52,7 @@ const BrowseList = () => {
 								fontWeight={'normal'}
 								style={{ textDecoration: 'none' }}
 								_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+								onClick={onClose}
 							>
 								<Box
 									w={'32px'}
@@ -93,6 +94,7 @@ const BrowseList = () => {
 								fontWeight={'normal'}
 								style={{ textDecoration: 'none' }}
 								_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+								onClick={onClose}
 							>
 								<Box
 									w={'32px'}
@@ -132,7 +134,3 @@ const BrowseList = () => {
 };
 
 export default BrowseList;
-
-<svg>
-	<path></path>
-</svg>;
