@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import useParentPlatform from '../hooks/useParentPlatform';
 import useGameQueryStore from '../store';
@@ -14,13 +15,12 @@ import {
 import { Link } from 'react-router-dom';
 import { iconMap } from '../data/iconMap';
 
-const PlatformList = () => {
+const PlatformList = ({ onClose }) => {
 	const platformId = useGameQueryStore((state) => state.gameQuery.platformId);
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 
 	const { data: platforms, error } = useParentPlatform();
 	const { colorMode } = useColorMode();
-
 	if (error) return <AlertCom msg={error} />;
 
 	return (
@@ -55,7 +55,10 @@ const PlatformList = () => {
 									brightness: '50%',
 									transition: 'all 0.3s ease-in-out',
 								}}
-								onClick={() => setPlatformId(el.id)}
+								onClick={() => {
+									setPlatformId(el.id);
+									onClose();
+								}}
 								fontWeight={
 									el.id === platformId ? 'bold' : 'normal'
 								}

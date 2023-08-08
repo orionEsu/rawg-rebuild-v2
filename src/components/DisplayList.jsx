@@ -2,10 +2,13 @@
 import { Heading, List, ListItem, Button, Image } from '@chakra-ui/react';
 import getCroppedUrl from '../services/image-url';
 import { Link } from 'react-router-dom';
+import useGameQueryStore from '../store';
 
-const DisplayList = ({ link, heading, data, set, id }) => {
+const DisplayList = ({ link, heading, data, onClose }) => {
+	const genreId = useGameQueryStore((state) => state.gameQuery.genreId);
+	const setGenreId = useGameQueryStore((state) => state.setGenreId);
 
-  return (
+	return (
 		<>
 			<Heading
 				display={'block'}
@@ -37,8 +40,13 @@ const DisplayList = ({ link, heading, data, set, id }) => {
 									brightness: '50%',
 									transition: 'all 0.3s ease-in-out',
 								}}
-								onClick={() => set(el.id)}
-								fontWeight={el.id === id ? 'bold' : 'normal'}
+								onClick={() => {
+									setGenreId(el.id);
+									onClose();
+								}}
+								fontWeight={
+									el.id === genreId ? 'bold' : 'normal'
+								}
 							>
 								<Image
 									src={getCroppedUrl(el.image_background)}
@@ -54,7 +62,7 @@ const DisplayList = ({ link, heading, data, set, id }) => {
 				))}
 			</List>
 		</>
-  );
+	);
 };
 
 export default DisplayList;
