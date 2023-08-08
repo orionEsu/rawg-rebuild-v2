@@ -33,6 +33,9 @@ const theme = extendTheme({
 			900: '#111',
 		},
 	},
+	fonts: {
+		heading: `'Exo 2', sans-serif`,
+	},
 });
 
 export default theme;

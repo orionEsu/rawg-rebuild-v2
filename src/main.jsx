@@ -7,6 +7,8 @@ import { RouterProvider } from 'react-router-dom';
 import './index.css';
 import theme from './theme.js';
 import router from './routes';
+import '@fontsource/orbitron/700.css';
+import '@fontsource/exo-2/700.css';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -15,7 +17,7 @@ const queryClient = new QueryClient({
 			refetchOnReconnect: true,
 		},
 	},
-});
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
