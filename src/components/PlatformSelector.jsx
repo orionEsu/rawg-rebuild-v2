@@ -22,7 +22,6 @@ const PlatformSelector = () => {
 	const [extended, setExtended] = useState();
 	const { slug } = useParams();
 	const { pathname } = useLocation();
-
 	const platformId = useGameQueryStore((state) => state.gameQuery.platformId);
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 
@@ -36,7 +35,6 @@ const PlatformSelector = () => {
 	}, [find]);
 
 	const selectedPlatform = findPlatformById(platformId);
-
 	if (error) return null;
 
 	return (
@@ -49,20 +47,36 @@ const PlatformSelector = () => {
 				{selectedPlatform?.name || 'Platforms'}
 			</MenuButton>
 			<MenuList>
-				{data?.results.map((platform) => (
-					<Box key={platform.id}>
-						{pathname !== '/last-30-days' &&
-						pathname !== '/this-week' &&
-						pathname !== '/next-week' &&
-						pathname !== '/best-of-the-year' &&
-						pathname !== '/top-of-2022' ? (
-							<Link
-								to={
-									extended
-										? `/games/${platform.slug}/${slug}`
-										: `/games/${platform.slug}`
-								}
-							>
+				{data?.results
+					.filter((el) => el.slug !== '3do' && el.slug !== 'neo-geo')
+					.map((platform) => (
+						<Box key={platform.id}>
+							{pathname !== '/last-30-days' &&
+							pathname !== '/this-week' &&
+							pathname !== '/next-week' &&
+							pathname !== '/best-of-the-year' &&
+							pathname !== '/top-of-2022' ? (
+								<Link
+									to={
+										extended
+											? `/games/${platform.slug}/${slug}`
+											: `/games/${platform.slug}`
+									}
+								>
+									<MenuItem
+										key={platform.id}
+										onClick={() =>
+											setPlatformId(platform.id)
+										}
+									>
+										<Icon
+											as={iconMap[platform.slug]}
+											mr={'12px'}
+										/>
+										{platform.name}
+									</MenuItem>
+								</Link>
+							) : (
 								<MenuItem
 									key={platform.id}
 									onClick={() => setPlatformId(platform.id)}
@@ -73,21 +87,9 @@ const PlatformSelector = () => {
 									/>
 									{platform.name}
 								</MenuItem>
-							</Link>
-						) : (
-							<MenuItem
-								key={platform.id}
-								onClick={() => setPlatformId(platform.id)}
-							>
-								<Icon
-									as={iconMap[platform.slug]}
-									mr={'12px'}
-								/>
-								{platform.name}
-							</MenuItem>
-						)}
-					</Box>
-				))}
+							)}
+						</Box>
+					))}
 			</MenuList>
 		</Menu>
 	);
