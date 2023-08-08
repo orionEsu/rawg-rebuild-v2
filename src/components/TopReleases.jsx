@@ -11,7 +11,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import '../index.css';
 
-const TopReleases = () => {
+const TopReleases = ({onClose}) => {
 	const { colorMode } = useColorMode();
 	const { pathname } = useLocation();
 
@@ -40,6 +40,7 @@ const TopReleases = () => {
 							color={'gray.50'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							onClick={onClose}
 						>
 							<Box
 								w={'32px'}
@@ -86,6 +87,7 @@ const TopReleases = () => {
 							color={'gray.50'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							onClick={onClose}
 							// isDisabled={'true'}
 						>
 							<Box

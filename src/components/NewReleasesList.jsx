@@ -11,7 +11,7 @@ import {
 import '../index.css';
 import { Link, useLocation } from 'react-router-dom';
 
-const NewReleasesList = () => {
+const NewReleasesList = ({ onClose }) => {
 	const { colorMode } = useColorMode();
 	const { pathname } = useLocation();
 
@@ -38,6 +38,7 @@ const NewReleasesList = () => {
 							color={'gray.50'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							onClick={onClose}
 						>
 							<Box
 								w={'32px'}
@@ -83,6 +84,7 @@ const NewReleasesList = () => {
 							variant={'link'}
 							color={'gray.50'}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							onClick={onClose}
 							// onClick={onSelectThisWeek}
 						>
 							<Box
@@ -129,6 +131,7 @@ const NewReleasesList = () => {
 							variant={'link'}
 							color={'gray.50'}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
+							onClick={onClose}
 						>
 							<Box
 								w={'32px'}
