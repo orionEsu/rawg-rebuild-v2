@@ -43,6 +43,7 @@ const PlatformSelector = () => {
 				borderRadius='md'
 				as={Button}
 				rightIcon={<BsChevronDown />}
+				fontWeight={'400'}
 			>
 				{selectedPlatform?.name || 'Platforms'}
 			</MenuButton>

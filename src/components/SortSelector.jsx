@@ -23,6 +23,7 @@ const SortSelector = () => {
 				borderRadius='md'
 				as={Button}
 				rightIcon={<BsChevronDown />}
+				fontWeight={'400'}
 			>
 				Order By: {currentOrder?.label || 'Popularity'}
 			</MenuButton>
