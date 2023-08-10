@@ -17,6 +17,7 @@
 		"@emotion/styled": "^11.11.0",
 		"@fontsource/exo-2": "^5.0.8",
 		"@fontsource/orbitron": "^5.0.8",
+		"@fontsource/poppins": "^5.0.8",
 		"@tanstack/react-query": "^4.29.12",
 		"@tanstack/react-query-devtools": "^4.29.12",
 		"axios": "^1.4.0",

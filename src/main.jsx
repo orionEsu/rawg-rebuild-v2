@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router-dom';
 import './index.css';
 import theme from './theme.js';
 import router from './routes';
+import '@fontsource/poppins';
 import '@fontsource/orbitron/700.css';
 import '@fontsource/exo-2/700.css';
 

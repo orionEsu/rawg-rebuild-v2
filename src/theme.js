@@ -35,6 +35,7 @@ const theme = extendTheme({
 	},
 	fonts: {
 		heading: `'Exo 2', sans-serif`,
+		body: `'Poppins', sans-serif`,
 	},
 });
 
