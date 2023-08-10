@@ -39,7 +39,7 @@ const NavBar = () => {
 					base: 8,
 					md: 12,
 					lg: 14,
-					xl: '40px'
+					xl: '40px',
 				}}
 				paddingBlock={'1rem'}
 				display={'flex'}
@@ -65,13 +65,14 @@ const NavBar = () => {
 					}}
 				>
 					<Text
+						fontFamily={'orbitron'}
 						fontSize={'18px'}
 						fontWeight={'extrabold'}
 						lineHeight={1}
 						letterSpacing={'5px'}
 						color={'#fff'}
 					>
-						RAWG
+						<Link to={'/'}>RAWG</Link>
 					</Text>
 
 					<Show below='lg'>
