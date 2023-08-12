@@ -58,7 +58,7 @@ const GameHeading = ({ data }) => {
 	pathname === '/'
 		? document.title
 		: (document.title = ` ${data?.seo_h1} ▫ RAWG`);
-
+	
 	return (
 		<>
 			<Box>
@@ -69,7 +69,9 @@ const GameHeading = ({ data }) => {
 					textTransform={'capitalize'}
 					fontFamily={'orbitron'}
 				>
-					{data?.seo_h1}
+					{data?.seo_h1.includes('New and')
+						? data?.seo_h1.replace('New and', '')
+						: data?.seo_h1}
 				</Heading>
 			</Box>
 
