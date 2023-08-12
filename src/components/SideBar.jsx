@@ -15,6 +15,7 @@ const SideBar = () => {
 		<Box
 			minH={'100vh'}
 			paddingLeft={'40px'}
+			className={'sidebar'}
 		>
 			<Heading
 				transition={'color .2s ease'}
