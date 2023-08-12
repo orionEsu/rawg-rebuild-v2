@@ -2,9 +2,8 @@ import { Badge } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 const CriticScore = ({ score }) => {
-	let color = score > 70 ? '#6dc849' : score > 60 ? 'yellow' : '';
+	let color = score > 70 ? '#6dc849' : score > 60 ? 'yellow' : 'white';
 
-	if (!score) return;
 	return (
 		<Badge
 			color={color}
@@ -14,7 +13,7 @@ const CriticScore = ({ score }) => {
 			fontSize={'md'}
 			borderRadius={5}
 		>
-			{score}
+			{score || 'NR'}
 		</Badge>
 	);
 };
