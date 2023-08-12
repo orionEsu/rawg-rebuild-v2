@@ -23,6 +23,7 @@ import useSuggested from '../hooks/useSuggested';
 import getMonthName from '../services/getMonthName';
 import AlertCom from '../components/AlertCom';
 import getCroppedUrl from '../services/image-url';
+import { useEffect } from 'react';
 // when moving from a game back to best of the year page, best of the year page do not load, the results array ie empty
 const GameDetailsPage = () => {
 	const { slug } = useParams();
@@ -31,13 +32,15 @@ const GameDetailsPage = () => {
 	const { data: trailers } = useGameTrailers(slug);
 	const { data: screenshots } = useScreenshots(slug);
 	const modifiedTrailers = trailers?.results?.slice(0, 4);
-
 	let year, month;
 	if (data?.released) {
 		[year, month] = data.released.split('-');
 	}
 
-	const platforms = data?.parent_platforms.map((el) => el.platform);
+	const platforms = data?.parent_platforms
+		.map((el) => el.platform)
+		.filter((el) => el.slug !== '3do' && el.slug !== 'neo-geo');
+	
 	const description = data?.description_raw;
 	let descriptionWithoutSpanish;
 
@@ -47,8 +50,10 @@ const GameDetailsPage = () => {
 			description.indexOf('Español')
 		);
 	}
-	const platformObj = data?.parent_platforms?.map((p) => p.platform);
-
+	const platformObj = data?.parent_platforms
+		?.map((p) => p.platform)
+		.filter((el) => el.slug !== '3do' && el.slug !== 'neo-geo');
+	
 	let ratingText = '';
 	if (data?.rating_top === 3) {
 		ratingText = 'Meh';
