@@ -1,28 +1,38 @@
 /* eslint-disable react/prop-types */
-import { Box, HStack, Text } from '@chakra-ui/react';
+import { Box, HStack, Text, Button } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import useGameQueryStore from '../store';
 import GameGrid from './GameGrid';
 import GameHeading from './GameHeading';
 import PlatformSelector from './PlatformSelector';
 import SortSelector from './SortSelector';
+import { useRef } from 'react';
+import { FaArrowUp } from 'react-icons/fa';
 
 const Games = (props) => {
+	const arrowRef = useRef(null);
 	const { pathname } = useLocation();
 	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
-
-		const nav = document.querySelector('.navBar');
-		const scrollWatcher = document.querySelector('.scrollWatcher');
-		const navObserver = new IntersectionObserver(
-			(entries) => {
-				nav.classList.toggle('sticking', !entries[0].isIntersecting);
-			},
-			{
-				rootMargin: '20px 0px 0px 0px',
-			}
-		);
-		scrollWatcher && navObserver?.observe(scrollWatcher);
+	const nav = document.querySelector('.navBar');
+	const scrollWatcher = document.querySelector('.scrollWatcher');
+	const sidebar = document.querySelector('.sidebar');
+	const navObserver = new IntersectionObserver(
+		(entries) => {
+			nav.classList.toggle('sticking', !entries[0].isIntersecting);
+		},
+		{
+			rootMargin: '20px 0px 0px 0px',
+		}
+	);
+	scrollWatcher && navObserver?.observe(scrollWatcher);
+	const gamesObserver = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			const intersecting = entry.isIntersecting;
+			arrowRef.current?.classList.toggle('show-arrow', intersecting);
+		});
+	});
+	sidebar && gamesObserver?.observe(sidebar);
 
 	return (
 		<>
@@ -73,6 +83,21 @@ const Games = (props) => {
 					<GameGrid data={props} />
 				</Box>
 			</Box>
+			<Button
+				ref={arrowRef}
+				position={'fixed'}
+				bottom={'20px'}
+				right={'15px'}
+				width={'50px'}
+				height={'50px'}
+				transition={'all .2s ease'}
+				className={'show-arrow'}
+				backgroundColor={'black'}
+				boxShadow={'0px 3px 5px 0px rgba(0,0,0, .5)'}
+				onClick={() => window.scrollTo(0, 0)}
+			>
+				<FaArrowUp />
+			</Button>
 		</>
 	);
 };
