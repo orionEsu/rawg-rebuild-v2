@@ -29,7 +29,7 @@ const Layout = () => {
 			<Show above='xl'>
 				<GridItem
 					area={'aside'}
-					className={'sidebar'}
+					
 				>
 					<SideBar />
 				</GridItem>
