@@ -83,3 +83,7 @@ form {
 	position: absolute;
 	top: 0;
 }
+.show-arrow{
+	opacity: 0;
+	visibility: hidden;
+}
