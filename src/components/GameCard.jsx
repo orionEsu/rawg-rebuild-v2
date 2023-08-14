@@ -17,7 +17,10 @@ import { Link } from 'react-router-dom';
 const GameCard = forwardRef(({ game }, ref) => {
 	const platformObj = game?.parent_platforms?.map((p) => p.platform);
 	return (
-		<Link to={`/games/${game.slug}/details`}>
+		<Link
+			to={`/games/${game.slug}/details`}
+			style={{ height: 'fit-content' }}
+		>
 			<Card
 				borderRadius={10}
 				overflow={'hidden'}
@@ -47,21 +50,17 @@ const GameCard = forwardRef(({ game }, ref) => {
 						<CriticScore score={game.metacritic} />
 					</HStack>
 
-					<Box
-						display={'inline-flex'}
-						alignItems={'flex-end'}
-						columnGap={'6px'}
-					>
+					<Box>
 						<Heading
 							fontSize={'24px'}
 							color={'gray.50'}
 							marginRight={'auto'}
-							display={'inline-flex'}
-							alignItems={'center'}
+							display={'inline-block'}
 						>
 							{game.name}
+							{'  '}
+							<Emoji rating={game.rating_top} />
 						</Heading>
-						<Emoji rating={game.rating_top} />
 					</Box>
 				</CardHeader>
 			</Card>
