@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useGameQueryStore from '../store';
 import Games from '../components/Games';
-import useReleases2022 from '../hooks/useReleases2022';
+import useReleasesPreviousYear from '../hooks/useReleasesPreviousYear';
 
 const TopOf2022 = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
@@ -20,7 +20,7 @@ const TopOf2022 = () => {
 		isFetchingNextPage,
 		fetchNextPage,
 		hasNextPage,
-	} = useReleases2022();
+	} = useReleasesPreviousYear();
 
 	return (
 		<Games
