@@ -11,9 +11,10 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import '../index.css';
 
-const TopReleases = ({onClose}) => {
+const TopReleases = ({ onClose }) => {
 	const { colorMode } = useColorMode();
 	const { pathname } = useLocation();
+	const previousYear = new Date().getFullYear() - 1;
 
 	return (
 		<Box>
@@ -78,17 +79,18 @@ const TopReleases = ({onClose}) => {
 					mb={3}
 					className='list-item'
 				>
-					<Link to={'top-of-2022'}>
+					<Link to={`/top-of-${previousYear}`}>
 						<Button
 							fontWeight={
-								pathname === '/top-of-2022' ? 'bold' : 'normal'
+								pathname === `/top-of-${previousYear}`
+									? 'bold'
+									: 'normal'
 							}
 							variant={'link'}
 							color={'gray.50'}
 							style={{ textDecoration: 'none' }}
 							_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 							onClick={onClose}
-							// isDisabled={'true'}
 						>
 							<Box
 								w={'32px'}
@@ -118,7 +120,7 @@ const TopReleases = ({onClose}) => {
 									/>
 								</Icon>
 							</Box>
-							Top of 2022
+							Top of {previousYear}
 						</Button>
 					</Link>
 				</ListItem>
