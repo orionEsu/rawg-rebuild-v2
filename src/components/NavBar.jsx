@@ -71,6 +71,7 @@ const NavBar = () => {
 						lineHeight={1}
 						letterSpacing={'5px'}
 						color={'#fff'}
+						onClick={() => setDefault()}
 					>
 						<Link to={'/'}>RAWG</Link>
 					</Text>
@@ -137,17 +138,6 @@ const NavBar = () => {
 						</Box>
 						<GenreList onClose={onClose} />
 					</DrawerBody>
-
-					{/* <DrawerFooter>
-						<Button
-							variant='outline'
-							mr={3}
-							onClick={onClose}
-						>
-							Cancel
-						</Button>
-						<Button colorScheme='blue'>Save</Button>
-					</DrawerFooter> */}
 				</DrawerContent>
 			</Drawer>
 		</>
