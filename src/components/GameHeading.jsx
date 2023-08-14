@@ -6,7 +6,8 @@ import filterSpecialCharacters from '../services/filterSpecialCharacters';
 
 const GameHeading = ({ data }) => {
 	const { pathname } = useLocation();
-
+	const year = new Date().getFullYear();
+	console.log(pathname);
 	if (data)
 		if (pathname === '/') {
 			data = {
@@ -43,22 +44,22 @@ const GameHeading = ({ data }) => {
 
 	if (pathname === '/best-of-the-year') {
 		data = {
-			seo_h1: data?.seo_title,
+			seo_h1: `Games of ${year}`,
 			description: '',
 		};
 	}
 
 	if (pathname === '/top-of-2022') {
 		data = {
-			seo_h1: 'Popular in 2022',
+			seo_h1: `Popular in ${year - 1}`,
 			description: '',
 		};
 	}
 
 	pathname === '/'
 		? document.title
-		: (document.title = ` ${data?.seo_h1} ▫ RAWG`);
-	
+		: (document.title = ` ${data?.seo_h1 && data?.seo_h1} ▫ RAWG`);
+
 	return (
 		<>
 			<Box>
@@ -76,7 +77,8 @@ const GameHeading = ({ data }) => {
 			</Box>
 
 			<ExpandableText>
-				{filterSpecialCharacters(data?.description)}
+				{data?.description &&
+					filterSpecialCharacters(data?.description)}
 			</ExpandableText>
 		</>
 	);
