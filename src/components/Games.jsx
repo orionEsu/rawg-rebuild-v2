@@ -11,12 +11,12 @@ import { FaArrowUp } from 'react-icons/fa';
 
 const Games = (props) => {
 	const arrowRef = useRef(null);
+	const dummyEl = useRef(null);
 	const { pathname } = useLocation();
 	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const nav = document.querySelector('.navBar');
 	const scrollWatcher = document.querySelector('.scrollWatcher');
-	const sidebar = document.querySelector('.sidebar');
 	const navObserver = new IntersectionObserver(
 		(entries) => {
 			nav.classList.toggle('sticking', !entries[0].isIntersecting);
@@ -32,13 +32,14 @@ const Games = (props) => {
 			arrowRef.current?.classList.toggle('show-arrow', intersecting);
 		});
 	});
-	sidebar && gamesObserver?.observe(sidebar);
+	dummyEl?.current && gamesObserver?.observe(dummyEl?.current);
 
 	return (
 		<>
 			{gameQuery.searchValue && (
 				<Text
 					display={'flex'}
+					flexWrap={'wrap'}
 					fontWeight={'500'}
 					color={'gray.600'}
 					fontSize={'lg'}
@@ -66,7 +67,7 @@ const Games = (props) => {
 				}}
 				marginTop={4}
 			>
-				{!gameQuery.searchValue && data && (
+				{!gameQuery.searchValue && (
 					<GameHeading data={data?.pages?.at(0)} />
 				)}
 				<Box mt={5}>
@@ -83,17 +84,30 @@ const Games = (props) => {
 					<GameGrid data={props} />
 				</Box>
 			</Box>
+			<Text
+				ref={dummyEl}
+				position={'absolute'}
+				top={'97vh'}
+			>
+			</Text>
 			<Button
-				ref={arrowRef}
 				position={'fixed'}
 				bottom={'20px'}
 				right={'15px'}
 				width={'50px'}
 				height={'50px'}
-				transition={'all .2s ease'}
-				className={'show-arrow'}
 				backgroundColor={'black'}
-				boxShadow={'0px 3px 5px 0px rgba(0,0,0, .5)'}
+				boxShadow={'0px 3px 5px 0px rgba(0, 0, 0, 0.5)'}
+				transition={'all .2s ease'}
+				ref={arrowRef}
+				className={'show-arrow arrow'}
+				_hover={{
+					backgroundColor: 'black',
+					transform: 'scale(0.9)',
+				}}
+				_focus={{
+					transform: 'translateY(5px)',
+				}}
 				onClick={() => window.scrollTo(0, 0)}
 			>
 				<FaArrowUp />
