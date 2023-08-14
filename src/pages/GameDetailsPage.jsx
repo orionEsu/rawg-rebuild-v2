@@ -10,7 +10,9 @@ import {
 	Spinner,
 	Text,
 } from '@chakra-ui/react';
+import { TbArrowLeft } from 'react-icons/tb';
 import { Link, useParams } from 'react-router-dom';
+import AlertCom from '../components/AlertCom';
 import CardIcons from '../components/CardIcons';
 import CriticScore from '../components/CriticScore';
 import Emoji from '../components/Emoji';
@@ -21,9 +23,7 @@ import useGameTrailers from '../hooks/useGameTrailers';
 import useScreenshots from '../hooks/useScreenshots';
 import useSuggested from '../hooks/useSuggested';
 import getMonthName from '../services/getMonthName';
-import AlertCom from '../components/AlertCom';
 import getCroppedUrl from '../services/image-url';
-import { useEffect } from 'react';
 // when moving from a game back to best of the year page, best of the year page do not load, the results array ie empty
 const GameDetailsPage = () => {
 	const { slug } = useParams();
@@ -31,6 +31,7 @@ const GameDetailsPage = () => {
 	const { data: suggestedData } = useSuggested(slug);
 	const { data: trailers } = useGameTrailers(slug);
 	const { data: screenshots } = useScreenshots(slug);
+	console.log(screenshots)
 	const modifiedTrailers = trailers?.results?.slice(0, 4);
 	let year, month;
 	if (data?.released) {
@@ -40,7 +41,7 @@ const GameDetailsPage = () => {
 	const platforms = data?.parent_platforms
 		.map((el) => el.platform)
 		.filter((el) => el.slug !== '3do' && el.slug !== 'neo-geo');
-	
+
 	const description = data?.description_raw;
 	let descriptionWithoutSpanish;
 
@@ -53,7 +54,7 @@ const GameDetailsPage = () => {
 	const platformObj = data?.parent_platforms
 		?.map((p) => p.platform)
 		.filter((el) => el.slug !== '3do' && el.slug !== 'neo-geo');
-	
+
 	let ratingText = '';
 	if (data?.rating_top === 3) {
 		ratingText = 'Meh';
@@ -66,7 +67,6 @@ const GameDetailsPage = () => {
 	const triggerFullScreen = (el) => {
 		el.target.requestFullscreen();
 	};
-
 	if (error) return <AlertCom msg={error.message} />;
 
 	return (
@@ -86,7 +86,22 @@ const GameDetailsPage = () => {
 						paddingInline={{ base: 6, md: 16, xl: 12 }}
 						pb={16}
 					>
+						<span
+							style={{
+								marginBottom:'2rem',
+								cursor: 'pointer',
+								fontSize: '2rem',
+								color: 'hsla(0,0%,100%,.4)',
+								display: 'block',
+								width: 'fit-content',
+								margin:'0'
+							}}
+							onClick={() => history.back()}
+						>
+							<TbArrowLeft />
+						</span>
 						<Text
+							marginTop={'1rem'}
 							fontSize={'xs'}
 							mb={'32px'}
 							color={'hsla(0,0%,100%,.4)'}
@@ -475,7 +490,7 @@ const GameDetailsPage = () => {
 									fontSize={'3xl'}
 									color={'#fff'}
 									marginBottom={5}
-									marginTop={10}
+									marginTop={14}
 									fontWeight={400}
 								>
 									Games like {data?.name}
