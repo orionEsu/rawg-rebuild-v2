@@ -4,8 +4,9 @@ import { hrToMs } from '../services/timeConverter';
 
 const useScreenshots = (slug) => {
 	const apiClient = new APIClient(`games/${slug}/screenshots`);
+	console.log(apiClient)
 	return useQuery({
-		queryKey: ['screenshots'],
+		queryKey: [`${slug}-screenshots`],
 		queryFn: () => apiClient.get(),
 		staleTime: hrToMs(24),
 		keepPreviousData: true,
