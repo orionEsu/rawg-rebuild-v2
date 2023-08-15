@@ -96,7 +96,8 @@ const Games = (props) => {
 				right={'15px'}
 				width={'50px'}
 				height={'50px'}
-				backgroundColor={'black'}
+				borderRadius={'50%'}
+				backgroundColor={'#888'}
 				boxShadow={'0px 3px 5px 0px rgba(0, 0, 0, 0.5)'}
 				transition={'all .2s ease'}
 				ref={arrowRef}
@@ -105,12 +106,9 @@ const Games = (props) => {
 					backgroundColor: 'black',
 					transform: 'scale(0.9)',
 				}}
-				_focus={{
-					transform: 'translateY(5px)',
-				}}
 				onClick={() => window.scrollTo(0, 0)}
 			>
-				<FaArrowUp />
+				<FaArrowUp fill='black'/>
 			</Button>
 		</>
 	);
