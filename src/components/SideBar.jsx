@@ -3,19 +3,18 @@ import { GoHome } from 'react-icons/go';
 import { Link } from 'react-router-dom';
 import useGameQueryStore from '../store';
 import BrowseList from './BrowseList';
-import GenreList from './GenreList';
 import NewReleasesList from './NewReleasesList';
-import PlatformList from './PlatformList';
 import TopReleases from './TopReleases';
 
 const SideBar = () => {
 	const setDefault = useGameQueryStore((state) => state.setDefault);
-
 	return (
 		<Box
 			minH={'100vh'}
 			paddingLeft={'40px'}
 			className={'sidebar'}
+			position={'sticky'}
+			top={'0'}
 		>
 			<Heading
 				transition={'color .2s ease'}
@@ -40,14 +39,6 @@ const SideBar = () => {
 			<NewReleasesList />
 			<TopReleases />
 			<BrowseList />
-
-			<Box
-				mb={'30px'}
-				mt={'30px'}
-			>
-				<PlatformList />
-			</Box>
-			<GenreList />
 		</Box>
 	);
 };
