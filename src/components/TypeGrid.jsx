@@ -31,36 +31,61 @@ const TypeGrid = ({ data, isLoading, parentPlatforms }) => {
 					/>
 				))}
 
-			{data?.map((el, index) => (
-				<Card
-					padding={8}
-					key={el.id}
-					backgroundPosition={'center'}
-					backgroundRepeat={'no-repeat'}
-					backgroundSize={'cover'}
-					backgroundImage={`linear-gradient(rgba(32, 32, 32, 0.5), rgb(32, 32, 32,0.9) 70%), url(${getCroppedUrl(
-						el.image_background
-					)})`}
-				>
-					<Heading
-						size={'md'}
-						textAlign={'center'}
-						className='suggested__games-link'
-						width={'fit-content'}
-						margin={'auto'}
+			{data?.map((el, index) =>
+				parentPlatforms ? (
+					<Link
+						to={`/games/${parentPlatforms[index].slug}`}
+						key={el.id}
 					>
-						{parentPlatforms ? (
-							<Link to={`/games/${parentPlatforms[index].slug}`}>
+						<Card
+							padding={8}
+							key={el.id}
+							backgroundPosition={'center'}
+							backgroundRepeat={'no-repeat'}
+							backgroundSize={'cover'}
+							backgroundImage={`linear-gradient(rgba(32, 32, 32, 0.5), rgb(32, 32, 32,0.9) 70%), url(${getCroppedUrl(
+								el.image_background
+							)})`}
+						>
+							<Heading
+								size={'md'}
+								textAlign={'center'}
+								className='suggested__games-link'
+								width={'fit-content'}
+								margin={'auto'}
+							>
 								{el.name}
-							</Link>
-						) : (
-							<Link to={`/games/${el.slug}`}>
+							</Heading>
+						</Card>
+					</Link>
+				) : (
+					<Link
+						to={`/games/${el.slug}`}
+						key={el.id}
+					>
+						<Card
+							padding={8}
+							key={el.id}
+							backgroundPosition={'center'}
+							backgroundRepeat={'no-repeat'}
+							backgroundSize={'cover'}
+							backgroundImage={`linear-gradient(rgba(32, 32, 32, 0.5), rgb(32, 32, 32,0.9) 70%), url(${getCroppedUrl(
+								el.image_background
+							)})`}
+						>
+							<Heading
+								size={'md'}
+								textAlign={'center'}
+								className='suggested__games-link'
+								width={'fit-content'}
+								margin={'auto'}
+							>
 								{el.name}
-							</Link>
-						)}
-					</Heading>
-				</Card>
-			))}
+							</Heading>
+						</Card>
+					</Link>
+				)
+			)}
 		</SimpleGrid>
 	);
 };
