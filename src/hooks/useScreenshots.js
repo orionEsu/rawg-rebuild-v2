@@ -4,7 +4,6 @@ import { hrToMs } from '../services/timeConverter';
 
 const useScreenshots = (slug) => {
 	const apiClient = new APIClient(`games/${slug}/screenshots`);
-	console.log(apiClient)
 	return useQuery({
 		queryKey: [`${slug}-screenshots`],
 		queryFn: () => apiClient.get(),
