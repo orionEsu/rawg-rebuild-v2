@@ -9,8 +9,10 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import useGameQueryStore from '../store';
+import { useLocation } from 'react-router-dom';
 
-const BrowseList = ({onClose}) => {
+const BrowseList = ({ onClose }) => {
+	const { pathname } = useLocation();
 	const setSearchValue = useGameQueryStore((s) => s.setSearchValue);
 	const setSortValue = useGameQueryStore((s) => s.setSortValue);
 	const { colorMode } = useColorMode();
@@ -47,9 +49,13 @@ const BrowseList = ({onClose}) => {
 					<ListItem mb={3}>
 						<Link to={'platforms'}>
 							<Button
+								fontWeight={
+									pathname === '/platforms'
+										? 'bold'
+										: 'normal'
+								}
 								variant={'link'}
 								color={'gray.50'}
-								fontWeight={'normal'}
 								style={{ textDecoration: 'none' }}
 								_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 								onClick={onClose}
@@ -81,7 +87,7 @@ const BrowseList = ({onClose}) => {
 										></path>
 									</Icon>
 								</Box>
-								Platform
+								Platforms
 							</Button>
 						</Link>
 					</ListItem>
@@ -91,7 +97,11 @@ const BrowseList = ({onClose}) => {
 							<Button
 								variant={'link'}
 								color={'gray.50'}
-								fontWeight={'normal'}
+								fontWeight={
+									pathname === '/genres'
+										? 'bold'
+										: 'normal'
+								}
 								style={{ textDecoration: 'none' }}
 								_hover={{ color: 'hsla(0,0%,100%,.4)' }}
 								onClick={onClose}
