@@ -129,14 +129,6 @@ const NavBar = () => {
 						<NewReleasesList onClose={onClose} />
 						<TopReleases onClose={onClose} />
 						<BrowseList onClose={onClose} />
-
-						<Box
-							mb={'30px'}
-							mt={'30px'}
-						>
-							<PlatformList onClose={onClose} />
-						</Box>
-						<GenreList onClose={onClose} />
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>

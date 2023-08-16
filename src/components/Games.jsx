@@ -103,7 +103,6 @@ const Games = (props) => {
 				ref={arrowRef}
 				className={'show-arrow arrow'}
 				_hover={{
-					backgroundColor: 'black',
 					transform: 'scale(0.9)',
 				}}
 				onClick={() => window.scrollTo(0, 0)}
