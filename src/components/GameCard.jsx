@@ -32,6 +32,7 @@ const GameCard = forwardRef(({ game }, ref) => {
 					transform: 'translateY(-5px)',
 				}}
 				cursor={'pointer'}
+				height={'100%'}
 			>
 				<Image src={getCroppedUrl(game.background_image)} />
 
