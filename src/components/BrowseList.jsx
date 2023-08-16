@@ -42,7 +42,7 @@ const BrowseList = ({ onClose }) => {
 					mb={'16px'}
 					fontSize={'24px'}
 				>
-					Browse
+					Browse By:
 				</Heading>
 
 				<List>
