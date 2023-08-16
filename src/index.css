@@ -83,7 +83,10 @@ form {
 	position: absolute;
 	top: 0;
 }
-.show-arrow{
+.show-arrow {
 	opacity: 0;
 	visibility: hidden;
+}
+.span-arrow:hover {
+	background-color: rgba(255, 255, 255, 0.1);
 }

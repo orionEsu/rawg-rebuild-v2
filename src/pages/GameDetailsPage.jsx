@@ -91,7 +91,11 @@ const GameDetailsPage = () => {
 								display: 'block',
 								width: 'fit-content',
 								margin: '0',
+								padding: '.2rem',
+								borderRadius: '50%',
+								transition: 'all .4s ease'
 							}}
+							className='span-arrow'
 							onClick={() => history.back()}
 						>
 							<TbArrowLeft />
