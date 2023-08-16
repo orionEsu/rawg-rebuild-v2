@@ -19,7 +19,6 @@ const GameCard = forwardRef(({ game }, ref) => {
 	return (
 		<Link
 			to={`/games/${game.slug}/details`}
-			style={{ height: 'fit-content' }}
 		>
 			<Card
 				borderRadius={10}
