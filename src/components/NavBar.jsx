@@ -6,26 +6,24 @@ import {
 	DrawerCloseButton,
 	DrawerContent,
 	DrawerOverlay,
+	Icon,
+	IconButton,
+	Menu,
+	MenuButton,
 	Show,
 	Text,
-	MenuButton,
-	Icon,
-	Menu,
-	IconButton,
 	useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
-import '../index.css';
 import { GoHome } from 'react-icons/go';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
+import '../index.css';
 import useGameQueryStore from '../store';
 import BrowseList from './BrowseList';
-import GenreList from './GenreList';
 import NewReleasesList from './NewReleasesList';
-import PlatformList from './PlatformList';
 import SearchInput from './SearchInput';
 import TopReleases from './TopReleases';
-import { RxHamburgerMenu } from 'react-icons/rx';
 
 const NavBar = () => {
 	const setDefault = useGameQueryStore((state) => state.setDefault);
