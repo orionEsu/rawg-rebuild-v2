@@ -31,7 +31,6 @@ const GameDetailsPage = () => {
 	const { data: suggestedData } = useSuggested(slug);
 	const { data: trailers } = useGameTrailers(slug);
 	const { data: screenshots } = useScreenshots(slug);
-	console.log(screenshots)
 	const modifiedTrailers = trailers?.results?.slice(0, 4);
 	let year, month;
 	if (data?.released) {
@@ -64,9 +63,6 @@ const GameDetailsPage = () => {
 		ratingText = 'Exceptional';
 	}
 
-	const triggerFullScreen = (el) => {
-		el.target.requestFullscreen();
-	};
 	if (error) return <AlertCom msg={error.message} />;
 
 	return (
@@ -88,13 +84,13 @@ const GameDetailsPage = () => {
 					>
 						<span
 							style={{
-								marginBottom:'2rem',
+								marginBottom: '2rem',
 								cursor: 'pointer',
 								fontSize: '2rem',
 								color: 'hsla(0,0%,100%,.4)',
 								display: 'block',
 								width: 'fit-content',
-								margin:'0'
+								margin: '0',
 							}}
 							onClick={() => history.back()}
 						>
@@ -475,9 +471,10 @@ const GameDetailsPage = () => {
 											src={getCroppedUrl(el.image)}
 											key={el.id}
 											borderRadius={'3px'}
-											onClick={(el) =>
-												triggerFullScreen(el)
-											}
+											transition={'transform .2s ease'}
+											_hover={{
+												transform: 'scale(1.1)',
+											}}
 										/>
 									))}
 								</SimpleGrid>
