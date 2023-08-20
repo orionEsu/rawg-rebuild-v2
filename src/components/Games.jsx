@@ -70,9 +70,7 @@ const Games = (props) => {
 				}}
 				marginTop={4}
 			>
-				{!gameQuery.searchValue && (
-					<GameHeading data={title} />
-				)}
+				{!gameQuery.searchValue && <GameHeading data={title} />}
 				<Box mt={5}>
 					<HStack mb={8}>
 						(
@@ -90,7 +88,8 @@ const Games = (props) => {
 			<Text
 				ref={dummyEl}
 				position={'absolute'}
-				top={'97vh'}
+				top={'85vh'}
+				pointerEvents={'none'}
 			></Text>
 			<Button
 				position={'fixed'}
