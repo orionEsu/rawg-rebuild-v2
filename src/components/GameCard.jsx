@@ -17,13 +17,9 @@ import { Link } from 'react-router-dom';
 const GameCard = forwardRef(({ game }, ref) => {
 	const platformObj = game?.parent_platforms?.map((p) => p.platform);
 	return (
-<<<<<<< HEAD
-		<Link to={`/games/${game.slug}/details`}>
-=======
 		<Link
 			to={`/games/${game.slug}/details`}
 		>
->>>>>>> ae18cf805a21152400a353ef7f7df2d12fb51db2
 			<Card
 				borderRadius={10}
 				overflow={'hidden'}
