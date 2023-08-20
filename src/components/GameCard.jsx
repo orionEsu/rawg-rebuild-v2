@@ -34,6 +34,7 @@ const GameCard = forwardRef(({ game }, ref) => {
 				<Image
 					src={getCroppedUrl(game.background_image)}
 					aspectRatio={'auto'}
+					fetchPriority={'high'}
 				/>
 
 				<CardHeader alignContent={'center'}>
