@@ -17,10 +17,7 @@ import { Link } from 'react-router-dom';
 const GameCard = forwardRef(({ game }, ref) => {
 	const platformObj = game?.parent_platforms?.map((p) => p.platform);
 	return (
-		<Link
-			to={`/games/${game.slug}/details`}
-			style={{ height: 'fit-content' }}
-		>
+		<Link to={`/games/${game.slug}/details`}>
 			<Card
 				borderRadius={10}
 				overflow={'hidden'}
@@ -32,8 +29,12 @@ const GameCard = forwardRef(({ game }, ref) => {
 					transform: 'translateY(-5px)',
 				}}
 				cursor={'pointer'}
+				height={'100%'}
 			>
-				<Image src={getCroppedUrl(game.background_image)} />
+				<Image
+					src={getCroppedUrl(game.background_image)}
+					aspectRatio={'auto'}
+				/>
 
 				<CardHeader alignContent={'center'}>
 					<HStack
