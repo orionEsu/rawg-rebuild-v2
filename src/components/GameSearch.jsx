@@ -25,13 +25,15 @@ const GameSearch = () => {
 	}, [query, gameQuery.searchValue, setSearchValue]);
 
 	const {
-		data,
-		error,
-		isFetching,
-		isInitialLoading,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
+		infiniteQuery: {
+			data,
+			error,
+			isInitialLoading,
+			isFetching,
+			isFetchingNextPage,
+			fetchNextPage,
+			hasNextPage,
+		},
 	} = useGames('', 'allGames');
 
 	return (
