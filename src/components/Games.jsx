@@ -13,6 +13,9 @@ const Games = (props) => {
 	const arrowRef = useRef(null);
 	const dummyEl = useRef(null);
 	const { pathname } = useLocation();
+	const {
+		data: { title },
+	} = props;
 	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const nav = document.querySelector('.navBar');
@@ -68,7 +71,7 @@ const Games = (props) => {
 				marginTop={4}
 			>
 				{!gameQuery.searchValue && (
-					<GameHeading data={data?.pages?.at(0)} />
+					<GameHeading data={title} />
 				)}
 				<Box mt={5}>
 					<HStack mb={8}>
@@ -88,8 +91,7 @@ const Games = (props) => {
 				ref={dummyEl}
 				position={'absolute'}
 				top={'97vh'}
-			>
-			</Text>
+			></Text>
 			<Button
 				position={'fixed'}
 				bottom={'20px'}
@@ -107,7 +109,7 @@ const Games = (props) => {
 				}}
 				onClick={() => window.scrollTo(0, 0)}
 			>
-				<FaArrowUp fill='black'/>
+				<FaArrowUp fill='black' />
 			</Button>
 		</>
 	);

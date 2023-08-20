@@ -8,7 +8,6 @@ const useGameTrailers = (slug) => {
 		queryKey: [`${slug}-trailers`],
 		queryFn: () => apiClient.get(),
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 	});
 };
 

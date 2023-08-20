@@ -7,7 +7,6 @@ import filterSpecialCharacters from '../services/filterSpecialCharacters';
 const GameHeading = ({ data }) => {
 	const { pathname } = useLocation();
 	const year = new Date().getFullYear();
-	console.log(pathname);
 	if (data)
 		if (pathname === '/') {
 			data = {

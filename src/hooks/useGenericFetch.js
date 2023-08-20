@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
@@ -8,12 +8,23 @@ const useGenericFetch = (endpoint, type, key) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games?${type}=${endpoint}`);
 
-	return useInfiniteQuery({
+	const query = useQuery({
+		queryKey: [`${key}--title`],
+		queryFn: () =>
+			apiClient.getGames({
+				params: {
+					filter: true,
+				},
+			}),
+		staleTime: hrToMs(24),
+	});
+
+	const infiniteQuery = useInfiniteQuery({
 		queryKey: [
 			key,
 			endpoint,
 			type === 'parent_platforms' ? gameQuery.platformId : null,
-			gameQuery.sortValue
+			gameQuery.sortValue,
 		],
 		queryFn: ({ pageParam = 1 }) =>
 			apiClient.getGames({
@@ -27,11 +38,12 @@ const useGenericFetch = (endpoint, type, key) => {
 				},
 			}),
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 		getNextPageParam: (lastPage, allPages) => {
 			return lastPage.next ? allPages.length + 1 : null;
 		},
 	});
+
+	return { infiniteQuery, query };
 };
 
 export default useGenericFetch;

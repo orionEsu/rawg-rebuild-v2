@@ -8,7 +8,6 @@ const useSuggested = (slug) => {
 		queryKey: [`otherGameIn-${slug}-series`],
 		queryFn: () => apiClient.get(),
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 	});
 };
 

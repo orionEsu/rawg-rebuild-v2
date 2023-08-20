@@ -2,19 +2,25 @@ import Games from '../components/Games';
 import useGames from '../hooks/useGames';
 
 const HomePage = () => {
+	const { infiniteQuery, query } = useGames(
+		'/lists/main?discover=true&ordering=-relevance',
+		'newGames'
+	);
 	const {
 		data,
 		error,
-		isInitialLoading,
 		isFetching,
+		isInitialLoading,
 		isFetchingNextPage,
 		fetchNextPage,
 		hasNextPage,
-	} = useGames('/lists/main?discover=true&ordering=-relevance', 'newGames');
+	} = infiniteQuery;
+	const { data: title } = query;
 
 	return (
 		<Games
 			data={{
+				title,
 				data,
 				error,
 				isInitialLoading,

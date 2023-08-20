@@ -6,8 +6,9 @@ import useGameQueryStore from '../store';
 
 const AllGamesPage = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
-
 	const { pathname } = useLocation();
+	
+	const { infiniteQuery, query } = useGames('', 'allGames');
 	const {
 		data,
 		error,
@@ -16,7 +17,8 @@ const AllGamesPage = () => {
 		isFetchingNextPage,
 		fetchNextPage,
 		hasNextPage,
-	} = useGames('', 'allGames');
+	} = infiniteQuery;
+	const { data: title } = query;
 
 	useEffect(() => {
 		if (pathname === '/games') {
@@ -27,6 +29,7 @@ const AllGamesPage = () => {
 	return (
 		<Games
 			data={{
+				title,
 				data,
 				error,
 				isInitialLoading,

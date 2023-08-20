@@ -33,7 +33,6 @@ const GameGrid = (props) => {
 		},
 		[hasNextPage]
 	);
-
 	if (error) return <AlertCom msg={error.message} />;
 	if (data?.pages.at(0).results.length === 0)
 		return <AlertCom msg={'No Game in this Category'} />;
@@ -45,7 +44,7 @@ const GameGrid = (props) => {
 			spacing={'25px'}
 			paddingBottom={14}
 		>
-			{isInitialLoading && arr.map((el, i) => <CardSkeleton key={i} />)}
+			{isInitialLoading  && arr.map((el, i) => <CardSkeleton key={i} />)}
 
 			{data?.pages?.map((game, index) => (
 				<React.Fragment key={index}>

@@ -8,7 +8,6 @@ const useScreenshots = (slug) => {
 		queryKey: [`${slug}-screenshots`],
 		queryFn: () => apiClient.get(),
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 	});
 };
 

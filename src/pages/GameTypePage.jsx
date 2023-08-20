@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Games from '../components/Games';
-import useGenericFetch from '../hooks/useGenericFetch';
-import useFindPlatformBySlug from '../hooks/useFindPlatformBySlug';
 import genres from '../data/genres';
+import useFindPlatformBySlug from '../hooks/useFindPlatformBySlug';
+import useGenericFetch from '../hooks/useGenericFetch';
 import useGameQueryStore from '../store';
 
 const GameTypePage = () => {
@@ -14,7 +14,6 @@ const GameTypePage = () => {
 	const params = useParams();
 	let slug = params.slug;
 	let type;
-
 	const selectedPlatform = useFindPlatformBySlug(slug);
 	const filteredGenre = genres?.results.filter((el) => el.slug === slug);
 
@@ -29,6 +28,11 @@ const GameTypePage = () => {
 		slug = selectedPlatform.id;
 	}
 
+	const { infiniteQuery, query } = useGenericFetch(
+		slug,
+		type,
+		`${slug}Games`
+	);
 	const {
 		data,
 		error,
@@ -37,24 +41,26 @@ const GameTypePage = () => {
 		isFetchingNextPage,
 		fetchNextPage,
 		hasNextPage,
-	} = useGenericFetch(slug, type, `${slug}Games`);
+	} = infiniteQuery;
+	const { data: title } = query;
+	
 	useEffect(() => {
 		if (data) {
 			setSortValue('');
-
 			if (type === 'genres' && isNaN(slug)) {
-				setPlatformId('');
+				setPlatformId(' ');
 			}
 
 			if (type !== 'genres') {
 				setGenreId('');
 			}
 		}
-	}, [type, slug]);
+	}, [type, slug, setPlatformId, setGenreId, setSortValue]);
 
 	return (
 		<Games
 			data={{
+				title,
 				data,
 				error,
 				isInitialLoading,

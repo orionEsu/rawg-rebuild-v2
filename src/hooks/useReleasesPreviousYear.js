@@ -28,7 +28,6 @@ const useReleasesPreviousYear = () => {
 			}),
 
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 		getNextPageParam: (lastPage, allPages) => {
 			return lastPage.next ? allPages.length + 1 : null;
 		},

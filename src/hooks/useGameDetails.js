@@ -9,7 +9,6 @@ const useGameDetails = (endpoint) => {
 		queryKey: [endpoint],
         queryFn:  apiClient.get,
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 	});
 };
 

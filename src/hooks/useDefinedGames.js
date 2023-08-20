@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
@@ -26,7 +26,18 @@ const useDefinedGames = (type, slug) => {
 
 	const apiClient = new APIClient(`games?${endpoint}`);
 
-	return useInfiniteQuery({
+	const query = useQuery({
+		queryKey: `${type}-${slug}-games`,
+		queryFn: () =>
+			apiClient.getGames({
+				params: {
+					filter: true,
+				},
+			}),
+		staleTime: hrToMs(24),
+	});
+
+	const infiniteQuery = useInfiniteQuery({
 		queryKey: [
 			`${type}-${slug}-games`,
 			gameQuery.platformId,
@@ -47,6 +58,8 @@ const useDefinedGames = (type, slug) => {
 			return lastPage.next ? allPages.length + 1 : null;
 		},
 	});
+
+	return { infiniteQuery, query };
 };
 
 export default useDefinedGames;
