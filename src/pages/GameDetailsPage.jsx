@@ -24,8 +24,10 @@ import useScreenshots from '../hooks/useScreenshots';
 import useSuggested from '../hooks/useSuggested';
 import getMonthName from '../services/getMonthName';
 import getCroppedUrl from '../services/image-url';
+import useGameQueryStore from '../store';
 // when moving from a game back to best of the year page, best of the year page do not load, the results array ie empty
 const GameDetailsPage = () => {
+	const setDefault = useGameQueryStore((state) => state.setDefault);
 	const { slug } = useParams();
 	const { data, isLoading, error } = useGameDetails(slug);
 	const { data: suggestedData } = useSuggested(slug);
@@ -93,7 +95,7 @@ const GameDetailsPage = () => {
 								margin: '0',
 								padding: '.2rem',
 								borderRadius: '50%',
-								transition: 'all .4s ease'
+								transition: 'all .4s ease',
 							}}
 							className='span-arrow'
 							onClick={() => history.back()}
@@ -122,7 +124,12 @@ const GameDetailsPage = () => {
 									color: '#fff',
 								}}
 							>
-								<Link to={'/'}>HOME</Link>
+								<Link
+									to={'/'}
+									onClick={() => setDefault()}
+								>
+									HOME
+								</Link>
 							</Button>{' '}
 							/{' '}
 							<Button
@@ -137,7 +144,13 @@ const GameDetailsPage = () => {
 									color: '#fff',
 								}}
 							>
-								<Link to={'/games'}> GAMES </Link>
+								<Link
+									to={'/games'}
+									onClick={() => setDefault()}
+								>
+									{' '}
+									GAMES{' '}
+								</Link>
 							</Button>{' '}
 							/ {data?.name.toUpperCase()}
 						</Text>
