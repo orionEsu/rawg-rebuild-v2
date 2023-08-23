@@ -17,7 +17,8 @@ const SearchInput = () => {
 			document.querySelector('.error_message').classList.add('show');
 		} else {
 			navigate(`/search`);
-			setSearchParams({query: searchedValue})
+			setSearchParams({ query: searchedValue })
+			document.title = `${searchedValue} ▫ RAWG`;
 			document.querySelector('.error_message').classList.remove('show');
 			e.target.reset();
 		}

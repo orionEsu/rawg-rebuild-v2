@@ -54,9 +54,8 @@ const GameHeading = ({ data }) => {
 			description: '',
 		};
 	}
-
 	pathname === '/'
-		? document.title
+		? 'RAWG ▫ Discover Video Games'
 		: (document.title = ` ${data?.seo_h1 && data?.seo_h1} ▫ RAWG`);
 
 	return (
