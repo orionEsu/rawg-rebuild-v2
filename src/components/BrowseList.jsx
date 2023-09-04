@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 
 const BrowseList = ({ onClose }) => {
 	const { pathname } = useLocation();
+	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSearchValue = useGameQueryStore((s) => s.setSearchValue);
 	const setSortValue = useGameQueryStore((s) => s.setSortValue);
 	const { colorMode } = useColorMode();
@@ -98,13 +99,14 @@ const BrowseList = ({ onClose }) => {
 								variant={'link'}
 								color={'gray.50'}
 								fontWeight={
-									pathname === '/genres'
-										? 'bold'
-										: 'normal'
+									pathname === '/genres' ? 'bold' : 'normal'
 								}
 								style={{ textDecoration: 'none' }}
 								_hover={{ color: 'hsla(0,0%,100%,.4)' }}
-								onClick={onClose}
+								onClick={() => {
+									onClose;
+									setPlatformId('');
+								}}
 							>
 								<Box
 									w={'32px'}
