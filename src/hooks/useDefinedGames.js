@@ -27,7 +27,7 @@ const useDefinedGames = (type, slug) => {
 	const apiClient = new APIClient(`games?${endpoint}`);
 
 	const query = useQuery({
-		queryKey: `${type}-${slug}-games`,
+		queryKey: [`${type}-${slug}-games`],
 		queryFn: () =>
 			apiClient.getGames({
 				params: {
@@ -53,7 +53,6 @@ const useDefinedGames = (type, slug) => {
 				},
 			}),
 		staleTime: hrToMs(24),
-		keepPreviousData: true,
 		getNextPageParam: (lastPage, allPages) => {
 			return lastPage.next ? allPages.length + 1 : null;
 		},
