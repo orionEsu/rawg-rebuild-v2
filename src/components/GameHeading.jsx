@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Box, Heading } from '@chakra-ui/react';
 import ExpandableText from './ExpandableText';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import filterSpecialCharacters from '../services/filterSpecialCharacters';
 
 const GameHeading = ({ data }) => {
 	const { pathname } = useLocation();
+	const {type} = useParams();
 	const year = new Date().getFullYear();
 	if (data)
 		if (pathname === '/') {
@@ -68,7 +69,7 @@ const GameHeading = ({ data }) => {
 					textTransform={'capitalize'}
 					fontFamily={'orbitron'}
 				>
-					{data?.seo_h1.includes('New and')
+					{data?.seo_h1 && type} {data?.seo_h1.includes('New and')
 						? data?.seo_h1.replace('New and', '')
 						: data?.seo_h1}
 				</Heading>
