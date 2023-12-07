@@ -8,6 +8,8 @@ const instance = axios.create({
 });
 
 class APIClient {
+	public endpoint: any;
+
 	constructor(endpoint) {
 		this.endpoint = endpoint;
 	}
