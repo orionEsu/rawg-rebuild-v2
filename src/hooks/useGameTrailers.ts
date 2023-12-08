@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 
-const useGameTrailers = (slug) => {
+const useGameTrailers = (slug: string) => {
 	const apiClient = new APIClient(`games/${slug}/movies`);
 	return useQuery({
 		queryKey: [`${slug}-trailers`],

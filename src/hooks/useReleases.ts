@@ -5,7 +5,7 @@ import useGameQueryStore from '../store';
 
 const apiClient = new APIClient('games');
 
-const useReleases = (tag, startDate, endDate) => {
+const useReleases = (tag: string, startDate: string, endDate: string) => {
 	const gameQuery = useGameQueryStore((s) => s.gameQuery);
 	const params = gameQuery.platformId || gameQuery.sortValue;
 

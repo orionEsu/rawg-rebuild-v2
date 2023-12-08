@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 
-const useScreenshots = (slug) => {
+const useScreenshots = (slug: string) => {
 	const apiClient = new APIClient(`games/${slug}/screenshots`);
 	return useQuery({
 		queryKey: [`${slug}-screenshots`],

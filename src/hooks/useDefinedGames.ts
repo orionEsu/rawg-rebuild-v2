@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 // Hook to fetch games based on the selected platform and genre
 
-const useDefinedGames = (type, slug) => {
+const useDefinedGames = (type: string, slug: string) => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const platform = findPlatform(type);

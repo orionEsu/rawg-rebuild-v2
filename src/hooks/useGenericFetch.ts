@@ -3,7 +3,7 @@ import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
 
-const useGenericFetch = (endpoint, type, key) => {
+const useGenericFetch = (endpoint: string, type:string, key:string) => {
 	
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games?${type}=${endpoint}`);

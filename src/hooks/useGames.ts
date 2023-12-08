@@ -3,7 +3,7 @@ import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
 
-const useGames = (endpoint, key) => {
+const useGames = (endpoint: string, key: string) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games${endpoint}`);
 
