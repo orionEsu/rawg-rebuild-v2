@@ -1,1 +1,1 @@
-export default (num) => (num.toString().length === 1 ? `0${num}` : num);
+export default (num: number): string | number => (num.toString().length === 1 ? `0${num}` : num);

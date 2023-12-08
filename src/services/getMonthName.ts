@@ -1,9 +1,9 @@
-export default (monthNumber) => {
-	if (!monthNumber) return;
+export default (monthNumber: string): string | null => {
+	if (!monthNumber) return null;
 
 	let index;
 	monthNumber[0] === '0' ? (index = monthNumber[1]) : (index = monthNumber);
-	
+
 	const months = [
 		'JAN',
 		'FEB',
@@ -19,6 +19,5 @@ export default (monthNumber) => {
 		'DEC',
 	];
 
-	// Return the month name
 	return months[+index - 1];
 };
