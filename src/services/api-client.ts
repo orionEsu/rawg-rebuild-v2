@@ -1,23 +1,49 @@
-import axios from 'axios';
+import instance from './url-client';
 
-const instance = axios.create({
-	baseURL: 'https://api.rawg.io/api/',
-	params: {
-		key: '8240aa126d27484897276d8f6c140a66',
-	},
-});
+type ChildPlatform = {
+	id: number;
+	name: string;
+	slug: string;
+	games_count: number;
+	image_background: string;
+	image: null;
+	year_start: null;
+	year_end: null;
+};
+type ParentPlatform = {
+	id: number;
+	slug: string;
+	name: string;
+	platforms: ChildPlatform[];
+};
 
+type Games = {
+	count: number;
+	next: string | null;
+	previous: string | null;
+	results: ParentPlatform[];
+};
 class APIClient {
-	public endpoint: any;
+	endpoint: string;
 
-	constructor(endpoint) {
+	constructor(endpoint: string) {
 		this.endpoint = endpoint;
 	}
 
-	getGames = (params) =>
+	getGames = (params: {
+		params: {
+			filter?: boolean;
+			dates?: string;
+			parent_platforms?: number;
+			ordering?: string;
+			page?: number;
+			search?: string;
+			platforms?: number;
+		};
+	}): Promise<Games> =>
 		instance.get(this.endpoint, params).then((res) => res.data);
 
-	get = () =>
+	get = <T>(): Promise<T> =>
 		instance
 			.get(this.endpoint, {
 				params: {
