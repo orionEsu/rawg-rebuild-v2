@@ -2,11 +2,29 @@ import { useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 
-const useSuggested = (slug) => {
+type Suggested = {
+	count: number;
+	next: string | null;
+	previous: string | null;
+	results: {
+		id: number;
+		slug: string;
+		background_image: string;
+		metacritic: number;
+		name: string;
+		rating_top: number;
+		parent_platforms: {
+			id: number;
+			name: string;
+			slug: string;
+		}[];
+	}[];
+};
+const useSuggested = (slug: string) => {
 	const apiClient = new APIClient(`games/${slug}/game-series`);
 	return useQuery({
 		queryKey: [`otherGameIn-${slug}-series`],
-		queryFn: () => apiClient.get(),
+		queryFn: () => apiClient.get<Suggested>(),
 		staleTime: hrToMs(24),
 	});
 };
