@@ -11,6 +11,7 @@ type Store = {
 	setPlatformId: (platformId: number) => void;
 	setSearchValue: (searchValue: string) => void;
 	setSortValue: (sortValue: string) => void;
+	setDefault: () => void;
 };
 
 const useGameQueryStore = create<Store>()((set) => ({
