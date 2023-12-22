@@ -19,34 +19,17 @@ const GameSearch = () => {
 
 	useEffect(() => {
 		// Only set the 'searchValue' if it's not equal to the value from the URL query parameter
-		if (query !== gameQuery.searchValue) {
+		if (query && query !== gameQuery.searchValue) {
 			setSearchValue(query);
 		}
 	}, [query, gameQuery.searchValue, setSearchValue]);
 
-	const {
-		infiniteQuery: {
-			data,
-			error,
-			isInitialLoading,
-			isFetching,
-			isFetchingNextPage,
-			fetchNextPage,
-			hasNextPage,
-		},
-	} = useGames('', 'allGames');
+	const { infiniteQuery } = useGames('', 'allGames');
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
-			}}
+			heading={{ title: '' }}
+			data={infiniteQuery}
 		/>
 	);
 };

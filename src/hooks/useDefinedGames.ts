@@ -29,7 +29,7 @@ const useDefinedGames = (type: string, slug: string) => {
 	const query = useQuery({
 		queryKey: [`${type}-${slug}-games`],
 		queryFn: () =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					filter: true,
 				},
@@ -44,7 +44,7 @@ const useDefinedGames = (type: string, slug: string) => {
 			gameQuery.sortValue,
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					platforms: gameQuery?.platformId,
 					filter: true,

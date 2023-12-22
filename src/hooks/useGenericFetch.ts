@@ -11,7 +11,7 @@ const useGenericFetch = (endpoint: string, type:string, key:string) => {
 	const query = useQuery({
 		queryKey: [`${key}--title`],
 		queryFn: () =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					filter: true,
 				},
@@ -27,7 +27,7 @@ const useGenericFetch = (endpoint: string, type:string, key:string) => {
 			gameQuery.sortValue,
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					filter: true,
 					...(type === 'parent_platforms' && {

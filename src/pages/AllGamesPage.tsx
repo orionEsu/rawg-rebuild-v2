@@ -7,18 +7,20 @@ import useGameQueryStore from '../store';
 const AllGamesPage = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const { pathname } = useLocation();
-	
+
 	const { infiniteQuery, query } = useGames('', 'allGames');
-	const {
-		data,
-		error,
-		isFetching,
-		isInitialLoading,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = infiniteQuery;
 	const { data: title } = query;
+	const heading = { title: title?.seo_h1, description: '' };
+	console.log(infiniteQuery);
+
+	// console.log(data);
+	// data?.pages.map((el) => {
+	// 	el.pages.map((page) => {
+	// 		console.log(page.results);
+	// 		// console.log(page);
+	// 	});
+	// 	// console.log(el)
+	// });
 
 	useEffect(() => {
 		if (pathname === '/games') {
@@ -28,16 +30,8 @@ const AllGamesPage = () => {
 
 	return (
 		<Games
-			data={{
-				title,
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
-			}}
+			heading={heading}
+			data={infiniteQuery}
 		/>
 	);
 };

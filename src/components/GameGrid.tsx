@@ -1,27 +1,25 @@
-/* eslint-disable react/prop-types */
 import { SimpleGrid } from '@chakra-ui/react';
 import React, { useCallback, useRef } from 'react';
 import { arr } from '../data/loadingData';
+import { T } from '../types';
 import AlertCom from './AlertCom';
 import CardSkeleton from './CardSkeleton';
 import GameCard from './GameCard';
 
-const GameGrid = (props) => {
+const GameGrid = ({ data }: { data: T }) => {
 	const {
-		data: {
-			data,
-			error,
-			isFetching,
-			isInitialLoading,
-			isFetchingNextPage,
-			fetchNextPage,
-			hasNextPage,
-		},
-	} = props.data;
-
-	const observer = useRef();
+		data: gameData,
+		error,
+		isFetching,
+		isInitialLoading,
+		isFetchingNextPage,
+		fetchNextPage,
+		hasNextPage,
+	} = data;
+	console.log(gameData);
+	const observer = useRef<IntersectionObserver | null>();
 	const getLastElementRef = useCallback(
-		(node) => {
+		(node: Element | null) => {
 			if (isFetching || isFetchingNextPage) return;
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
@@ -33,8 +31,9 @@ const GameGrid = (props) => {
 		},
 		[hasNextPage]
 	);
+
 	if (error) return <AlertCom msg={error.message} />;
-	if (data?.pages.at(0).results.length === 0)
+	if (gameData?.pages.at(0).results.length === 0)
 		return <AlertCom msg={'No Game in this Category'} />;
 
 	return (
@@ -44,11 +43,34 @@ const GameGrid = (props) => {
 			spacing={'25px'}
 			paddingBottom={14}
 		>
-			{isInitialLoading  && arr.map((el, i) => <CardSkeleton key={i} />)}
+			{isInitialLoading && arr.map((_, i) => <CardSkeleton key={i} />)}
 
-			{data?.pages?.map((game, index) => (
+			
+			{gameData?.pages?.map((page, index) => (
 				<React.Fragment key={index}>
-					{game?.results.map((el, index) => {
+					{page?.results.map(
+						(sgame, index) => {
+							// el.results.map((sgame, index) => {
+							if (page?.results.length === index + 1) {
+								return (
+									<GameCard
+										ref={getLastElementRef}
+										game={sgame}
+										key={index}
+									/>
+								);
+							} else {
+								return (
+									<GameCard
+										game={sgame}
+										key={index}
+									/>
+								);
+							}
+						}
+						// })
+					)}
+					{/* {game?.pages?.results.map((el, index) => {
 						if (game.results.length === index + 1) {
 							return (
 								<GameCard
@@ -65,12 +87,12 @@ const GameGrid = (props) => {
 								/>
 							);
 						}
-					})}
+					})} */}
 				</React.Fragment>
 			))}
 			{hasNextPage &&
 				isFetchingNextPage &&
-				arr.map((el, i) => <CardSkeleton key={i} />)}
+				arr.map((_, i) => <CardSkeleton key={i} />)}
 		</SimpleGrid>
 	);
 };

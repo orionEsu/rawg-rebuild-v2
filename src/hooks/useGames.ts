@@ -2,6 +2,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
+import { GameCardData, Heading } from '../types';
 
 const useGames = (endpoint: string, key: string) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
@@ -9,19 +10,14 @@ const useGames = (endpoint: string, key: string) => {
 
 	const query = useQuery({
 		queryKey: [`${key}--title`],
-		queryFn: () =>
-			apiClient.getGames({
-				params: {
-					filter: true,
-				},
-			}),
+		queryFn: () => apiClient.get<Heading>(),
 		staleTime: hrToMs(24),
 	});
-	
+
 	const infiniteQuery = useInfiniteQuery({
 		queryKey: [key, gameQuery.sortValue, gameQuery.searchValue],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGames({
+			apiClient.getGameInfo<GameCardData>({
 				params: {
 					filter: true,
 					ordering: gameQuery?.sortValue,

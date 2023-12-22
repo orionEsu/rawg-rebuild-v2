@@ -6,6 +6,7 @@ import filteredPlatform from '../services/filteredPlatforms';
 const PlatformPage = () => {
 	const { data, isLoading, error } = useParentPlatform();
 	const platforms = filteredPlatform(data);
+	console.log(data);
 	const parentPlatforms = data?.results.filter(
 		(el) => el.slug !== '3do' && el.slug !== 'neo-geo'
 	);

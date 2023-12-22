@@ -16,7 +16,7 @@ const useReleases = (tag: string, startDate: string, endDate: string) => {
 			gameQuery?.sortValue || '',
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					filter: true,
 					dates: `${startDate},${endDate}`,

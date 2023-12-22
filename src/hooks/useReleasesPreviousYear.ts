@@ -18,7 +18,7 @@ const useReleasesPreviousYear = () => {
 			gameQuery?.sortValue || '',
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGames({
+			apiClient.getGameInfo({
 				params: {
 					filter: true,
 					parent_platforms: gameQuery?.platformId,

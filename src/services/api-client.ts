@@ -23,6 +23,17 @@ type Games = {
 	previous: string | null;
 	results: ParentPlatform[];
 };
+
+type Filter = {
+	filter: boolean,
+	ordering?: string;
+	search?: string,
+	page: number,
+	dates?: `${string},${string}`
+}
+
+type GameInfoParam<TFilter = Filter>  = { params: TFilter }
+
 class APIClient {
 	endpoint: string;
 
@@ -30,18 +41,10 @@ class APIClient {
 		this.endpoint = endpoint;
 	}
 
-	getGames = (params: {
-		params: {
-			filter?: boolean;
-			dates?: string;
-			parent_platforms?: number;
-			ordering?: string;
-			page?: number;
-			search?: string;
-			platforms?: number;
-		};
-	}): Promise<Games> =>
-		instance.get(this.endpoint, params).then((res) => res.data);
+	getGameInfo = <TResponse>(params: GameInfoParam): Promise<TResponse> => {
+		return instance.get(this.endpoint, params)
+			.then((res) => res.data);
+	};
 
 	get = <T>(): Promise<T> =>
 		instance

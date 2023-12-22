@@ -31,7 +31,6 @@ const GameDetailsPage = () => {
 	const { slug } = useParams();
 
 	if (!slug) return null;
-
 	const { data, isLoading, error } = useGameDetails(slug);
 	const { data: suggestedData } = useSuggested(slug);
 	const { data: trailers } = useGameTrailers(slug);

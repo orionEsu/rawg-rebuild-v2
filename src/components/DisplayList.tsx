@@ -7,7 +7,7 @@ import useGameQueryStore from '../store';
 const DisplayList = ({ link, heading, data, onClose }) => {
 	const genreId = useGameQueryStore((state) => state.gameQuery.genreId);
 	const setGenreId = useGameQueryStore((state) => state.setGenreId);
-
+	console.log(data)
 	return (
 		<>
 			<Heading

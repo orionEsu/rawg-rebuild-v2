@@ -5,6 +5,7 @@ import getCroppedUrl from '../services/image-url';
 import { Link } from 'react-router-dom';
 
 const TypeGrid = ({ data, isLoading, parentPlatforms }) => {
+	console.log(data);
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3 }}

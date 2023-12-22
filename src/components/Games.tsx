@@ -1,28 +1,28 @@
-/* eslint-disable react/prop-types */
-import { Box, HStack, Text, Button } from '@chakra-ui/react';
+import { Box, Button, HStack, Text } from '@chakra-ui/react';
+import { useRef } from 'react';
+import { FaArrowUp } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import useGameQueryStore from '../store';
+import { T, GameHeadingProps } from '../types';
 import GameGrid from './GameGrid';
 import GameHeading from './GameHeading';
 import PlatformSelector from './PlatformSelector';
 import SortSelector from './SortSelector';
-import { useRef } from 'react';
-import { FaArrowUp } from 'react-icons/fa';
 
-const Games = (props) => {
-	const arrowRef = useRef(null);
-	const dummyEl = useRef(null);
+const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
+	const arrowRef = useRef<HTMLButtonElement | null>(null);
+	const dummyEl = useRef<HTMLParagraphElement | null>(null);
 	const { pathname } = useLocation();
-	const {
-		data: { title },
-	} = props;
-	const { data } = props.data;
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const nav = document.querySelector('.navBar');
 	const scrollWatcher = document.querySelector('.scrollWatcher');
 	const navObserver = new IntersectionObserver(
 		(entries) => {
-			nav.classList.toggle('sticking', !entries[0].isIntersecting);
+			nav &&
+					nav.classList.toggle(
+						'sticking',
+						!entries[0].isIntersecting
+					);
 		},
 		{
 			rootMargin: '20px 0px 0px 0px',
@@ -39,7 +39,7 @@ const Games = (props) => {
 
 	return (
 		<>
-			{gameQuery.searchValue && (
+			{/* {gameQuery.searchValue && (
 				<Text
 					display={'flex'}
 					flexWrap={'wrap'}
@@ -54,7 +54,7 @@ const Games = (props) => {
 						<span>: Found {data?.pages.at(0).count} Games</span>
 					)}
 				</Text>
-			)}
+			)} */}
 			<Box
 				paddingRight={{
 					base: 8,
@@ -70,7 +70,7 @@ const Games = (props) => {
 				}}
 				marginTop={4}
 			>
-				{!gameQuery.searchValue && <GameHeading data={title} />}
+				{!gameQuery.searchValue && <GameHeading heading={heading} />}
 				<Box mt={5}>
 					<HStack mb={8}>
 						(
@@ -82,7 +82,7 @@ const Games = (props) => {
 						</>
 						)
 					</HStack>
-					<GameGrid data={props} />
+					<GameGrid data={data} />
 				</Box>
 			</Box>
 			<Text

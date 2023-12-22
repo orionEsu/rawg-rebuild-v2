@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 
-type Screenshots = {
+type Screenshot = {
 	count: number;
 	next: string | null;
 	previous: string | null;
@@ -10,13 +10,13 @@ type Screenshots = {
 		id: number;
 		image: string;
 	}[];
-};
-
+	
+}
 const useScreenshots = (slug: string) => {
 	const apiClient = new APIClient(`games/${slug}/screenshots`);
 	return useQuery({
 		queryKey: [`${slug}-screenshots`],
-		queryFn: () => apiClient.get<Screenshots>(),
+		queryFn: () => apiClient.get <Screenshot>(),
 		staleTime: hrToMs(24),
 	});
 };

@@ -3,61 +3,50 @@ import { Box, Heading } from '@chakra-ui/react';
 import ExpandableText from './ExpandableText';
 import { useLocation, useParams } from 'react-router-dom';
 import filterSpecialCharacters from '../services/filterSpecialCharacters';
+import { GameHeadingProps } from '../types';
 
-const GameHeading = ({ data }) => {
+const GameHeading = ({ heading }: { heading: GameHeadingProps }) => {
 	const { pathname } = useLocation();
-	const {type} = useParams();
+	const { type } = useParams();
 	const year = new Date().getFullYear();
-	if (data)
+	if (heading.title)
 		if (pathname === '/') {
-			data = {
-				seo_h1: 'New and trending',
-				description: '<p>Based on player counts and release date</p>',
-			};
+			(heading.title = 'New and trending'),
+				(heading.description =
+					'<p>Based on player counts and release date</p>');
 		}
 	if (pathname === '/games') {
-		data = {
-			seo_h1: 'All Games',
-			description: '',
-		};
+		heading.title = 'All Games';
+		heading.description = '';
 	}
 	if (pathname === '/last-30-days') {
-		data = {
-			seo_h1: 'Last 30 Days',
-			description: '',
-		};
+		heading.title = 'Last 30 Days';
+		heading.description = '';
 	}
 
 	if (pathname === '/this-week') {
-		data = {
-			seo_h1: 'This Week',
-			description: '',
-		};
+		heading.title = 'This Week';
+		heading.description = '';
 	}
 
 	if (pathname === '/next-week') {
-		data = {
-			seo_h1: 'Next Week',
-			description: '',
-		};
+		heading.title = 'Next Week';
+		heading.description = '';
 	}
 
 	if (pathname === '/best-of-the-year') {
-		data = {
-			seo_h1: `Games of ${year}`,
-			description: '',
-		};
+		heading.title = `Games of ${year}`;
+		heading.description = '';
 	}
 
 	if (pathname === '/top-of-2022') {
-		data = {
-			seo_h1: `Popular in ${year - 1}`,
-			description: '',
-		};
+		heading.title = `Popular in ${year - 1}`;
+		heading.description = '';
 	}
+
 	pathname === '/'
 		? 'RAWG ▫ Discover Video Games'
-		: (document.title = ` ${data?.seo_h1 && data?.seo_h1} ▫ RAWG`);
+		: (document.title = ` ${heading?.title && heading?.title} ▫ RAWG`);
 
 	return (
 		<>
@@ -69,15 +58,17 @@ const GameHeading = ({ data }) => {
 					textTransform={'capitalize'}
 					fontFamily={'orbitron'}
 				>
-					{data?.seo_h1 && type} {data?.seo_h1.includes('New and')
-						? data?.seo_h1.replace('New and', '')
-						: data?.seo_h1}
+					{heading?.title && type}{' '}
+
+					{heading.title && heading?.title.includes('New and')
+						? heading?.title.replace('New and', '')
+						: heading?.title}
 				</Heading>
 			</Box>
 
 			<ExpandableText>
-				{data?.description &&
-					filterSpecialCharacters(data?.description)}
+				{heading?.description &&
+					filterSpecialCharacters(heading?.description)}
 			</ExpandableText>
 		</>
 	);

@@ -7,8 +7,17 @@ const apiClient = new APIClient('platforms');
 const usePlatform = () =>
 	useQuery({
 		queryKey: ['singlePlatform'],
-		queryFn: apiClient.getGames,
+		queryFn: apiClient.getGameInfo,
 		staleTime: hrToMs(24),
 	});
+	
+// const usePlatform = () =>
+// 	useQuery({
+// 		queryKey: ['singlePlatform'],
+// 		queryFn: () => apiClient.getGameInfo<{}, { name: string }>({
+// 			params: {}
+// 		}),
+// 		staleTime: hrToMs(24),
+// 	});
 
 export default usePlatform;
