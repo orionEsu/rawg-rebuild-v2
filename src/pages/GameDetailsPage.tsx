@@ -29,8 +29,11 @@ import useGameQueryStore from "../store";
 const GameDetailsPage = () => {
 	const setDefault = useGameQueryStore((state) => state.setDefault);
 	const { slug } = useParams();
+<<<<<<< HEAD
 
 	if (!slug) return null;
+=======
+>>>>>>> parent of 38d3585 (Add new types and update API calls)
 	const { data, isLoading, error } = useGameDetails(slug);
 	const { data: suggestedData } = useSuggested(slug);
 	const { data: trailers } = useGameTrailers(slug);
