@@ -25,14 +25,16 @@ type Games = {
 };
 
 type Filter = {
-	filter: boolean,
+	filter: boolean;
 	ordering?: string;
-	search?: string,
-	page: number,
-	dates?: `${string},${string}`
-}
+	search?: string;
+	page?: number;
+	dates?: `${string},${string}`;
+	parent_platforms?: number | string;
+	platforms?: number | string;
+};
 
-type GameInfoParam<TFilter = Filter>  = { params: TFilter }
+type GameInfoParam<TFilter = Filter>  = { params?: TFilter }
 
 class APIClient {
 	endpoint: string;

@@ -1,3 +1,4 @@
+import { IconType } from 'react-icons';
 import { AiFillWindows, AiFillApple, AiFillAndroid } from 'react-icons/ai';
 import {
 	BsGlobe,
@@ -9,7 +10,7 @@ import { DiLinux } from 'react-icons/di';
 import { RiMacLine } from 'react-icons/ri';
 import { SiSega, SiAtari, SiCommodore } from 'react-icons/si';
 
-export const iconMap = {
+export const iconMap: { [key: string]: IconType } = {
 	pc: AiFillWindows,
 	web: BsGlobe,
 	playstation: BsPlaystation,

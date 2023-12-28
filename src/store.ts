@@ -2,13 +2,13 @@ import { create } from 'zustand';
 
 type Store = {
 	gameQuery: {
-		genreId?: number;
-		platformId?: number;
+		genreId?: number | '';
+		platformId?: number | '';
 		searchValue?: string;
 		sortValue?: string;
 	};
-	setGenreId: (genreId: number) => void;
-	setPlatformId: (platformId: number) => void;
+	setGenreId: (genreId: number | '') => void;
+	setPlatformId: (platformId: number | '') => void;
 	setSearchValue: (searchValue: string) => void;
 	setSortValue: (sortValue: string) => void;
 	setDefault: () => void;

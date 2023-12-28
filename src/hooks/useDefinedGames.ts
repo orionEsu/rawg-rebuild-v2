@@ -4,7 +4,8 @@ import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
 import findPlatform from './useFindPlatformBySlug';
 import { useEffect } from 'react';
-// import { useEffect } from 'react';
+import { GameCardData, APIHeading } from '../types';
+import {} from '../types';
 
 // Hook to fetch games based on the selected platform and genre
 
@@ -12,9 +13,9 @@ const useDefinedGames = (type: string, slug: string) => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const platform = findPlatform(type);
-
+	
 	useEffect(() => {
-		setPlatformId(platform?.id);
+		platform && setPlatformId(platform?.id);
 	}, []);
 
 	let endpoint;
@@ -29,7 +30,7 @@ const useDefinedGames = (type: string, slug: string) => {
 	const query = useQuery({
 		queryKey: [`${type}-${slug}-games`],
 		queryFn: () =>
-			apiClient.getGameInfo({
+			apiClient.getGameInfo<APIHeading>({
 				params: {
 					filter: true,
 				},
@@ -44,7 +45,7 @@ const useDefinedGames = (type: string, slug: string) => {
 			gameQuery.sortValue,
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGameInfo({
+			apiClient.getGameInfo<GameCardData>({
 				params: {
 					platforms: gameQuery?.platformId,
 					filter: true,

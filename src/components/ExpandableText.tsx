@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import { Text, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const ExpandableText = ({ children }) => {
+const ExpandableText = ({ description }: { description: string }) => {
 	const [expanded, setExpanded] = useState(false);
 	const pathname = useParams();
 
@@ -12,9 +11,11 @@ const ExpandableText = ({ children }) => {
 	}, [pathname]);
 
 	const limit = 300;
-	if (!children) return;
-	if (children.length <= limit) return <Text>{children}</Text>;
-	const summary = expanded ? children : children.substring(0, limit) + '....';
+	if (!description) return;
+	if (description.length <= limit) return <Text>{description}</Text>;
+	const summary = expanded
+		? description
+		: description.substring(0, limit) + '....';
 	return (
 		<>
 			{summary}

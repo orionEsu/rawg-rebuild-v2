@@ -13,16 +13,13 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 	const arrowRef = useRef<HTMLButtonElement | null>(null);
 	const dummyEl = useRef<HTMLParagraphElement | null>(null);
 	const { pathname } = useLocation();
+	console.log(pathname);
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const nav = document.querySelector('.navBar');
 	const scrollWatcher = document.querySelector('.scrollWatcher');
 	const navObserver = new IntersectionObserver(
 		(entries) => {
-			nav &&
-					nav.classList.toggle(
-						'sticking',
-						!entries[0].isIntersecting
-					);
+			nav && nav.classList.toggle('sticking', !entries[0].isIntersecting);
 		},
 		{
 			rootMargin: '20px 0px 0px 0px',
@@ -39,7 +36,7 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 
 	return (
 		<>
-			{/* {gameQuery.searchValue && (
+			{gameQuery.searchValue && (
 				<Text
 					display={'flex'}
 					flexWrap={'wrap'}
@@ -50,11 +47,8 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 					mr={'45px'}
 				>
 					Searched for {gameQuery.searchValue}{' '}
-					{data && (
-						<span>: Found {data?.pages.at(0).count} Games</span>
-					)}
 				</Text>
-			)} */}
+			)}
 			<Box
 				paddingRight={{
 					base: 8,
@@ -76,9 +70,18 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 						(
 						<>
 							{!gameQuery.searchValue && <SortSelector />}
-							{pathname !== '/' && !gameQuery.searchValue && (
-								<PlatformSelector />
-							)}
+							{pathname !== '/' &&
+								pathname !== '/next-week' &&
+								pathname !== '/this-week' &&
+								pathname !== '/last-30-days' && (
+									<PlatformSelector />
+								)}
+
+							{/* {pathname !== '/' &&
+								pathname !== '/next-week' &&
+								pathname !== '/last-week' &&
+								'/last-30-days' &&
+								!gameQuery.searchValue && <PlatformSelector />} */}
 						</>
 						)
 					</HStack>

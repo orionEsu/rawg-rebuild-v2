@@ -2,16 +2,19 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import APIClient from '../services/api-client';
 import { hrToMs } from '../services/timeConverter';
 import useGameQueryStore from '../store';
+import { GameCardData } from '../types';
+import { APIHeading } from '../types';
 
-const useGenericFetch = (endpoint: string, type:string, key:string) => {
-	
+
+
+const useGenericFetch = (endpoint: string, type: string, key: string) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games?${type}=${endpoint}`);
 
 	const query = useQuery({
 		queryKey: [`${key}--title`],
 		queryFn: () =>
-			apiClient.getGameInfo({
+			apiClient.getGameInfo<APIHeading>({
 				params: {
 					filter: true,
 				},
@@ -27,7 +30,7 @@ const useGenericFetch = (endpoint: string, type:string, key:string) => {
 			gameQuery.sortValue,
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGameInfo({
+			apiClient.getGameInfo<GameCardData>({
 				params: {
 					filter: true,
 					...(type === 'parent_platforms' && {

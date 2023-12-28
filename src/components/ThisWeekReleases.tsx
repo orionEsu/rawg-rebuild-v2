@@ -14,7 +14,6 @@ const ThisWeekReleases = () => {
 		setPlatformId('');
 	}, []);
 
-
 	const { today, year, month, day } = dateGetter();
 
 	const val = today.getDate() - day + (day === 0 ? -6 : 1);
@@ -23,28 +22,14 @@ const ThisWeekReleases = () => {
 	const startDate = `${year}-${month}-${diffMonday}`;
 	const endDate = `${year}-${month}-${diffSunday}`;
 
-
-	const {
-		data,
-		error,
-		isInitialLoading,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useReleases('this-week-releases', startDate, endDate);
+	const IQueryResult = useReleases('this-week-releases', startDate, endDate);
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
+			heading={{
+				title: 'This Week Releases',
 			}}
+			data={IQueryResult}
 		/>
 	);
 };

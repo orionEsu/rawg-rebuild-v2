@@ -16,30 +16,17 @@ const NextWeekReleases = () => {
 
 	const { today, year, month, date } = dateGetter();
 	const updatedDate = padNum(today.getDate() + 7);
-	const startDate = `${year}-${month}-${date - 1}`;
+	const startDate = `${year}-${month}-${Number(date) - 1}`;
 	const endDate = `${year}-${month}-${updatedDate}`;
 
-	const {
-		data,
-		error,
-		isInitialLoading,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useReleases('next-week-releases', startDate, endDate);
+	const IQueryResult = useReleases('next-week-releases', startDate, endDate);
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
+			heading={{
+				title: 'Next Week Releases',
 			}}
+			data={IQueryResult}
 		/>
 	);
 };

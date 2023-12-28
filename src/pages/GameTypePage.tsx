@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import AlertCom from '../components/AlertCom';
 import Games from '../components/Games';
-import genres from '../data/genres';
 import useFindPlatformBySlug from '../hooks/useFindPlatformBySlug';
 import useGenericFetch from '../hooks/useGenericFetch';
+import useGenres from '../hooks/useGenres';
 import useGameQueryStore from '../store';
 
 const GameTypePage = () => {
@@ -11,21 +12,26 @@ const GameTypePage = () => {
 	const setGenreId = useGameQueryStore((state) => state.setGenreId);
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	const { data } = useGenres();
+
 	const params = useParams();
 	let slug = params.slug;
-	let type;
+	let type: string = '';
+
+	if (!slug) return <AlertCom msg='An Error Occured' />;
+
 	const selectedPlatform = useFindPlatformBySlug(slug);
-	const filteredGenre = genres?.results.filter((el) => el.slug === slug);
+	const filteredGenre = data?.results.filter((el) => el.slug === slug);
 
 	if (!selectedPlatform) type = 'genres';
 
 	if (!selectedPlatform && !gameQuery.genreId) {
-		setGenreId(filteredGenre?.[0].id);
+		filteredGenre.length > 0 && setGenreId(filteredGenre?.[0].id);
 	}
 
 	if (selectedPlatform) {
 		type = 'parent_platforms';
-		slug = selectedPlatform.id;
+		slug = selectedPlatform.id.toString();
 	}
 
 	const { infiniteQuery, query } = useGenericFetch(
@@ -33,22 +39,14 @@ const GameTypePage = () => {
 		type,
 		`${slug}Games`
 	);
-	const {
-		data,
-		error,
-		isFetching,
-		isInitialLoading,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = infiniteQuery;
-	const { data: title } = query;
-	
+	const IQueryResult = infiniteQuery;
+	const { data: heading } = query;
+
 	useEffect(() => {
-		if (data) {
+		if (IQueryResult.data) {
 			setSortValue('');
-			if (type === 'genres' && isNaN(slug)) {
-				setPlatformId(' ');
+			if (type === 'genres') {
+				setPlatformId('');
 			}
 
 			if (type !== 'genres') {
@@ -59,16 +57,11 @@ const GameTypePage = () => {
 
 	return (
 		<Games
-			data={{
-				title,
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
+			heading={{
+				title: heading?.seo_h1,
+				description: heading?.description,
 			}}
+			data={IQueryResult}
 		/>
 	);
 };

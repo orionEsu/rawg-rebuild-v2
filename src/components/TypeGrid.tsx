@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
 import { SimpleGrid, Card, Heading, Skeleton } from '@chakra-ui/react';
+import { Genre } from '../types';
 import { arr } from '../data/loadingData';
 import getCroppedUrl from '../services/image-url';
 import { Link } from 'react-router-dom';
 
-const TypeGrid = ({ data, isLoading, parentPlatforms }) => {
-	console.log(data);
+type TypeGridProps = {
+	data: Genre;
+	isLoading: boolean;
+	parentPlatforms?: any;
+};
+
+const TypeGrid = ({ data, isLoading, parentPlatforms }: TypeGridProps) => {
 	return (
 		<SimpleGrid
 			columns={{ sm: 1, md: 2, lg: 3 }}
@@ -28,7 +34,7 @@ const TypeGrid = ({ data, isLoading, parentPlatforms }) => {
 				arr.map((el) => (
 					<Skeleton
 						height={'88px'}
-						key={el.id}
+						key={el}
 					/>
 				))}
 

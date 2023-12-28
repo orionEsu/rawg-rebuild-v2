@@ -16,6 +16,7 @@ type GameDetails = {
 	name: string;
 	playtime: number;
 	ratings_count: number;
+	background_image: string;
 	metacritic: number | null;
 	genres: {
 		id: number;

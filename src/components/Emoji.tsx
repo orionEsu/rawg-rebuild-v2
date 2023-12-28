@@ -4,7 +4,7 @@ import bullsEye from '../assets/bulls-eye.webp';
 import meh from '../assets/meh.webp';
 import thumbsUp from '../assets/thumbs-up.webp';
 
-const Emoji = ({ rating }) => {
+const Emoji = ({ rating }: { rating: number }) => {
 	if (rating < 3) return null;
 
 	return (

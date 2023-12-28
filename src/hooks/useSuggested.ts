@@ -13,11 +13,13 @@ type Suggested = {
 		metacritic: number;
 		name: string;
 		rating_top: number;
-		parent_platforms: {
-			id: number;
-			name: string;
-			slug: string;
-		}[];
+		parent_platforms: Array<{
+			platform: {
+				id: number;
+				slug: string;
+				name: string;
+			};
+		}>;
 	}[];
 };
 const useSuggested = (slug: string) => {

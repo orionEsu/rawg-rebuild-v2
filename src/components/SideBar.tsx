@@ -36,9 +36,9 @@ const SideBar = () => {
 				</Link>
 			</Heading>
 
-			<NewReleasesList />
-			<TopReleases />
-			<BrowseList />
+			<NewReleasesList onClose={() => {}}/>
+			<TopReleases onClose={() => {}}/>
+			<BrowseList onClose={() => {}}/>
 		</Box>
 	);
 };

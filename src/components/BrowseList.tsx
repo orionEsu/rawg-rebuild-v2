@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import useGameQueryStore from '../store';
 import { useLocation } from 'react-router-dom';
 
-const BrowseList = ({ onClose }) => {
+const BrowseList = ({ onClose }: { onClose: () => void }) => {
 	const { pathname } = useLocation();
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSearchValue = useGameQueryStore((s) => s.setSearchValue);

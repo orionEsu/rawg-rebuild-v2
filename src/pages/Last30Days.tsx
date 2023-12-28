@@ -17,27 +17,14 @@ const Last30Days = () => {
 	const startDate = `${year}-${startDateMonth}-${date}`;
 	const endDate = `${year}-${month}-${date}`;
 
-	const {
-		data,
-		error,
-		isInitialLoading,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} =  useReleases('last-30-days', startDate, endDate);
+	const IQueryResult = useReleases('last-30-days', startDate, endDate);
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
+			heading={{
+				title: 'Last 30 Days Releases',
 			}}
+			data={IQueryResult}
 		/>
 	);
 };

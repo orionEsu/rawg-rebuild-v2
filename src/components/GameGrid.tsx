@@ -16,7 +16,6 @@ const GameGrid = ({ data }: { data: T }) => {
 		fetchNextPage,
 		hasNextPage,
 	} = data;
-	console.log(gameData);
 	const observer = useRef<IntersectionObserver | null>();
 	const getLastElementRef = useCallback(
 		(node: Element | null) => {
@@ -31,8 +30,9 @@ const GameGrid = ({ data }: { data: T }) => {
 		},
 		[hasNextPage]
 	);
-
-	if (error) return <AlertCom msg={error.message} />;
+	if (error instanceof Error) {
+		return <AlertCom msg={error.message} />;
+	}
 	if (gameData?.pages.at(0).results.length === 0)
 		return <AlertCom msg={'No Game in this Category'} />;
 
@@ -45,48 +45,52 @@ const GameGrid = ({ data }: { data: T }) => {
 		>
 			{isInitialLoading && arr.map((_, i) => <CardSkeleton key={i} />)}
 
-			
 			{gameData?.pages?.map((page, index) => (
 				<React.Fragment key={index}>
-					{page?.results.map(
-						(sgame, index) => {
-							// el.results.map((sgame, index) => {
-							if (page?.results.length === index + 1) {
-								return (
-									<GameCard
-										ref={getLastElementRef}
-										game={sgame}
-										key={index}
-									/>
-								);
-							} else {
-								return (
-									<GameCard
-										game={sgame}
-										key={index}
-									/>
-								);
-							}
-						}
-						// })
-					)}
-					{/* {game?.pages?.results.map((el, index) => {
-						if (game.results.length === index + 1) {
+					{page.results.map((sgame, index) => {
+						if (page?.results.length === index + 1) {
 							return (
 								<GameCard
 									ref={getLastElementRef}
-									game={el}
-									key={el.id}
+									game={sgame}
+									key={index}
 								/>
 							);
 						} else {
 							return (
 								<GameCard
-									game={el}
-									key={el.id}
+									game={sgame}
+									key={index}
 								/>
 							);
 						}
+					})}
+					{/* {page?.pages?.map?.((page) => {
+						return page.results.map((sgame, index) => {
+							// if (page?.results.length === index + 1) {
+							// 	return (
+							// 		<GameCard
+							// 			ref={getLastElementRef}
+							// 			game={sgame}
+							// 			key={index}
+							// 		/>
+							// 	);
+							// } else {
+							// 	return (
+							// 		<GameCard
+							// 			game={sgame}
+							// 			key={index}
+							// 		/>
+							// 	);
+							// }
+							return (
+								<GameCard
+									ref={getLastElementRef}
+									game={sgame}
+									key={index}
+								/>
+							);
+						});
 					})} */}
 				</React.Fragment>
 			))}

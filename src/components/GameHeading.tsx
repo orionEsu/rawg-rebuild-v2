@@ -1,52 +1,22 @@
-/* eslint-disable react/prop-types */
 import { Box, Heading } from '@chakra-ui/react';
-import ExpandableText from './ExpandableText';
 import { useLocation, useParams } from 'react-router-dom';
 import filterSpecialCharacters from '../services/filterSpecialCharacters';
 import { GameHeadingProps } from '../types';
+import ExpandableText from './ExpandableText';
+import useGameQueryStore from '../store';
+import useParentPlatform from '../hooks/useParentPlatform';
 
 const GameHeading = ({ heading }: { heading: GameHeadingProps }) => {
 	const { pathname } = useLocation();
 	const { type } = useParams();
-	const year = new Date().getFullYear();
-	if (heading.title)
-		if (pathname === '/') {
-			(heading.title = 'New and trending'),
-				(heading.description =
-					'<p>Based on player counts and release date</p>');
-		}
-	if (pathname === '/games') {
-		heading.title = 'All Games';
-		heading.description = '';
-	}
-	if (pathname === '/last-30-days') {
-		heading.title = 'Last 30 Days';
-		heading.description = '';
-	}
+	const { data } = useParentPlatform();
+	const platformId = useGameQueryStore((state) => state.gameQuery.platformId);
+	const gamePlatform = data?.results.find((el) => el.id === platformId);
 
-	if (pathname === '/this-week') {
-		heading.title = 'This Week';
-		heading.description = '';
-	}
-
-	if (pathname === '/next-week') {
-		heading.title = 'Next Week';
-		heading.description = '';
-	}
-
-	if (pathname === '/best-of-the-year') {
-		heading.title = `Games of ${year}`;
-		heading.description = '';
-	}
-
-	if (pathname === '/top-of-2022') {
-		heading.title = `Popular in ${year - 1}`;
-		heading.description = '';
-	}
-
-	pathname === '/'
-		? 'RAWG ▫ Discover Video Games'
-		: (document.title = ` ${heading?.title && heading?.title} ▫ RAWG`);
+	if (heading?.title)
+		pathname === '/'
+			? 'RAWG ▫ Discover Video Games'
+			: (document.title = ` ${heading?.title && heading?.title} ▫ RAWG`);
 
 	return (
 		<>
@@ -58,18 +28,20 @@ const GameHeading = ({ heading }: { heading: GameHeadingProps }) => {
 					textTransform={'capitalize'}
 					fontFamily={'orbitron'}
 				>
-					{heading?.title && type}{' '}
-
-					{heading.title && heading?.title.includes('New and')
-						? heading?.title.replace('New and', '')
-						: heading?.title}
+					{pathname === '/best-of-the-year' &&
+						platformId &&
+						gamePlatform?.name}
+					{heading?.title && type} {heading?.title}
 				</Heading>
 			</Box>
 
-			<ExpandableText>
-				{heading?.description &&
-					filterSpecialCharacters(heading?.description)}
-			</ExpandableText>
+			<ExpandableText
+				description={
+					heading.description
+						? filterSpecialCharacters(heading.description)
+						: ' '
+				}
+			/>
 		</>
 	);
 };

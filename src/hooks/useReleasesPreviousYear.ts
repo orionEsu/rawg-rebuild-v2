@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { GameCardData } from '../types';
 import { hrToMs } from '../services/timeConverter';
 import APIClient from '../services/api-client';
 import useGameQueryStore from '../store';
@@ -10,7 +11,7 @@ const apiClient = new APIClient(
 
 const useReleasesPreviousYear = () => {
 	const gameQuery = useGameQueryStore((s) => s.gameQuery);
-
+	
 	return useInfiniteQuery({
 		queryKey: [
 			`releases-${previousYear}`,
@@ -18,7 +19,7 @@ const useReleasesPreviousYear = () => {
 			gameQuery?.sortValue || '',
 		],
 		queryFn: ({ pageParam = 1 }) =>
-			apiClient.getGameInfo({
+			apiClient.getGameInfo<GameCardData>({
 				params: {
 					filter: true,
 					parent_platforms: gameQuery?.platformId,

@@ -1,26 +1,32 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+	Input,
+	InputGroup,
+	InputLeftElement,
+	InputProps,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useRef } from 'react';
+import { FormEvent, useRef } from 'react';
 import '../index.css';
 import { useNavigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
 const SearchInput = () => {
-	const searchValue = useRef(null);
+	const searchValue = useRef<HTMLInputElement | null>(null);
+	const errorRef = useRef<HTMLParagraphElement | null>(null);
 	const navigate = useNavigate();
-	const [searchParams, setSearchParams] = useSearchParams()
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		const searchedValue = searchValue.current.value;
+		const searchedValue = searchValue?.current?.value;
 		if (searchedValue === ' ' || searchedValue === null) {
-			document.querySelector('.error_message').classList.add('show');
+			errorRef?.current?.classList.add('show');
 		} else {
 			navigate(`/search`);
-			setSearchParams({ query: searchedValue })
+			searchedValue && setSearchParams({ query: searchedValue });
 			document.title = `${searchedValue} ▫ RAWG`;
-			document.querySelector('.error_message').classList.remove('show');
-			e.target.reset();
+			errorRef?.current?.classList.remove('show');
+			(e.target as HTMLFormElement).reset();
 		}
 	};
 
@@ -47,7 +53,12 @@ const SearchInput = () => {
 					ref={searchValue}
 				/>
 			</InputGroup>
-			<p className='error_message'>Enter Game Name</p>
+			<p
+				className='error_message'
+				ref={errorRef}
+			>
+				Enter Game Name
+			</p>
 		</form>
 	);
 };

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
 	Box,
 	Button,
@@ -11,7 +10,9 @@ import {
 import '../index.css';
 import { Link, useLocation } from 'react-router-dom';
 
-const NewReleasesList = ({ onClose }) => {
+const NewReleasesList = ({ onClose }: {
+	onClose: () => void;
+}) => {
 	const { colorMode } = useColorMode();
 	const { pathname } = useLocation();
 

@@ -8,19 +8,7 @@ const AllGamesPage = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const { pathname } = useLocation();
 
-	const { infiniteQuery, query } = useGames('', 'allGames');
-	const { data: title } = query;
-	const heading = { title: title?.seo_h1, description: '' };
-	console.log(infiniteQuery);
-
-	// console.log(data);
-	// data?.pages.map((el) => {
-	// 	el.pages.map((page) => {
-	// 		console.log(page.results);
-	// 		// console.log(page);
-	// 	});
-	// 	// console.log(el)
-	// });
+	const { infiniteQuery } = useGames('', 'allGames');
 
 	useEffect(() => {
 		if (pathname === '/games') {
@@ -30,7 +18,9 @@ const AllGamesPage = () => {
 
 	return (
 		<Games
-			heading={heading}
+			heading={{
+				title: 'All Games',
+			}}
 			data={infiniteQuery}
 		/>
 	);

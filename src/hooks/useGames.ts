@@ -8,9 +8,9 @@ const useGames = (endpoint: string, key: string) => {
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const apiClient = new APIClient(`games${endpoint}`);
 
-	const query = useQuery({
+	const query = useQuery<Heading, Error>({
 		queryKey: [`${key}--title`],
-		queryFn: () => apiClient.get<Heading>(),
+		queryFn: () => apiClient.get(),
 		staleTime: hrToMs(24),
 	});
 

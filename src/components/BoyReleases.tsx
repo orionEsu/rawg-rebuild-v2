@@ -17,27 +17,12 @@ const BOYReleases = () => {
 	const startDate = `${year}-01-01`;
 	const endDate = `${year}-12-31`;
 
-	const {
-		data,
-		error,
-		isInitialLoading,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useReleases('this-year-releases', startDate, endDate);
+	const IQueryResult = useReleases('this-year-releases', startDate, endDate);
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
-			}}
+			heading={{ title: `Games of ${year}` }}
+			data={IQueryResult}
 		/>
 	);
 };

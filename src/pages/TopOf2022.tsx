@@ -6,33 +6,21 @@ import useReleasesPreviousYear from '../hooks/useReleasesPreviousYear';
 const TopOf2022 = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	const year = new Date().getFullYear();
 
 	useEffect(() => {
 		setSortValue('');
 		setPlatformId('');
 	}, []);
 
-	const {
-		data,
-		error,
-		isInitialLoading,
-		isFetching,
-		isFetchingNextPage,
-		fetchNextPage,
-		hasNextPage,
-	} = useReleasesPreviousYear();
+	const IQueryResult = useReleasesPreviousYear();
 
 	return (
 		<Games
-			data={{
-				data,
-				error,
-				isInitialLoading,
-				isFetching,
-				isFetchingNextPage,
-				fetchNextPage,
-				hasNextPage,
+			heading={{
+				title: `Popular in ${year - 1}`,
 			}}
+			data={IQueryResult}
 		/>
 	);
 };

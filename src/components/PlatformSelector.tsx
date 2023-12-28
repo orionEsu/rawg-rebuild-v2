@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
 	Button,
 	Box,
@@ -14,29 +13,33 @@ import useParentPlatform from '../hooks/useParentPlatform';
 import useGameQueryStore from '../store';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import findPlatformById from '../hooks/useFindPlatformById';
-import findPlatformBySlug from '../hooks/useFindPlatformBySlug';
+import AlertCom from './AlertCom';
 
 const PlatformSelector = () => {
 	const { data, error } = useParentPlatform();
-	const [extended, setExtended] = useState();
+	const [extended, setExtended] = useState<Boolean>();
 	const { slug } = useParams();
 	const { pathname } = useLocation();
 	const platformId = useGameQueryStore((state) => state.gameQuery.platformId);
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 
-	const find = findPlatformBySlug(slug);
+	// if (!slug) return null;
+
+	const find = data?.results.find((platform) => platform.slug === slug);
+	
 	useEffect(() => {
 		if (!find) setExtended(true);
 		if (find || !slug) {
 			setExtended(false);
-			setPlatformId(find?.id);
+			find && setPlatformId(find?.id);
 		}
 	}, [find]);
 
-	const selectedPlatform = findPlatformById(platformId);
-	if (error) return null;
-
+	let selectedPlatform;
+	
+	if (platformId) selectedPlatform = data?.results?.find((el) => el.id === platformId);
+	if (error instanceof Error) return <AlertCom msg={'An Error Occured'} />;
+	
 	return (
 		<Menu>
 			<MenuButton

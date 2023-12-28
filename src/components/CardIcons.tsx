@@ -2,7 +2,15 @@ import { Icon, Tooltip } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { iconMap } from '../data/iconMap';
 
-const CardIcons = ({ platform }) => {
+type CardIconsProps = {
+	platform: {
+		id: number;
+		slug: string;
+		name: string;
+	}[];
+};
+
+const CardIcons = ({ platform }: CardIconsProps) => {
 	return platform?.map((el) => (
 		<Tooltip
 			hasArrow

@@ -14,7 +14,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
+import { useRef } from 'react';
 import { GoHome } from 'react-icons/go';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
@@ -28,7 +28,7 @@ import TopReleases from './TopReleases';
 const NavBar = () => {
 	const setDefault = useGameQueryStore((state) => state.setDefault);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const btnRef = React.useRef();
+	const btnRef = useRef<any | null>();
 
 	return (
 		<>
