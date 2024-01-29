@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import useReleases from '../hooks/useReleases';
-import dateGetter from '../services/dateGetter';
 import useGameQueryStore from '../store';
 import Games from './Games';
 
 const BOYReleases = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
 
 	useEffect(() => {
 		setSortValue('');
 		setPlatformId('');
+		setSearchValue('');
 	}, []);
 
-	const { year } = dateGetter();
+	const year = new Date().getFullYear();
 	const startDate = `${year}-01-01`;
 	const endDate = `${year}-12-31`;
 

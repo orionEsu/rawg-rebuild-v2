@@ -12,6 +12,7 @@ const GameTypePage = () => {
 	const setGenreId = useGameQueryStore((state) => state.setGenreId);
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
 	const { data } = useGenres();
 
 	const params = useParams();
@@ -43,6 +44,7 @@ const GameTypePage = () => {
 	const { data: heading } = query;
 
 	useEffect(() => {
+		setSearchValue('');
 		if (IQueryResult.data) {
 			setSortValue('');
 			if (type === 'genres') {

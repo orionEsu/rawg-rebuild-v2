@@ -10,11 +10,14 @@ import Last30Days from './pages/Last30Days';
 import ThisWeekReleases from './components/ThisWeekReleases';
 import NextWeekReleases from './components/NextWeekReleases';
 import BOYReleases from './components/BoyReleases';
-import TopOf2022 from './pages/TopOf2022';
+import TopOfTheYear from './pages/TopOfTheYear';
 import GameDetailsPage from './pages/GameDetailsPage';
 import ScrollToTop from './components/ScrollToTop';
 import GameSearch from './components/GameSearch';
 import ErrorBoundary from './pages/ErrorBoundary';
+
+const year = new Date().getFullYear() - 1;
+
 const router = createBrowserRouter([
 	{
 		path: '',
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
 			{ path: 'this-week', element: <ThisWeekReleases /> },
 			{ path: 'next-week', element: <NextWeekReleases /> },
 			{ path: 'best-of-the-year', element: <BOYReleases /> },
-			{ path: 'top-of-2022', element: <TopOf2022 /> },
+			{ path: `top-of-${year}`, element: <TopOfTheYear /> },
 		],
 	},
 ]);

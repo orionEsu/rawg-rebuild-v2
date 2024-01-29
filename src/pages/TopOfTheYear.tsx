@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
-import useGameQueryStore from '../store';
 import Games from '../components/Games';
 import useReleasesPreviousYear from '../hooks/useReleasesPreviousYear';
+import useGameQueryStore from '../store';
 
-const TopOf2022 = () => {
+const TopOfTheYear = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
-	const year = new Date().getFullYear();
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
 
+	const year = new Date().getFullYear();
+	
 	useEffect(() => {
 		setSortValue('');
 		setPlatformId('');
+		setSearchValue('');
 	}, []);
 
 	const IQueryResult = useReleasesPreviousYear();
@@ -25,4 +28,4 @@ const TopOf2022 = () => {
 	);
 };
 
-export default TopOf2022;
+export default TopOfTheYear;

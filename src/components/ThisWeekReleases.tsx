@@ -1,26 +1,32 @@
 import { useEffect } from 'react';
 import useReleases from '../hooks/useReleases';
-import dateGetter from '../services/dateGetter';
-import padNum from '../services/padNum';
+import { getFormattedDate } from '../services/formatDate';
 import useGameQueryStore from '../store';
 import Games from './Games';
 
 const ThisWeekReleases = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
-	
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
+
 	useEffect(() => {
+		setSearchValue('');
 		setSortValue('');
 		setPlatformId('');
 	}, []);
 
-	const { today, year, month, day } = dateGetter();
+	const today = new Date();
+	const currentDayOfTheWeek = today.getDay();
+	const noOfdays = 6;
 
-	const val = today.getDate() - day + (day === 0 ? -6 : 1);
-	const diffMonday = padNum(val);
-	const diffSunday = padNum(val + 6);
-	const startDate = `${year}-${month}-${diffMonday}`;
-	const endDate = `${year}-${month}-${diffSunday}`;
+	const startOfWeek = new Date(today);
+	startOfWeek.setDate(today.getDate() - currentDayOfTheWeek);
+
+	const endOfWeek = new Date(today);
+	endOfWeek.setDate(today.getDate() + (noOfdays - currentDayOfTheWeek));
+
+	const startDate = getFormattedDate(startOfWeek);
+	const endDate = getFormattedDate(endOfWeek);
 
 	const IQueryResult = useReleases('this-week-releases', startDate, endDate);
 

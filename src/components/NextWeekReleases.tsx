@@ -1,23 +1,29 @@
 import { useEffect } from 'react';
 import useReleases from '../hooks/useReleases';
-import dateGetter from '../services/dateGetter';
-import padNum from '../services/padNum';
 import useGameQueryStore from '../store';
 import Games from './Games';
+import { getFormattedDate } from '../services/formatDate';
 
 const NextWeekReleases = () => {
 	const setPlatformId = useGameQueryStore((state) => state.setPlatformId);
 	const setSortValue = useGameQueryStore((state) => state.setSortValue);
+	const setSearchValue = useGameQueryStore((state) => state.setSearchValue);
 
 	useEffect(() => {
+		setSearchValue('');
 		setSortValue('');
 		setPlatformId('');
 	}, []);
 
-	const { today, year, month, date } = dateGetter();
-	const updatedDate = padNum(today.getDate() + 7);
-	const startDate = `${year}-${month}-${Number(date) - 1}`;
-	const endDate = `${year}-${month}-${updatedDate}`;
+	const today = new Date();
+	const thisWeek = new Date(
+		today.getFullYear(),
+		today.getMonth(),
+		today.getDate() + 7
+	);
+
+	const startDate = getFormattedDate();
+	const endDate = getFormattedDate(thisWeek);
 
 	const IQueryResult = useReleases('next-week-releases', startDate, endDate);
 

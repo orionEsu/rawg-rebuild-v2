@@ -13,7 +13,6 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 	const arrowRef = useRef<HTMLButtonElement | null>(null);
 	const dummyEl = useRef<HTMLParagraphElement | null>(null);
 	const { pathname } = useLocation();
-	console.log(pathname);
 	const gameQuery = useGameQueryStore((state) => state.gameQuery);
 	const nav = document.querySelector('.navBar');
 	const scrollWatcher = document.querySelector('.scrollWatcher');
@@ -76,12 +75,6 @@ const Games = ({ heading, data }: { heading: GameHeadingProps; data: T }) => {
 								pathname !== '/last-30-days' && (
 									<PlatformSelector />
 								)}
-
-							{/* {pathname !== '/' &&
-								pathname !== '/next-week' &&
-								pathname !== '/last-week' &&
-								'/last-30-days' &&
-								!gameQuery.searchValue && <PlatformSelector />} */}
 						</>
 						)
 					</HStack>
