@@ -493,6 +493,7 @@ const GameDetailsPage = () => {
 										<Image
 											src={getCroppedUrl(el.image)}
 											key={el.id}
+											alt={data.name}
 											borderRadius={'3px'}
 											transition={'transform .2s ease'}
 											_hover={{
